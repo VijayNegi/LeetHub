@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int numDecodings(string s) {
+    int numDecodings1(string s) {
         vector<int> mem(s.size()+1,-1);
         return dfs(s,0,mem);
     }
@@ -27,7 +27,9 @@ public:
         mem[idx] = ways;
         return ways;
     }
-    int numDecodings1(string s) {
+    //https://leetcode.com/problems/decode-ways/discuss/30451/Evolve-from-recursion-to-dp
+    // dp with constant memory
+    int numDecodings(string s) {
         int p = 1, pp, n = s.size();
         for(int i=n-1;i>=0;i--) {
             int cur = s[i]=='0' ? 0 : p;
