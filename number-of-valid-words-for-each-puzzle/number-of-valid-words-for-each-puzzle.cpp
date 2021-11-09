@@ -1,7 +1,7 @@
 class Solution {
 public:
     // optimized
-        vector<int> findNumOfValidWords(vector<string>& words, vector<string>& puzzles) {
+        vector<int> findNumOfValidWords1(vector<string>& words, vector<string>& puzzles) {
         int sw = words.size();
         int sp = puzzles.size();
         vector<int> iw(sw,0);
@@ -15,6 +15,7 @@ public:
                 int pos = c -'a';
                 iw[i] |= 1<<pos;
             }
+            
         }
         
         for(int i=0;i!=sw;++i)
@@ -40,36 +41,53 @@ public:
         {
             int count = 0;
             int firstChar = puzzles[i][0]-'a';
-            //cout<< cbuckets[firstChar].size()<<" and First Char "<<firstChar<<endl;
             for(int w:cbuckets[firstChar])
             {
-                // if(!(w & 1 << (puzzles[i][0]-'a')))
-                //      continue;
+
                 int x = w ^ ip[i];
                 int y = x | ip[i];
                 if(y != ip[i])
                    continue;
-                   
                 ++count;
             }
-            
-//             for(int j=0;j!=sw;++j)
-//             {
-//                 if(!(iw[j] & 1 << (puzzles[i][0]-'a')))
-//                     continue;
-               
-//                 int x = iw[j] ^ ip[i];
-//                 int y = x | ip[i];
-//                 if(y != ip[i])
-//                    continue;
-                   
-//                 ++count;
-//             }
             res[i] = count;
         }
-        
-        
         return res;
+    }
+    // from editorial
+    vector<int> findNumOfValidWords(vector<string>& words, vector<string>& puzzles) {
+        int sw = words.size();
+        int sp = puzzles.size();
+        unordered_map<int,int> wordCount;
         
+        function<int(const string&)> bitmask = [](const string& str)
+        {
+            int mask(0);
+            for(const auto& c:str)
+                mask |= 1<<(c -'a');
+            return mask;
+        };
+        
+        for(int i=0;i!=sw;++i)
+            wordCount[bitmask(words[i])]++;
+        
+   
+        vector<int> res;
+        for(auto& puzzle: puzzles)
+        {
+            int first = 1<<(puzzle[0] - 'a');
+            int count = wordCount[first];
+            
+            // Make bitmask but ignore the first character since it must always be there.
+            int mask = bitmask(puzzle.substr(1));
+            
+            // iterate over the submask
+            for (int submask = mask; submask; submask = (submask - 1) & mask) {
+                count += wordCount[submask | first];  // add first character
+            }
+            res.push_back(count);
+        }
+
+        return res;
     }
 };
