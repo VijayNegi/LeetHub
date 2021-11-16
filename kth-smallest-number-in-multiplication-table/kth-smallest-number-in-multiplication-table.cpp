@@ -9,7 +9,6 @@ public:
             {
                 ans += min(x/i,n);
             }
-            //cout<<"ans="<<ans<<endl;
             return ans < k;
         };
      
@@ -20,7 +19,7 @@ public:
         while(hi>=low)
         {
             int mid = low + (hi - low)/2;
-            //cout<<hi<<","<<low<<","<<mid<<endl;
+
             if(count(mid))
                 low = mid+1;
             else
