@@ -42,6 +42,7 @@ public:
         return dp[n][0];
     }
     //further space optimization
+    //https://leetcode.com/problems/domino-and-tromino-tiling/discuss/116581/Detail-and-explanation-of-O(n)-solution-why-dpn2*dn-1%2Bdpn-3
     int numTilings(int n) {
         if(n<=2)
             return n;
