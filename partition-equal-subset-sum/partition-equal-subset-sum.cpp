@@ -22,7 +22,8 @@ public:
         
         return makesum(0,0);
     }
-     bool canPartition(vector<int>& nums) {
+    //DP: 92 ms
+     bool canPartition2(vector<int>& nums) {
         int n = nums.size();
          int m = 0;
          int sum = 0;
@@ -34,15 +35,22 @@ public:
          if( (sum & 1) || m>(sum/2))
              return false;
          sum /=2;
-         vector<bool> target(sum+1,false);
+         vector<bool> target(sum+1,false); // dp keeps for each number if it has a subset or not
          target[0] = true;
          for(auto a:nums)
          {
              for(int i=sum;i>=a;--i)
              {
-                 target[i] = target[i] || target[i-a];
+                 target[i] = target[i] || target[i-a];  // for each number, either we use it or we don't
              }
          }
          return target[sum];
      }
+    // DP with bitset : 12 ms
+    bool canPartition(vector<int>& nums) {
+        bitset<10001> bits(1);
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        for (auto n : nums) bits |= bits << n;
+        return !(sum & 1) && bits[sum >> 1];
+    }
 };
