@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // run dfs for all nodes : TLE
     vector<int> findMinHeightTrees1(int n, vector<vector<int>>& edges) {
         vector<vector<int>> adj(n);
         for(auto& ed:edges)
@@ -43,77 +44,44 @@ public:
         }
         return res;
     }
-    
+    // Remove leaf nodes at time.
     vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
         if(n==1)
             return {0};
-        vector<set<int>> adj(n);
+        vector<unordered_set<int>> adj(n);
         for(auto& ed:edges)
         {
             adj[ed[0]].insert(ed[1]);
             adj[ed[1]].insert(ed[0]);
         }
         
-        //vector<bool> vis(n,false);
         
         int minH = n;
-        set<int> res;
+        unordered_set<int> res;
         // get all leaf nodes
-        
-        
         for(int i=0;i<n;++i)
         {
             if(adj[i].size()==1)
             {
                 res.insert(i);
-                //vis[i] = true;
-                //adj[*(adj[i].begin())].erase(i);
-                //adj[i].clear();
             }
                 
         }
         int visited = n - res.size();
         while(visited>0)
         {
-            //cout<<"visited="<<visited<<endl;
-            // if(visited == 0 )
-            //     break;
-            set<int> temp;
-            
+            unordered_set<int> temp;
             for(auto& v: res)
             {
-                //cout<<v<<"  = "<<endl;
                 for(auto& v1: adj[v])
                 {
-                    //cout<<v1<<endl;
-                   
                     adj[v1].erase(v);
-                    
-                    if(adj[v1].size()<=1)
-                    {
-                        //cout<<v1<<",";
+                    if(adj[v1].size()<=1)  
                         temp.insert(v1);
-                    }
-                }
-                //cout<<endl;
-                
-            }
-            //cout<<endl;
-            
-//             visited -= temp.size();
-            
-//             if(visited<=2)
-//             {
-//                 //res = temp;
-//                 break;
-//             }
-//             else
-            {
-               
-                res = temp;
-                visited -= res.size();
-            }
-            
+                }  
+            } 
+            res = temp;
+            visited -= res.size();
         }
         
         vector<int> res1(res.begin(),res.end());
