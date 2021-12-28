@@ -60,15 +60,19 @@ struct trie
 class Solution {
 public:
     // TLE
-    bool wordBreak1(string s, vector<string>& wordDict) {
+    bool wordBreak(string s, vector<string>& wordDict) {
         vector<vector<string>> wmap(26);
         for(auto& w:wordDict)
         {
             wmap[w[0]-'a'].push_back(w);
         }
-        
+        int n = s.size();
+        vector<bool> check(n,false);
         function<bool(string,int)> recurse =  [&](string s,int idx)
         {
+            if(check[idx])
+                return false;
+            check[idx] = true;
             if(s.size() == idx)
                 return true;
             for(auto& w:wmap[s[idx]-'a'])
@@ -90,8 +94,8 @@ public:
         };
         return recurse(s,0);
     }
-    // TRIE based solution
-    bool wordBreak(string s, vector<string>& wordDict) {
+    // TRIE based solution, only AC if you keep check if you have already tried that idx.
+    bool wordBreak1(string s, vector<string>& wordDict) {
         trie dict;
         for(auto& w:wordDict)
             dict.insert(w,0);
