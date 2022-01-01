@@ -26,7 +26,8 @@ public:
         return res;
         
     }
-    int maxCoins(vector<int>& nums) {
+    // this will give WA , as removing largest element last might not result in max coins
+    int maxCoins1(vector<int>& nums) {
         int n = nums.size();
         int res=0;
         if(n==1)
@@ -47,31 +48,31 @@ public:
             return res;
         }
         
-        // res = pop(nums,0,n-1);
-        // res += nums[0]*nums[n-1];
-        // res += (nums[0]>nums[n-1])? nums[0]: nums[n-1];
-        
-        vector<int> nums1{1};
-        nums1.insert(nums1.end(),nums.begin(),nums.end());
-        nums1.push_back(1);
-        //cout<<nums1.size()<<endl;
-        
+         res = pop(nums,0,n-1);
+         res += nums[0]*nums[n-1];
+         res += (nums[0]>nums[n-1])? nums[0]: nums[n-1];
+        return res;
+
+    }
+    // dp with same subproblem as above but not poping largest element
+    int maxCoins(vector<int> &iNums) {
+        int nums[iNums.size() + 2];
+        int n = 1;
+        for (int x : iNums) if (x > 0) nums[n++] = x;
+        nums[0] = nums[n++] = 1;
+
         vector<vector<int>> dp(n+2,vector<int>(n+2,0));
         
-        for(int k=2;k<n+2;++k)
-        {
-            for(int i= 0;i<n+2-k;++i)
+        for (int k = 2; k < n; ++k) {
+            for (int left = 0; left < n - k; ++left)
             {
-                int left = i;
-                int right = i+k;
-                for(int j=left+1;j<right;++j)
-                {
-                    dp[left][right] = max(dp[left][right], dp[left][j]+ dp[j][right] + nums1[left]*nums1[j]*nums1[right]);
-                }
+                int right = left + k;
+                for (int i = (left + 1); i < right; ++i)
+                    dp[left][right] = max(dp[left][right],
+                         nums[left] * nums[i] * nums[right] + dp[left][i] + dp[i][right]);
             }
         }
-        
-        
-        return dp[0][n+1];
+
+        return dp[0][n - 1];
     }
 };
