@@ -11,18 +11,17 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        ListNode Dummy;
+        ListNode* head;
         int n = lists.size();
         if(n==0)
             return nullptr;
         else if(n==1)
             return lists[0];
-        Dummy.next = lists[0];
+        head = lists[0];
         for(int i=1;i<n;++i)
-        {
-            Dummy.next = merge(Dummy.next,lists[i]);
-        }
-        return Dummy.next;
+            head = merge(head,lists[i]);
+
+        return head;
     }
     ListNode* merge(ListNode* l1,ListNode* l2)
     {
@@ -34,16 +33,15 @@ public:
         ListNode *head,*c1,*c2;
         if(l1->val <= l2->val)
         {
-            head = l1;
             c1 = l1;
             c2 = l2;
         }
         else
         {
-            head = l2;
             c1 = l2;
             c2 = l1;
         }
+        head = c1;
         
         while(c1->next && c2)
         {
@@ -60,9 +58,8 @@ public:
             }
         }
         if(c2)
-        {
             c1->next = c2;
-        }
+        
         return head;
     }
 };
