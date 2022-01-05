@@ -17,7 +17,7 @@ public:
                     h = mid;
             }
             else
-                h = mid-1;  // -1 because this definately cannot be smallest
+                break;//h = mid-1;  // -1 because this definately cannot be smallest
         }
         
         return nums[l];
