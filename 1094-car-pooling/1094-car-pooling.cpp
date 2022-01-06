@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    bool carPooling(vector<vector<int>> trips, int capacity) {
+    bool carPooling1(vector<vector<int>> trips, int capacity) {
         int n = trips.size();
         sort(begin(trips),end(trips), [](const vector<int>& a,const vector<int>& b) { if(a[1] < b[1]) return true; return false; } );  //using <= is throwing an exception for larger test cases
         
@@ -34,44 +34,25 @@ public:
         return true;
     }
     
-    bool carPooling1(vector<vector<int>>& trips, int capacity) {
-        int n = trips.size();
+    bool carPooling(vector<vector<int>> trips, int capacity) {
         
-        vector<int> sorted(n,0);
-        iota(sorted.begin(),sorted.end(),0);
+        int stops[1001] = {0};
         
-        sort(begin(sorted),end(sorted),[&](const int a,const int b){ if(trips[a][1] <= trips[b][1]) return true; return false;});
-        
-        //sort(begin(trips),end(trips), [](const vector<int>& a,const vector<int>& b) { if(a[1] <= b[1]) return true; return false; } );
-        
-        //auto cmp = [](pair<int,int>& left,pair<int,int>& right) { if(left.first > right.first) return true; return false; };
-        auto cmp = [&](int left,int right) { if(trips[left][2] > trips[right][2]) return true; return false; };
-        
-        priority_queue<int, std::vector<int>, decltype(cmp)> q(cmp);
-        int curr_cap = capacity;
-        
-        
-        for(int i=0;i<n;++i)
+        for(auto& t:trips)
         {
-            auto& t = trips[i];
-            while(!q.empty())
-            {
-                auto& t1 =  q.top();
-                if(trips[t1][2] <= t[1])
-                {
-                    curr_cap += trips[t1][0];
-                    q.pop();
-                }
-                else
-                    break;
-            }
-            if(t[0] > curr_cap )
-                return false;
-            
-            curr_cap -= t[0];
-            q.push(i);
+            stops[t[1]] += t[0];
+            stops[t[2]] -= t[0];
         }
         
+        int pass = 0;
+        for(int i=0;i<1001;++i)
+        {
+            pass += stops[i];
+            if(pass > capacity)
+                return false;
+        }
         return true;
+        
     }
+    
 };
