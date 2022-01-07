@@ -9,7 +9,7 @@ public:
         return false;
     }
     
-    bool containsDuplicate(vector<int>& nums) {
+    bool containsDuplicate2(vector<int>& nums) {
         unordered_set<int> seen;
         
         for(auto&  n:nums)
@@ -17,8 +17,11 @@ public:
             if(seen.count(n))
                 return true;
             seen.insert(n);
-        }
-        
+        }   
         return false;
+    }
+    
+    bool containsDuplicate(vector<int>& nums) {
+        return set<int>(nums.begin(), nums.end()).size() < nums.size();
     }
 };
