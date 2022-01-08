@@ -11,12 +11,22 @@
  */
 class Solution {
 public:
-    TreeNode* invertTree(TreeNode* root) {
+    TreeNode* invertTree1(TreeNode* root) {
         if(!root)
             return root;
         TreeNode* il = invertTree(root->left);
         root->left = invertTree(root->right);
         root->right = il;
+        return root;
+    }
+    //cleaner
+    TreeNode* invertTree(TreeNode* root) {
+        if(root)
+        {
+            invertTree(root->left);
+            invertTree(root->right);
+            swap(root->left,root->right);
+        }
         return root;
     }
 };
