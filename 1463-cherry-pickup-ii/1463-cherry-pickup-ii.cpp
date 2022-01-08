@@ -24,7 +24,7 @@ public:
         
         return dfs(0,0,cols-1);
     }
-    
+    // dp bottom up : 101 ms 
     int cherryPickup(vector<vector<int>>& grid) {
         int rows = grid.size();
         int cols = grid[0].size();
