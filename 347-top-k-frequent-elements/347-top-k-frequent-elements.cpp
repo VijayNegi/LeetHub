@@ -26,7 +26,7 @@ public:
         return result;
         
     }
-    // nlogk
+    // nlogk: 16ms
     vector<int> topKFrequent2(vector<int>& nums, int k) {
         unordered_map<int,int> count;
         for(auto& n:nums)
@@ -52,7 +52,7 @@ public:
         
         return result;
     }
-    // O(n)
+    // O(n) : 12 ms , note : other solution is quickselect which is also O(n) but little complex to impl
     vector<int> topKFrequent(vector<int>& nums, int k) {
         unordered_map<int,int> count;
         for(auto& n:nums)
