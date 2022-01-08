@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // nlogn
     vector<int> topKFrequent1(vector<int>& nums, int k) {
         unordered_map<int,int> count;
         
@@ -25,7 +26,8 @@ public:
         return result;
         
     }
-    vector<int> topKFrequent(vector<int>& nums, int k) {
+    // nlogk
+    vector<int> topKFrequent2(vector<int>& nums, int k) {
         unordered_map<int,int> count;
         for(auto& n:nums)
             count[n]++;
@@ -49,6 +51,31 @@ public:
         }
         
         return result;
-        
     }
+    // O(n)
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> count;
+        for(auto& n:nums)
+            count[n]++;
+        
+        unordered_map<int,vector<int>> freq;
+        
+        for(auto& [n,c]:count)
+        {
+            freq[c].push_back(n);
+        }
+        vector<int> result;
+        for(int i=nums.size() ;i>0;--i)
+        {
+            if(freq.count(i))
+            {
+                result.insert(result.end(),begin(freq[i]),end(freq[i]));
+                if(result.size()>=k)
+                    break;
+            }
+        }
+        
+        return result;
+    }
+    
 };
