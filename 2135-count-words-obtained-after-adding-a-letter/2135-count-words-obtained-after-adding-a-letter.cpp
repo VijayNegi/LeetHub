@@ -1,7 +1,7 @@
 class Solution {
 public:
-    // contest: 1110 ms // missed the last constraint i.e. no char will repeat in start and target
-    int wordCount(vector<string>& startWords, vector<string>& targetWords) {
+    // contest: 660 ms // missed the last constraint i.e. no char will repeat in start and target
+    int wordCount1(vector<string>& startWords, vector<string>& targetWords) {
         int sn = startWords.size();
         int tn = targetWords.size();
         vector<vector<int>> sh(sn);
@@ -32,7 +32,7 @@ public:
                 {
                     v[i]--;
                     string s = getstring(v);
-                    //cout<<s<<endl;
+                    
                     v[i]++;
                     if(hmap.count(s))
                     {
@@ -42,26 +42,6 @@ public:
                         
                 }
             }
-            
-            // for(auto& j:szmap[sz-1])
-            // {
-            //     if(startWords[j].size() != sz-1)
-            //         continue;
-            //     if(!compHist(sh[j],th[i]))
-            //         continue;
-            //     ++res;
-            //     break;
-            // }
-            
-            // for(int j=0;j<sn;++j)
-            // {
-            //     if(startWords[j].size() != sz-1)
-            //         continue;
-            //     if(!compHist(sh[j],th[i]))
-            //         continue;
-            //     ++res;
-            //     break;
-            // }
         }
         return res;
     }
@@ -90,4 +70,40 @@ public:
                 s.append(a[i],'a'+i);
         return s;
     }
+    
+    //---------------------------
+    int wordCount(vector<string>& startWords, vector<string>& targetWords) {
+        unordered_set<int> hmap;
+        for(auto& s:startWords)
+            hmap.insert(convertInt(s));
+        int res=0;
+        for(auto& t:targetWords)
+        {
+            // generate combinations
+            int v = convertInt(t);
+            for(int i=0;i<26;++i)
+            {
+                if(v !=  (v & ~(1<<i)) )
+                {
+                    int vt = (v & ~(1<<i));
+                    if(hmap.count(vt))
+                    {
+                        ++res;
+                        break;
+                    }
+                        
+                }
+            }
+        }
+        return res;
+    }
+    
+    int convertInt(string s)
+    {
+        int res =0;
+        for(auto& c:s)
+            res |= 1<<(c-'a');
+        return res;
+    }
+    
 };
