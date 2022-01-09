@@ -1,8 +1,7 @@
 class Solution {
 public:
-    int minSwaps(vector<int>& nums) {
-        int maxs = 0;
-        int totals = 0;
+    //contest 120 ms
+    int minSwaps1(vector<int>& nums) {
         int n = nums.size();
         int totalOne = 0;
         for(auto k:nums)
@@ -33,5 +32,19 @@ public:
         }
         
         return totalOne - maxones;
+    }
+    //cleaner 
+    int minSwaps(vector<int>& nums) {
+        int n = size(nums);
+        int ones = count(begin(nums), end(nums), 1);
+        int cnt = count(begin(nums), begin(nums) + ones, 1);
+        int ans = ones - cnt;
+        for(int i = 1; i < n; i++)
+        {
+            cnt += nums[(i + ones - 1) % n] - nums[i - 1];
+            ans = min(ans, ones - cnt);
+        }
+            
+        return ans;
     }
 };
