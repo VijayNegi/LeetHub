@@ -3,9 +3,7 @@ public:
     bool isRobotBounded1(string instructions) {
         
         int s[2] = {0};
-        
         int d = 0;
-        
         function<void(int*,int)> makemove = [](int* s,int d)
         {
             switch(d)
@@ -32,8 +30,8 @@ public:
              return (d+3)%4;
          };
         
+        // why 4 because there are 4 directions and after at most 4 iterations we should be back at origin
         int k=4;
-        
         while(k--)
         {
         
@@ -51,7 +49,7 @@ public:
         
         return false;
     }
-    
+    // just cleaner
      bool isRobotBounded(string instructions) {
         int x = 0, y = 0, i = 0;
         vector<vector<int>> d = {{0, 1}, {1, 0}, {0, -1}, { -1, 0}};
