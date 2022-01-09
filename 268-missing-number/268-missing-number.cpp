@@ -1,6 +1,6 @@
 class Solution {
 public:
-    // using property xor: n ^ n is null, so we xor all numbers and array, missing n will be left.
+    // using property xor: n ^ n is null, so we xor all numbers and array, missing n will be left. 39ms
     int missingNumber1(vector<int>& nums) {
         int res = 0;
         int i=0;
@@ -13,7 +13,7 @@ public:
         
         return res;
     }
-    // using property sum of n nums: n(n+1)/2
+    // using property sum of n nums: n(n+1)/2 , 33 ms
     int missingNumber(vector<int>& nums) {
         int sum = accumulate(begin(nums),end(nums),0);
         int n = nums.size();
