@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // greedy : 557 ms
     int earliestFullBloom(vector<int>& plantTime, vector<int>& growTime) {
         
         int n = plantTime.size();
@@ -10,9 +11,8 @@ public:
         
         int endTime=0;
         int plantEnd = 0;
-        for(int i=0;i<n;++i)
+        for(auto [g,p] : gp)
         {
-            auto [g,p] = gp[i];
             plantEnd += p;
             endTime = max(endTime, plantEnd + g);
         }
