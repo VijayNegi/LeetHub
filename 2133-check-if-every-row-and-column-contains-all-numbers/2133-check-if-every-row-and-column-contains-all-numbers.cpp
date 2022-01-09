@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // 214 ms
     bool checkValid1(vector<vector<int>>& matrix) {
         int n = matrix.size();
         vector<vector<bool>> count(2*n,vector<bool>(n,false));
@@ -22,8 +23,9 @@ public:
         }
         return true;
     }
+    // 169 ms
     //https://leetcode.com/problems/check-if-every-row-and-column-contains-all-numbers/discuss/1676940/XOR-Property-oror-Space-Complexity-O(1)-oror-Easy-Understanding
-    bool checkValid(vector<vector<int>> &v) {
+    bool checkValid2(vector<vector<int>> &v) {
         int xor1 = 0, xor2 = 0,n = v.size();
         if(n<=1) {
             return true;
@@ -43,4 +45,16 @@ public:
         }
         return true;
     }
+    // 
+    bool checkValid(vector<vector<int>>& m) {
+    int n = m.size();
+    for (int i = 0; i < m.size(); ++i) {
+        bitset<101> row, col;
+        for (int j = 0; j <  m.size(); ++j)
+            row[m[i][j]] = col[m[j][i]] = true;
+        if (min(row.count(), col.count()) <  m.size())
+            return false;
+    }
+    return true;
+}
 };
