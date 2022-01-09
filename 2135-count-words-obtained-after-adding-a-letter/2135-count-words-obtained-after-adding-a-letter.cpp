@@ -70,8 +70,8 @@ public:
                 s.append(a[i],'a'+i);
         return s;
     }
-    
-    //---------------------------
+    //----------------------------
+    // considering the constraint : 268 ms
     int wordCount(vector<string>& startWords, vector<string>& targetWords) {
         unordered_set<int> hmap;
         for(auto& s:startWords)
