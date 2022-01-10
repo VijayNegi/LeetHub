@@ -6,76 +6,22 @@ public:
         reverse(begin(a),end(a));
         reverse(begin(b),end(b));
         
-        int carry=0;
+        int sum=0;
         int i=0;
-        while(i<a.size() && i<b.size())
+        while(i<a.size() ||  i<b.size())
         {
-            if(a[i]=='1' && b[i]=='1')
-            {
-                if(carry)
-                    res.push_back('1');
-                else
-                {
-                    res.push_back('0');
-                    carry = 1;
-                }
-                    
-            }
-            else if(a[i]=='1' || b[i]=='1')
-            {
-                if(carry)
-                    res.push_back('0');
-                else
-                    res.push_back('1');
-            }
-            else if(carry)
-            {
+            if(i<a.size())
+                sum += (a[i]=='1');
+            if(i<b.size())
+                sum += (b[i]=='1');
+            if(sum%2)
                 res.push_back('1');
-                carry=0;
-            }
             else
                 res.push_back('0');
+            sum = sum>=2? 1:0;
             ++i;
         }
-        
-        while(i<a.size())
-        {
-            if(a[i++]=='1')
-            {
-                if(carry)
-                    res.push_back('0');
-                 else
-                    res.push_back('1');
-            }
-            else if(carry)
-            {
-                res.push_back('1');
-                carry = 0;
-            }
-            else
-                res.push_back('0');
-                
-        }
-        
-        while(i<b.size())
-        {
-            if(b[i++]=='1')
-            {
-                if(carry)
-                    res.push_back('0');
-                 else
-                    res.push_back('1');
-            }
-            else if(carry)
-            {
-                res.push_back('1');
-                carry = 0;
-            }
-            else
-                res.push_back('0');
-                
-        }
-        if(carry)
+        if(sum)
             res.push_back('1');
         
         reverse(begin(res),end(res));
