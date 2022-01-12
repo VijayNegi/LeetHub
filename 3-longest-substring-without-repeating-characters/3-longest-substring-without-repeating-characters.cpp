@@ -1,8 +1,9 @@
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
+    //sliding window : 12 ms
+    int lengthOfLongestSubstring1(string s) {
         int n = s.size();
-        int l=0,r=n-1;
+        int l=0,r;
         int u = 0;
         vector<int> dp(256,0);
         for(r=0;r<n;++r)
@@ -20,5 +21,17 @@ public:
         }
         
         return r-l;
+    }
+    // keep track of previous occurence.
+    int lengthOfLongestSubstring(string s) {
+        vector<int> dict(256, -1);
+        int maxLen = 0, start = -1;
+        for (int i = 0; i != s.length(); i++) {
+            if (dict[s[i]] > start)
+                start = dict[s[i]];
+            dict[s[i]] = i;
+            maxLen = max(maxLen, i - start);
+        }
+        return maxLen;
     }
 };
