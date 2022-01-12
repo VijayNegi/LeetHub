@@ -16,18 +16,16 @@ public:
         
         while(rows>0 && cols>0)
         {
-            cout<<"r="<<r<<" c="<<c<<endl;
+           
             result.push_back(matrix[r][c]);
-
             ++dist;
-            cout<<"Rows="<<rows<<" cols="<<cols<<" dist="<<dist<<endl;
-            if(cdir==0 && dist>=cols)
+            if(cdir==0 && dist==cols)
                 ++cdir,rows-=1, dist=0;
-            else if(cdir==1 && dist>=rows)
+            else if(cdir==1 && dist==rows)
                 ++cdir,cols-=1, dist=0;
-            else if(cdir==2 && dist>=cols)
+            else if(cdir==2 && dist==cols)
                 ++cdir,rows-=1, dist=0;
-            else if(cdir==3 && dist>=rows)
+            else if(cdir==3 && dist==rows)
                 cdir=0,cols-=1, dist=0;
             
             r += dir[cdir][0];
