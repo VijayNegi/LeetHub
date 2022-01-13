@@ -3,7 +3,6 @@ class UndergroundSystem {
     unordered_map<string,pair<double,int>> journy_avg;
 public:
     UndergroundSystem() {
-        
     }
     
     void checkIn(int id, string stationName, int t) {
@@ -11,12 +10,10 @@ public:
     }
     
     void checkOut(int id, string stationName, int t) {
-        
         int travel_time = t - journy_start[id].second;
         string key = journy_start[id].first + "," + stationName;
-        journy_avg[key].first = journy_avg[key].first + travel_time;
-        journy_avg[key].second = journy_avg[key].second +1;
-        
+        journy_avg[key].first += travel_time;
+        journy_avg[key].second += 1;
         journy_start.erase(id);
     }
     
