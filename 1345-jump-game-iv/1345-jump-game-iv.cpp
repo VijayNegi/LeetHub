@@ -10,21 +10,6 @@ public:
         for(int i=0;i<n;++i)
             value_indexes[arr[i]].push_back(i);
         
-//         for(int i=0;i<n;++i)
-//         {
-//             if(i-1>=0)
-//                 adj[i].push_back(i-1);
-//             if(i+1<n)
-//                 adj[i].push_back(i+1);
-//             for(auto& idx:value_indexes[arr[i]])
-//             {
-//                 adj[idx].push_back(i);
-//                 adj[i].push_back(idx);
-//             }
-            
-//             value_indexes[arr[i]].push_back(i);
-//         }
-        
         vector<bool> visited(n,false);
         int dist = 0;
         list<int> que;
