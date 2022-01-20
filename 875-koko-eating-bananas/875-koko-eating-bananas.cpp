@@ -5,10 +5,8 @@ public:
         sum = accumulate(piles.begin(),piles.end(),sum);
         int avg = (sum + h -1)/h;
         
-        
         int r = *max_element(piles.begin(),piles.end());
         int l = avg;
-        
         
         while(l<r)
         {
@@ -21,16 +19,6 @@ public:
             else
                 r = mid;
         }
-        // //cout<<m<<endl;
-        // while(hrs>h)
-        // {
-        //     ++avg;
-        //     int thrs = 0;
-        //     for(int a:piles)
-        //         thrs += (a+avg-1)/avg;
-        //     hrs = thrs;
-        // }
-        
         return l;
     }
 };
