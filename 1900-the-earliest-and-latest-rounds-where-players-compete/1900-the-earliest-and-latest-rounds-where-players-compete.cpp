@@ -1,6 +1,8 @@
 class Solution {
 public:
-    vector<int> earliestAndLatest(int n, int first, int second) {
+    //https://leetcode.com/problems/the-earliest-and-latest-rounds-where-players-compete/discuss/1268539/Recursion-Memo-and-Optimized-Recursion
+    // 738 ms
+    vector<int> earliestAndLatest1(int n, int first, int second) {
         int minRound = INT_MAX, maxRound = INT_MIN;
 
         function<void(int,int,int,int)> dfs = 
@@ -29,5 +31,42 @@ public:
         };
         dfs(0,1,n,1);
         return {minRound, maxRound};
+    }
+    
+    
+    
+    
+    vector<int> earliestAndLatest(int n, int first, int second) 
+    {
+        int min_r = INT_MAX, max_r = INT_MIN;
+        bool visited[27][27][27] = {};
+        --first;
+        --second;
+        
+        function<void(int,int,int,int,int,int,int)> dfs = [&](int mask, int round, int i, int j, int l, int m, int r) 
+        {
+            if (i >= j)
+                dfs(mask, round + 1, 0, 27, l, m, r);
+            else if ((mask & (1 << i)) == 0)
+                dfs(mask, round, i + 1, j, l, m, r);
+            else if ((mask & (1 << j)) == 0)
+                dfs(mask, round, i, j - 1, l, m, r);
+            else if (i == first && j == second) {
+                min_r = min(min_r, round);
+                max_r = max(max_r, round);
+            }
+            else if (!visited[l][m][r]) {
+                visited[l][m][r] = true;
+                if (i != first && i != second)
+                    dfs(mask ^ (1 << i), round, i + 1, j - 1, 
+                        l - (i < first), m - (i > first && i < second), r - (i > second));
+                if (j != first && j != second)
+                    dfs(mask ^ (1 << j), round, i + 1, j - 1,
+                        l - (j < first), m - (j > first && j < second), r - (j > second));
+            }
+        };
+        
+        dfs((1 << n) - 1, 1, 0, 27, first, second - first -1, n - second);
+        return { min_r, max_r };
     }
 };
