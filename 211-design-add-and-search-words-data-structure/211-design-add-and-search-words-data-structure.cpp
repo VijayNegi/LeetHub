@@ -24,12 +24,12 @@ struct Trie
         curr->end = true;
     }
     
-    bool search(string s)
+    bool search(string& s)
     {
         return search(s,0);
     }
     
-    bool search(string s, int idx)
+    bool search(string& s, int idx)
     {
         if(idx == s.size())
             return end;
