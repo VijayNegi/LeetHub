@@ -16,13 +16,8 @@ public:
                  mqueue.pop_back();
                  result = max(result,area);
             }
-            
-            //int area = heights[i] * (i-preIdx+1);
-            //result = max(result,area);
             mqueue.push_back({preIdx,heights[i]});
-            
         }
-        //int preIdx = 0;
         while(!mqueue.empty())
         {
             int area = mqueue.back().second * (n-mqueue.back().first);
