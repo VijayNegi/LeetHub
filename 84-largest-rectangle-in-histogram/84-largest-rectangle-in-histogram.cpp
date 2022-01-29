@@ -55,7 +55,7 @@ public:
     }
     
     // dp - https://leetcode.com/problems/largest-rectangle-in-histogram/discuss/28902/5ms-O(n)-Java-solution-explained-(beats-96)
-    // 
+    // 195 ms
     int largestRectangleArea(vector<int>& heights) {
         int n = heights.size();
         vector<int> lessFromLeft(n,0); // idx of the first bar the left that is lower than current
