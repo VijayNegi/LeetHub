@@ -16,7 +16,8 @@ public:
 
 class Solution {
 public:
-    Node* copyRandomList(Node* head) {
+    //using hashmap
+    Node* copyRandomList1(Node* head) {
         unordered_map<Node*,Node*> copyMap;
         Node Dummy1(0),Dummy2(0);
         Dummy1.next = head;
@@ -41,4 +42,37 @@ public:
         }
         return Dummy2.next;
     }
+    
+    Node* copyRandomList(Node* head) {
+
+        Node* curr = head;
+        while(curr)
+        {
+            Node* temp = new Node(curr->val);
+            temp->next = curr->next;
+            curr->next = temp;
+            curr = temp->next;
+        }
+        curr = head;
+        while(curr)
+        {
+            if(curr->random)
+                curr->next->random = curr->random->next;
+            curr = curr->next->next;
+        }
+        Node dummy(0);
+        Node* old = head;
+        Node* newl = &dummy;
+        while(old)
+        {
+            newl->next = old->next;
+            old->next = newl->next->next;
+            newl = newl->next;
+            old = old->next;
+        }
+
+        return dummy.next;
+    }
+    
+    
 };
