@@ -1,11 +1,8 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        
-        
         vector<int> phist(26,0);
         vector<int> thist(26,0);
-        
         for(auto c:p)
             ++phist[c-'a'];
 
