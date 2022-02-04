@@ -1,6 +1,7 @@
 class Solution {
 public:
-    string getHint(string secret, string guess) {
+    // 6ms
+    string getHint1(string secret, string guess) {
         unordered_map<char,int> mp;
         int n = secret.size();
         int bulls = 0;
@@ -10,15 +11,12 @@ public:
             if(secret[i] == guess[i])
                 ++bulls;
             else
-            {
                 mp[guess[i]]++;
-            }
         }
         for(int i=0;i<n;++i)
         {
             if(secret[i] != guess[i])
             {
-                //auto it = mp.find(secret[i]);
                 if(mp[secret[i]])
                 {
                     ++cows;
@@ -30,5 +28,26 @@ public:
         string res;
         res = to_string(bulls) + "A" + to_string(cows) + "B"; 
         return res;
+    }
+    string getHint(string secret, string guess) {
+        int aCnt = 0;
+        int bCnt = 0;
+        vector<int> sVec(10, 0); // 0 ~ 9 for secret
+        vector<int> gVec(10, 0); // 0 ~ 9 for guess 
+        if (secret.size() != guess.size() || secret.empty()) { return "0A0B"; }
+        for (int i = 0; i < secret.size(); ++i) {
+            char c1 = secret[i]; char c2 = guess[i];
+            if (c1 == c2) {
+                ++aCnt; 
+            } else {
+                ++sVec[c1-'0'];
+                ++gVec[c2-'0'];
+            }
+        }
+        // count b 
+        for (int i = 0; i < sVec.size(); ++i) {
+            bCnt += min(sVec[i], gVec[i]);
+        }
+        return to_string(aCnt) + 'A' + to_string(bCnt) + 'B';
     }
 };
