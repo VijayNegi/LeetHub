@@ -2,11 +2,10 @@ class Solution {
 public:
     // Floyd Warshall
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
-        
         int n = values.size();
-        
         unordered_map<string,int> strid;
         int idx = 0;
+        // convert string to index
         for(int i=0;i<n;++i)
         {
             string s1 = equations[i][0];
@@ -16,8 +15,8 @@ public:
             if(strid.count(s2)==0)
                 strid[s2] = idx++;
         }
-        
-         vector<vector<double>> dp(idx, vector(idx,-1.0));
+        // fill initial values
+        vector<vector<double>> dp(idx, vector(idx,-1.0));
         for(int i=0;i<n;++i)
         {
             string s1 = equations[i][0];
@@ -26,7 +25,7 @@ public:
             dp[ strid[s1] ][ strid[s2] ] = values[i];
             dp[ strid[s2] ][ strid[s1] ] = 1/values[i];
          }
-        
+        // Floyd Warshall
         for(int k=0;k<idx;++k)
             for(int i=0;i<idx;++i)
                 for(int j=0;j<idx;++j)
@@ -36,7 +35,7 @@ public:
                     dp[i][j] = dp[i][k] * dp[k][j];
                     dp[j][i] = 1/dp[i][j];
                 }
-        
+        // answer queries
         vector<double> result;
         for(auto q:queries)
         {
