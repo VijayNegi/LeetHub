@@ -1,5 +1,70 @@
 class Solution {
 public:
+    unordered_map<string,vector<pair<string,double>>> mval;
+    vector<double> result;
+    unordered_map<string, int> visited;
+    
+    double dfs(string start, string end)
+    {
+        cout<<"->"<<start<<" - "<< end<<endl;
+        double res = -1;
+        if(!mval.count(start))
+            return -1;
+        if(start==end)
+            return 1;
+        if(!visited.count(start) )
+        {
+            auto vdest = mval[start];
+            visited[start] = 1;
+            
+            for(auto dest : vdest)
+            {
+                if(dest.first==end)
+                {
+                    res = dest.second;
+                }
+                else if(dest.first!=end)
+                {
+                    double res1 = dest.second;
+                    res1 *= dfs(dest.first,end);
+                    if(res1>0)
+                    {
+                        res = res1;
+                    }
+                }
+            }
+        }
+        else
+        {
+            res = -1;
+        }
+        cout<< " res - "<< res<<endl;
+        return res;
+    }
+    // old dfs solution
+    vector<double> calcEquation1(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+        
+        mval.clear();
+        result.clear();
+        
+        for(int i=0; i<equations.size(); i++)
+        {
+            mval[equations[i][0]].push_back({equations[i][1],values[i]});
+            mval[equations[i][1]].push_back({equations[i][0],1/values[i]});
+        }
+        
+        for(int i=0;i<queries.size();i++)
+        {
+            visited.clear();
+            double ans = dfs(queries[i][0],queries[i][1]);
+            if(ans >= 0)
+                result.push_back(ans);
+            else
+                 result.push_back(-1);
+        }
+        
+        return result;
+    }
     // Floyd Warshall
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
         int n = values.size();
@@ -51,7 +116,5 @@ public:
         }
         
         return result;
-        
-        
     }
 };
