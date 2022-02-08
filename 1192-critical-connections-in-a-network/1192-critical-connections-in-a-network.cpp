@@ -1,6 +1,6 @@
 class Solution {
 public:
-    // Targens algorithm
+    // Tarjans algorithm
     vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {
         // build adjacency list
         vector<vector<int>> adj(n);
@@ -25,15 +25,12 @@ public:
                 dfs_targen(n,v);
                 
                 low[v] = min(low[v],low[n]);
-                if(id[v] < low[n])     // important as child was never able to reach back i.e. new SSC and count it
+                if(id[v] < low[n])     // important as child was never able to reach back i.e. new SSC and count it ( no back link )
                     critical.push_back({v,n});
             }
-            
         };
-        // for(int i=0;i<n;++i)
-        //     if(id[i]==-1)
-                dfs_targen(0,-1);
-        
+
+        dfs_targen(0,-1);
         return critical;
     }
 };
