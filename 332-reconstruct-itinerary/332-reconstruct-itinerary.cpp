@@ -1,6 +1,7 @@
 class Solution {
 public:
-    vector<string> findItinerary(vector<vector<string>>& tickets) {
+    // first attempt : 35 ms
+    vector<string> findItinerary1(vector<vector<string>>& tickets) {
         unordered_map<string,int> id2AP;
         unordered_map<int,string> AP2id;
         int id = 0;
@@ -21,7 +22,6 @@ public:
             }
                 
             adj[id2AP[tickets[i][0]]].push_back(i);
-            //adj[idAP[t[1]]].push_back(t[0]);
         }
         auto cmp = [&](int l,int r){return (tickets[l][1]< tickets[r][1]);};
         for(auto& a: adj)
@@ -43,13 +43,35 @@ public:
                 }
             }
             result.push_back(AP2id[ap] ) ;  
-            
         };
-        
         dfs(beginId);
-        
         reverse(result.begin(),result.end());
         return result;
         
     }
+    // cleaner
+    vector<string> findItinerary(vector<vector<string>>& tickets) 
+    {
+        map<string, multiset<string>> targets;
+        vector<string> route;
+        
+        for (auto ticket : tickets)
+            targets[ticket[0]].insert(ticket[1]);
+        
+        function<void(string)> visit = [&](string airport) 
+        {
+            while (targets[airport].size()) 
+            {
+                string next = *targets[airport].begin();
+                targets[airport].erase(targets[airport].begin());
+                visit(next);
+            }
+            route.push_back(airport);
+        };
+        visit("JFK");
+        return vector<string>(route.rbegin(), route.rend());
+    }
+
+
+    
 };
