@@ -1,6 +1,6 @@
 class Solution {
 public:
-    // count sort and hashmap
+    // count sort and hashmap : 0 ms
     bool uniqueOccurrences1(vector<int>& arr) {
         uint32_t count[2001] = {0};
         for(auto a:arr)
@@ -16,13 +16,23 @@ public:
         }
         return true;
     }
-    // map and set
+    // map and set : 4 ms
+    bool uniqueOccurrences2(vector<int>& arr) 
+    {
+          unordered_map<int, int> m;
+          unordered_set<int> s;
+          for (auto n : arr) ++m[n];
+          for (auto& p : m) s.insert(p.second);
+          return m.size() == s.size();
+    }
+    // improve avg case : 
     bool uniqueOccurrences(vector<int>& arr) 
     {
       unordered_map<int, int> m;
       unordered_set<int> s;
       for (auto n : arr) ++m[n];
-      for (auto& p : m) s.insert(p.second);
-      return m.size() == s.size();
+      for (auto& p : m)
+          if (!s.insert(p.second).second) return false;
+      return true;
     }
 };
