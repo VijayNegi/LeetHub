@@ -30,8 +30,9 @@ public:
         }
         return result;
     }
-    
-    string crackSafe(int n, int k) {
+    // https://leetcode.com/problems/cracking-the-safe/discuss/110260/De-Bruijn-sequence-C%2B%2B
+    // didnt understand the solution
+    string crackSafe2(int n, int k) {
         if (k == 1) return string(n, '0');
         string sequence;
         int v = pow(k,n-1);
@@ -49,6 +50,36 @@ public:
         dfs(0);
         return sequence + sequence.substr(0, n - 1);
     }
+    
+    //https://leetcode.com/problems/cracking-the-safe/discuss/153039/DFS-with-Explanations
+    string crackSafe(int n, int k) {
+        int total = pow(k, n);
+        string ans(n, '0');
+        unordered_set<string> visited = {ans};
+        
+        function<bool(void)> backtrack =  [&](){
+            if(visited.size() == total){
+                return true;
+            }else{
+                for(int i = 0; i < k; ++i){
+                    ans.push_back('0'+i);
+                    string cur = ans.substr(ans.size()-n);
+                    if(visited.find(cur) == visited.end()){
+                        visited.insert(cur);
+                        if(backtrack()) return true;
+                        visited.erase(cur);
+                    }
+                    ans.pop_back();
+                }
+                return false;
+            }
+        };
+        
+        backtrack();
+        
+        return ans;
+    }
+
     
     
 };
