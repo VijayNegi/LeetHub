@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // Eulerian Path and Hierholzer's algorithm.
     vector<vector<int>> validArrangement(vector<vector<int>>& pairs) {
         int n = pairs.size();
         unordered_map<int,vector<int>> adj;
