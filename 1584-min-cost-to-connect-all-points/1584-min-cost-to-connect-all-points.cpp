@@ -1,13 +1,13 @@
 using wto = pair<int,int>;
 class Solution {
 public:
-    // MST : minimum spanning tree
+    // Prim's MST : minimum spanning tree
     int minCostConnectPoints(vector<vector<int>>& points) {
         int n = points.size();
         auto cmd = [&](wto& left, wto& right){ return left.second > right.second;};
         priority_queue<wto,vector<wto>, decltype(cmd)> pq(cmd);
         vector<bool> visited(n,false);
-        
+        int count =0;
         int p = 0; // point index
          pq.push({0,0});
         function<void(int)> pushnegighbours = [&](int node)
@@ -30,12 +30,19 @@ public:
             
             if(visited[currp.first])
                 continue;
+            
             visited[currp.first] = true;
             cost += currp.second;
+            ++count;
+            if(count==n)
+                break;
+            
             pushnegighbours(currp.first);
         }
-        
         return cost;
-        
     }
+    // 
+//     int minCostConnectPoints(vector<vector<int>>& points) {
+        
+//     }
 };
