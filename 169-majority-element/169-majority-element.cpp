@@ -3,11 +3,11 @@ public:
     int majorityElement(vector<int>& nums) {
         int count=0;
         int maj;
-        for(int i=0;i<nums.size();++i)
+        for(auto n:nums)
         {
             if(count==0)
-                maj = nums[i];
-            count += maj == nums[i]? +1:-1;
+                maj = n;
+            count += (maj == n)? +1:-1;
         }
         return maj;
     }
