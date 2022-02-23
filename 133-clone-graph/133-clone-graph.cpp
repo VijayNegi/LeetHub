@@ -23,22 +23,16 @@ class Solution {
 public:
     Node* cloneGraph(Node* node) {
         unordered_map<Node*,Node*> copy;
-        unordered_map<Node*,bool> visited;
-        
         function<Node*(Node*)> dfs = [&](Node* root) -> Node*
         {
             if(!root)
                 return nullptr;
-            if(visited[root])
+            if(copy.find(root) != copy.end())
                 return copy[root];
-            visited[root] = true;
-            if(copy.find(root) == copy.end())
-                copy[root] = new Node(root->val);
-            
+            copy[root] = new Node(root->val);
             Node* curr = copy[root];
             for(auto n:root->neighbors)
                 curr->neighbors.push_back(dfs(n));
-            
             return curr;
         };
         
