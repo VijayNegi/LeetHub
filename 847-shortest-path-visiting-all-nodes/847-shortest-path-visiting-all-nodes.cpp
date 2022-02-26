@@ -37,6 +37,8 @@ public:
                
                 if(visited.insert(hash).second)
                 {
+                    if(p.second == endState)
+                        return cost+1;
                     que.push(p);
                 }
             }
