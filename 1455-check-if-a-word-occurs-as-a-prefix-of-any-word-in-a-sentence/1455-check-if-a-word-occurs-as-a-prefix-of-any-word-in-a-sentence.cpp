@@ -35,8 +35,18 @@ public:
         }
         return -1;
     }
-    int isPrefixOfWord(string sentence, string searchWord) {
-        
+    // KMP 0 ms
+    int isPrefixOfWord1(string sentence, string searchWord) {
         return search_word(" "+searchWord," "+sentence);
     }
+    
+    // std search
+    int isPrefixOfWord(string sentence, string searchWord) {
+        auto sent = " " + sentence, word = " " + searchWord;
+        auto pos = sent.find(word);
+        if (pos != string::npos)
+            return count(begin(sent), begin(sent) + pos + 1, ' ');
+        return -1;
+    }
+    
 };
