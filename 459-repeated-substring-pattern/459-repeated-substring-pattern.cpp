@@ -26,7 +26,7 @@ public:
 
          return true;
     }
-    //
+    // 20 ms
     //https://leetcode.com/problems/repeated-substring-pattern/discuss/826135/C%2B%2B-O(N)-time-or-One-liner-without-KMP-Explained-or-Beats-99
     bool repeatedSubstringPattern(string s) {
         return (s + s).substr(1, 2*s.size()-2).find(s) != -1;
