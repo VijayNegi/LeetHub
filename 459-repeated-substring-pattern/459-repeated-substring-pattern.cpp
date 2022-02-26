@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // KMP prefix function
     vector<int> prefix_function(string s)
     {
         int n = s.size();
@@ -15,55 +16,14 @@ public:
         }
         return pi;
     }
-    bool compare(string s, int k)
-    {
-        int n = s.size();
-        if(n%k)
-            return false;
-        for(int i=k;i<n;i+=k)
-        {
-            int ii=i;
-            for(int j=0;j<k;++j,++ii)
-                if(s[ii]!=s[j])
-                    return false;
-        }
-        
-        return true;
-    }
-    // 1581 ms
-    bool repeatedSubstringPattern1(string s) {
-        int n = s.size();
-        // if(n%2)
-        //     return false;
-        int k = 1;
-        while(k<n)
-        {
-            if(compare(s,k))
-                return true;
-            ++k;
-        }
-        return false;
-    }
-    
+    // 8 ms
      bool repeatedSubstringPattern(string s) {
-        int n = s.size();
-        vector<int> pi = prefix_function(s);
-         //cout<<pi[n-1]<<endl;
+         int n = s.size();
+         vector<int> pi = prefix_function(s);
          int patternLen = n- pi[n-1];
-         if(patternLen==n)
+         if(patternLen==n || n%patternLen )
              return false;
-         if(n%patternLen)
-             return false;
+
          return true;
-        if(n%2==0)
-        {
-            return pi[n-1]>= (n/2);
-        }
-         else
-         {
-                return pi[n-1]> (n/2);
-         }
-       
-        return false;
     }
 };
