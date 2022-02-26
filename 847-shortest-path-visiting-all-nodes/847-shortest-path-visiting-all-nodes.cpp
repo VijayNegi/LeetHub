@@ -1,6 +1,7 @@
 using pi = pair<int,int>;
 class Solution {
 public:
+    // basically smart bfs : what smart ?? visit state i.e what nodes are visited prior to visiting this node(to avoid loop).
     int shortestPathLength(vector<vector<int>>& graph) {
         unordered_set<int> visited;    // node, state
         queue<pi> que;
@@ -37,8 +38,6 @@ public:
                
                 if(visited.insert(hash).second)
                 {
-                    if(p.second == endState)
-                        return cost+1;
                     que.push(p);
                 }
             }
