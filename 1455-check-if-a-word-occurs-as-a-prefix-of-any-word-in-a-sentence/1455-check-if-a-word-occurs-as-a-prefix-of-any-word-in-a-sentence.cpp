@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<int> prefix_func(string s)
+    {
+        int n = s.size();
+        vector<int> pi(n,0);
+        int k=0;
+        for(int i=1;i<n;++i)
+        {
+            while(k>0 && s[k]!= s[i])
+                k = pi[k-1];
+            if(s[k]==s[i])
+                ++k;
+            pi[i] = k;
+        }
+        return pi;
+    }
+    int search_word(string p,string t)
+    {
+        int n = t.size();
+        vector<int> pi= prefix_func(p) ;
+        int k=0;
+        int index = 0;
+        for(int i=0;i<n;++i)
+        {
+            if(t[i]==' ')
+                ++index;
+            while(k>0 && p[k]!= t[i])
+                k = pi[k-1];
+            if(p[k]==t[i])
+                ++k;
+            if(k==p.size())
+                return index;
+            
+        }
+        return -1;
+    }
+    int isPrefixOfWord(string sentence, string searchWord) {
+        
+        return search_word(" "+searchWord," "+sentence);
+    }
+};
