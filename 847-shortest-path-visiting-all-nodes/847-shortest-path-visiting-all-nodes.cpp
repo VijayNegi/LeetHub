@@ -14,7 +14,6 @@ public:
         }
         int cost = 0;
         int endState = (1<< n) - 1;
-        //cout<<"end "<<endState<<endl;
         int count = que.size();
         while(que.size())
         {
@@ -22,14 +21,11 @@ public:
             {
                 count = que.size();
                 ++cost;
-                //cout<<cost<<endl;
             }
             
             pi curr = que.front();
             que.pop();
             --count;
-            //cout<<"visiting = "<<curr.first<< " state= "<<curr.second<<endl;
-            
             if(curr.second == endState)
                 return cost;
             
@@ -38,18 +34,14 @@ public:
                 int state = curr.second | (1 << nei);
                 int hash = (1<<(nei+12)) | state; 
                 pi p{nei, state };
-                //cout<<p.first<<"  "<<p.second<< " hash="<<hash<< endl;
-                
+               
                 if(visited.insert(hash).second)
                 {
-                    //cout<<"push "<<p.first<<endl;
                     que.push(p);
                 }
             }
-            
         }
         
         return -1;
-        
     }
 };
