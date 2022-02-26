@@ -30,7 +30,8 @@ public:
         
         return true;
     }
-    bool repeatedSubstringPattern(string s) {
+    // 1581 ms
+    bool repeatedSubstringPattern1(string s) {
         int n = s.size();
         // if(n%2)
         //     return false;
@@ -41,6 +42,28 @@ public:
                 return true;
             ++k;
         }
+        return false;
+    }
+    
+     bool repeatedSubstringPattern(string s) {
+        int n = s.size();
+        vector<int> pi = prefix_function(s);
+         //cout<<pi[n-1]<<endl;
+         int patternLen = n- pi[n-1];
+         if(patternLen==n)
+             return false;
+         if(n%patternLen)
+             return false;
+         return true;
+        if(n%2==0)
+        {
+            return pi[n-1]>= (n/2);
+        }
+         else
+         {
+                return pi[n-1]> (n/2);
+         }
+       
         return false;
     }
 };
