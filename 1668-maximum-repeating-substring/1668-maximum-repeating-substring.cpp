@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int maxRepeating(string sequence, string word) {
+    int maxRepeating0(string sequence, string word) {
         
         int n = word.size();
         int result = 0;
@@ -21,7 +21,7 @@ public:
         result = max(curr,result);
         return result;
     }
-    int maxRepeating1(string sequence, string word) {
+    int maxRepeating(string sequence, string word) {
         int count=0;
         string temp=word;
         while(sequence.find(temp)!=string::npos)
