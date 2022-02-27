@@ -7,7 +7,8 @@ public:
         int is=0,ip=0;
         while(is<ns && ip<np)
         {
-            if( (isupper(p[ip]) && islower(s[is])) || ( (islower(p[ip]) && islower(s[is])) &&  s[is]!=p[ip]))
+            //if( (isupper(p[ip]) && islower(s[is])) || ( (islower(p[ip]) && islower(s[is])) &&  s[is]!=p[ip]))
+            if(islower(s[is]) && (isupper(p[ip]) || s[is]!=p[ip]))
             {
                 ++is;
                 continue;
