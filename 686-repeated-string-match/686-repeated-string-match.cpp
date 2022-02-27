@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int repeatedStringMatch(string a, string b) {
+    // std : 10ms
+    int repeatedStringMatch1(string a, string b) {
         
         string temp;
         int bn = b.size();
@@ -20,4 +21,13 @@ public:
             return count;
         return -1;
     }
+    // circuler match , better on space
+    int repeatedStringMatch(string A, string B) {
+    for (auto i = 0, j = 0; i < A.size(); ++i) {
+        for (j = 0; j < B.size() && A[(i + j) % A.size()] == B[j]; ++j);
+        if (j == B.size()) 
+            return (i + j - 1) / A.size() + 1;
+    }
+    return -1;
+}
 };
