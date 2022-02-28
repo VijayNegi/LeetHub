@@ -12,19 +12,17 @@ public:
             else
             {
                 string t;
-                if(start==end)
-                    t = to_string(start);
-                else
-                    t = to_string(start) + "->"+to_string(end);
+                t = to_string(start);
+                if(start!=end)
+                    t += "->"+to_string(end);
                 result.push_back(t);
                 start=end= nums[i];
             }
         }
         string t;
-        if(start==end)
-            t = to_string(start);
-        else
-            t = to_string(start) + "->"+to_string(end);
+        t = to_string(start);
+        if(start!=end)
+            t += "->"+to_string(end);
         result.push_back(t);
         return result;
     }
