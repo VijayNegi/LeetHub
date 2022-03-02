@@ -32,7 +32,7 @@ public:
     }
     //digit dp 2 states: 0 ms
     // notes , Sum keeps track of numbers in the bondry of each digit. at end it will be of limit number
-     int countDigitOne(int n) {
+     int countDigitOne2(int n) {
         dp2 = vector(10,vector(82,-1));
         string s = to_string(n);
          int len = s.size();
@@ -65,4 +65,12 @@ public:
         }
         return dp2[pos][sum] = result;
     }
+    
+    // maths solution
+    int countDigitOne(int n) {
+        int ones = 0;
+        for (long long m = 1; m <= n; m *= 10)
+            ones += (n/m + 8) / 10 * m + (n/m % 10 == 1) * (n%m + 1);
+        return ones;
+    }   
 };
