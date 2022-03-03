@@ -1,32 +1,7 @@
 class Solution {
 public:
+    // n2 solution
     int numberOfArithmeticSlices1(vector<int>& nums) {
-        vector<int> map(2001,0);
-        int n = nums.size();
-        for(int i=0;i<n;++i)
-            map[nums[i]+1000]++;
-        int result=0;
-        for(int i=0;i<2001;++i)
-        {
-            if(map[i]>2)
-                result += map[i]-2;
-            int j=i+1;
-            
-            while(j<n && map[j]==0)
-                ++j;
-            if(j >n)
-                continue;
-            int diff=j-i;
-            while(j<n && map[j]>0)
-                j+=diff;
-            int count = (j-i)/diff;
-            --count;
-            if(count>2)
-                result +=count-2;
-        }
-        return result;
-    }
-    int numberOfArithmeticSlices(vector<int>& nums) {
        
         int n = nums.size();
         int result=0;
@@ -42,4 +17,23 @@ public:
         }
         return result;
     }
+    // o(n) solution
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int n = nums.size();
+        if (n<3){
+            return 0;
+        }
+        int ans = 0, count = 0;
+        for (int i=1;i<n-1;i++){
+            if (nums[i+1]-nums[i]==nums[i]-nums[i-1]){
+                count++;
+                ans +=count;
+            }
+            else{
+                count = 0;
+            }
+        }
+        return ans;
+    }
+
 };
