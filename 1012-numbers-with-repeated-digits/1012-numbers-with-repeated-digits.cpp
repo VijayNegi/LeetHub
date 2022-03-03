@@ -6,40 +6,36 @@ public:
         int last = 0;
         string s = to_string(n);
         int len = s.size();
-        bool flag = false;
+        bool flag = false; // if edge number are satisfy the condition
         int result=0;
-        bool valid=false;
+        bool valid=false; // no leading zero for numbers with restriction.
         for(int i=0;i<len;++i)
         {
             int limit = s[i]-'0';
-            //cout<<i<<" "<<result<<endl;
             for(int j=0;j<limit;++j)
             {
-                int tvalid = valid || j>0;
-                if((tvalid && (last & (1<<j))) || flag)
+                int tvalid = valid || j >0;
+                if((tvalid && isSet(last,j)) || flag)
                 {
                     int dLeft = s.size()-i -1;
                     result += pow(10,dLeft);
-                    //cout<<"yeah"<<endl;
                 }
-                else
+                else if(tvalid)
                 {
-                    int mask = last | (1<<j);
-                    if(!tvalid)
-                        mask = 0;
+                    int mask = setBit(last,j);
                     result+=digit_dp(s,i+1,mask,tvalid);
                 }
+                else
+                    result+=digit_dp(s,i+1,0,tvalid);
             }
-            if(last & (1<<limit))
-            {
+            if(isSet(last,limit))
                 flag = true;
-            }
             valid = true;
-            last = last | (1<<limit);
+            last = setBit(last,limit);
         }
         return result+flag;
     }
-    int digit_dp(string s,int pos,int last,bool valid)
+    int digit_dp(string s,int pos,int last,bool valid) // valid = valid number not starting with zero
     {
         if(pos==s.size())
             return 0;
@@ -48,22 +44,28 @@ public:
         int sum=0;
         for(int i=0;i<10;++i)
         {
-            //int s = 0;
             int tvalid = valid || i>0;
-            if(tvalid && ( last & 1<<i))
+            if(tvalid && isSet(last,i)) // satisfy the condition, calculate count
             {
                 int dLeft = s.size()-pos -1;
                 sum += pow(10,dLeft);
-                //cout<<i<<endl;
             }
-            else
+            else if(tvalid)
             {
-                int mask = last | (1<<i);
-                if(!tvalid)
-                        mask = 0;
+                int mask = setBit(last,i);
                 sum+=digit_dp(s,pos+1,mask,tvalid);
             }
+            else // not a valid number till now
+                 sum+=digit_dp(s,pos+1,0,tvalid);
         }
         return dp[pos][last] = sum;
+    }
+    bool isSet(int number, int bit)
+    {
+        return number & (1<<bit);
+    }
+    int setBit(int number, int bit)
+    {
+        return number | (1<<bit);
     }
 };
