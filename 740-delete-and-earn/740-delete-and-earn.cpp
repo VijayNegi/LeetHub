@@ -18,12 +18,13 @@ public:
                 cost += max(d2,d1);
             }
             else
+            {
                 cost += d1; 
-            cost = max(cost,d2);
+                cost = max(cost,d2);
+            }
             d1= d2;
             d2=cost;
             prenum = it.first;
-            //cout<<d1<<" "<<d2<<endl;
         }
         return max(d1,d2);
     }
