@@ -94,37 +94,31 @@ public:
         return NodeList[0];
     }
 #endif
-    string serialize(TreeNode* root) {
-        if(root)
-            return " "+ to_string(root->val) + serialize(root->left) + serialize(root->right);
-        else
-            return " #";
+    //Recursive preorder 
+    string serialize(TreeNode* root) 
+    {
+        return !root ? " #" : " " + to_string(root->val) + serialize(root->left) + serialize(root->right);
     }
    
-    
-    TreeNode* deserialize(string data) {
-        if(data.empty())
-            return nullptr;
-        stringstream ss(data);
-        return deserialize(ss);
-    }
-    
-    TreeNode* deserialize(stringstream& ss)
+     TreeNode* deserialize(string data) 
     {
-        string line;
-        ss>>line;
-        //getline(ss,line);
-        if(line == "#")
-            return nullptr;
-        else
-        {
+        istringstream ss(data);
+        return buildTree(ss);
+    }
+private:
+    TreeNode* buildTree(istringstream& ss)
+    {
+        string s;
+        ss >> s;
+        
+        if (s == "#")
+			return nullptr;
+        
+        TreeNode* node = new TreeNode(stoi(s));
+        node->left = buildTree(ss);
+        node->right = buildTree(ss);
             
-            TreeNode* node =  new TreeNode(stoi(line));
-            node->left = deserialize(ss);
-            node->right = deserialize(ss);
-            return node;
-        }
-           
+        return node;
     }
     
 };
