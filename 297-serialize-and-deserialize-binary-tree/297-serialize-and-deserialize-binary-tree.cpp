@@ -9,7 +9,7 @@
  */
 class Codec {
 public:
-
+#if 0 // my Idx solution
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
         if(!root)
@@ -93,6 +93,40 @@ public:
         }
         return NodeList[0];
     }
+#endif
+    string serialize(TreeNode* root) {
+        if(root)
+            return " "+ to_string(root->val) + serialize(root->left) + serialize(root->right);
+        else
+            return " #";
+    }
+   
+    
+    TreeNode* deserialize(string data) {
+        if(data.empty())
+            return nullptr;
+        stringstream ss(data);
+        return deserialize(ss);
+    }
+    
+    TreeNode* deserialize(stringstream& ss)
+    {
+        string line;
+        ss>>line;
+        //getline(ss,line);
+        if(line == "#")
+            return nullptr;
+        else
+        {
+            
+            TreeNode* node =  new TreeNode(stoi(line));
+            node->left = deserialize(ss);
+            node->right = deserialize(ss);
+            return node;
+        }
+           
+    }
+    
 };
 
 // Your Codec object will be instantiated and called as such:
