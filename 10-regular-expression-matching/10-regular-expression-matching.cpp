@@ -4,13 +4,12 @@ public:
         
         return match(s,s.size()-1,p,p.size()-1);
     }
-    
-    bool match(string s,int si, string p,int pi)
+    bool match(string& s,int si, string& p,int pi)
     {
         //cout<<si<<" "<<pi<<endl;
         if(si==-1 && pi==-1)
             return true;
-        if(pi==-1)
+        if(pi==-1) // pattern could have redundent match so wait like a* at beginning
             return si==-1;
         if(p[pi]=='*')
         {
