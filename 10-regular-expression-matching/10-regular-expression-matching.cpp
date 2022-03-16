@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool isMatch(string s, string p) {
+    bool isMatch2(string s, string p) {
         vector<vector<int>> dp(s.size()+1,vector(p.size()+1,-1));
         return isMatch1(0,s,0,p,dp);
         //return match(s,s.size()-1,p,p.size()-1,dp);
@@ -44,6 +44,18 @@ public:
         } else if (i<sn && (p[j]=='.'|| s[i]==p[j]) && isMatch1(i+1,s,j+1,p,dp)) 
 			return dp[i][j] = 1;
         return dp[i][j] = 0;
+    }
+    // bottom up approach
+    bool isMatch(string s, string p) {
+        int pn=p.size(), sn = s.size();
+        vector<vector<bool>> dp(sn+1,vector<bool>(pn+1));
+        dp[sn][pn] = 1;
+        for(int i = sn;i>=0;i--) 
+            for(int j=pn-1;j>=0;j--) 
+                if(p[j+1]=='*') 
+					dp[i][j] = dp[i][j+2] || i<sn && (p[j] == '.' || s[i] == p[j]) && dp[i+1][j];
+                else dp[i][j] = i<sn && (p[j]=='.'|| s[i]==p[j]) && dp[i+1][j+1];
+        return dp[0][0];    
     }
 
 };
