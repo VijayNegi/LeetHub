@@ -2,8 +2,10 @@ class Solution {
 public:
     bool isMatch(string s, string p) {
         vector<vector<int>> dp(s.size()+1,vector(p.size()+1,-1));
-        return match(s,s.size()-1,p,p.size()-1,dp);
+        return isMatch1(0,s,0,p,dp);
+        //return match(s,s.size()-1,p,p.size()-1,dp);
     }
+    // mine , back to front, 0ms dp
     bool match(string& s,int si, string& p,int pi, vector<vector<int>>& dp)
     {
         //cout<<si<<" "<<pi<<endl;
@@ -28,6 +30,20 @@ public:
                 return dp[si+1][pi+1] = true;
         }
         return dp[si+1][pi+1] = false;
-        
     }
+    
+    // front to back dp
+    bool isMatch1(int i, string& s, int j, string &p, vector<vector<int>> &dp) {
+        if(dp[i][j] > -1) return dp[i][j];
+        int pn=p.size(), sn = s.size();
+        if(j==pn) return dp[i][j] = i==sn;
+        if(p[j+1]=='*') {
+            if(isMatch1(i,s,j+2,p,dp) || 
+               i<sn && (p[j] == '.' || s[i] == p[j]) && isMatch1(i+1,s,j,p,dp)) 
+			   return dp[i][j] = 1;
+        } else if (i<sn && (p[j]=='.'|| s[i]==p[j]) && isMatch1(i+1,s,j+1,p,dp)) 
+			return dp[i][j] = 1;
+        return dp[i][j] = 0;
+    }
+
 };
