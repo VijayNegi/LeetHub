@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // 7 ms
     void nextPermutation1(vector<int>& nums) {
         int n = nums.size();
         int i=n-2;
@@ -17,8 +18,18 @@ public:
         }
         reverse(begin(nums)+i+1,end(nums));
     }
-    void nextPermutation(vector<int>& nums) {
+    // 3 ms
+    void nextPermutation2(vector<int>& nums) {
       std::next_permutation(nums.begin(), nums.end());
+    }
+    // some more STL
+    void nextPermutation(vector<int>& nums) {
+      auto dest = std::is_sorted_until(nums.rbegin(), nums.rend());
+      if (dest != nums.rend()) {
+        auto target = std::upper_bound(nums.rbegin(), dest, *dest);
+        std::iter_swap(dest, target);
+      }
+      std::reverse(nums.rbegin(), dest);
     }
 
 };
