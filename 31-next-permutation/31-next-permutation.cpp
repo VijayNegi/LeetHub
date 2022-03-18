@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void nextPermutation(vector<int>& nums) {
+    void nextPermutation1(vector<int>& nums) {
         int n = nums.size();
         int i=n-2;
         for(i=n-2;i>=0;--i)
@@ -17,4 +17,8 @@ public:
         }
         reverse(begin(nums)+i+1,end(nums));
     }
+    void nextPermutation(vector<int>& nums) {
+      std::next_permutation(nums.begin(), nums.end());
+    }
+
 };
