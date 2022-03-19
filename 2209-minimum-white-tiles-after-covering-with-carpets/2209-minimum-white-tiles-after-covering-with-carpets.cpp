@@ -39,7 +39,7 @@ public:
     };
     // DP bottom up: 786ms
     //https://leetcode.com/problems/minimum-white-tiles-after-covering-with-carpets/discuss/1863955/JavaC%2B%2BPython-DP-solution
-    int minimumWhiteTiles2(string s, int nc, int l) {
+    int minimumWhiteTiles(string s, int nc, int l) {
         int n = s.size();
         vector<vector<int>> dp(n + 1, vector<int>(nc + 1));
         for (int i = 1; i <= n; ++i) {
@@ -52,8 +52,9 @@ public:
         return dp[n][nc];
     }
     
-    
-    int minimumWhiteTiles(string s, int nc, int l) {
+    // 1654 or sometime TLE
+    // https://leetcode.com/problems/minimum-white-tiles-after-covering-with-carpets/discuss/1863872/Python-short-dp-explained
+    int minimumWhiteTiles3(string s, int nc, int l) {
         vector<vector<int>> mem(s.size()+1,vector(nc+1,-1));
         function<int(int,int)> dp = [&](int pos,int t)
         {
@@ -64,14 +65,5 @@ public:
         };
         return dp(s.size()-1,nc);
     }
-    
-//     def minimumWhiteTiles(self, floor, k, L):
-//         @lru_cache(None)
-//         def dp(i, t):
-//             if t < 0: return float("inf")
-//             if i < 0: return 0
-//             return min(dp(i - L, t - 1), dp(i - 1, t) + int(floor[i] == "1"))
-        
-//         return dp(len(floor) - 1, k)
 
 };
