@@ -15,7 +15,7 @@ public:
         for(int i=0;i<n;++i)
         {
             
-            if(i<n && text[i]==pattern[0])
+            if(text[i]==pattern[0])
             {
                 result += p2[i+1];
                 ++count;
