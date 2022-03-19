@@ -23,6 +23,8 @@ public:
     }
 };
 */
+
+// priority queue solution : 327 ms
 class FreqStack {
     priority_queue<pair<int, pair<int, int>>> q;
     unordered_map<int, int> freq;
