@@ -1,6 +1,6 @@
 #define LEN 26
 
-class Trie
+struct Trie
 {
     bool end{false};
     Trie* childs[LEN]; 
