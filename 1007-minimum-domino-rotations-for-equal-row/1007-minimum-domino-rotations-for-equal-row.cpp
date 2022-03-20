@@ -73,7 +73,7 @@ public:
         result = min(result,n - (faceCount[Max]- (n-result)) );
         return result;
     }
-    
+    // 211 ms
     int minDominoRotations(vector<int>& A, vector<int>& B) {
         vector<int> countA(7), countB(7), same(7);
         int n = A.size();
