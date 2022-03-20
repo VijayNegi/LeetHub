@@ -22,14 +22,14 @@ public:
         
         for(int i=0;i<n;++i)
         {
+            if(tops[i]!=face && bottoms[i]!=face )
+                return -1;
             if(freqt[face]>freqb[face])
             {
                 if(tops[i]!=face)
                 {
                     if(bottoms[i]==face)
                         ++result;
-                    else
-                        return -1;
                 }
             }
             else
@@ -38,12 +38,9 @@ public:
                 {
                     if(tops[i]==face)
                         ++result;
-                    else
-                        return -1;
                 }
             }
         }
-
         return result;
     }
 };
