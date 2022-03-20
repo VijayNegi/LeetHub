@@ -9,11 +9,9 @@ struct Trie
         fill(next,next+ TRIE_LEN, nullptr);
         end = false;
     }
-    
     void add(string s)
     {
         Trie* curr = this;
-        
         for(auto c:s)
         {
             int idx = c-'a';
@@ -43,10 +41,8 @@ struct Trie
         else
         {
             for(int i=0;i<TRIE_LEN;++i)
-            {
                 if(next[i] && next[i]->search(s, idx+1))
                     return true;
-            }
         }
         return false;
     }
