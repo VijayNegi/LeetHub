@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int minDominoRotations(vector<int>& tops, vector<int>& bottoms) {
+    //108 ms
+    int minDominoRotations1(vector<int>& tops, vector<int>& bottoms) {
         int n = tops.size();
         vector<int> freqt(7,0),freqb(7,0);
         for(auto& n :  tops)
@@ -41,6 +42,35 @@ public:
                 }
             }
         }
+        return result;
+    }
+    //
+    int minDominoRotations(vector<int>& A, vector<int>& B) {
+        int n = A.size();
+        if(n==1)
+            return 0;
+        vector<int> faceCount(7,0);
+        for(int i=0;i<n;i++)
+        {
+            faceCount[A[i]]++;
+            faceCount[B[i]]++;
+        }
+        int Max = 0;
+        for(int i=0;i<faceCount.size();i++)
+            Max = (faceCount[Max]<faceCount[i])? i: Max;
+       
+        if(n>faceCount[Max])
+            return -1;
+        int result(0);
+        for(int i=0;i<n;i++)
+        {
+            if(A[i]!= Max && B[i]!=Max)
+                return -1;
+            if(A[i] != Max)
+                result++;
+        }
+
+        result = min(result,n - (faceCount[Max]- (n-result)) );
         return result;
     }
 };
