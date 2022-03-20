@@ -1,63 +1,70 @@
-#define LEN 26
+#define TRIE_LEN 26
 
 struct Trie
 {
-    bool end{false};
-    Trie* childs[LEN]; 
-public:
+    Trie* next[TRIE_LEN];
+    bool end;
     Trie()
     {
-       fill(childs,childs+LEN,nullptr);
+        fill(next,next+ TRIE_LEN, nullptr);
+        end = false;
     }
-    void add(string word)
+    
+    void add(string s)
     {
         Trie* curr = this;
-        for(char& c:word)
+        
+        for(auto c:s)
         {
-            if(!curr->childs[c-'a'])
-                curr->childs[c-'a'] = new Trie();
-            curr = curr->childs[c-'a'];
+            int idx = c-'a';
+            if(!(curr->next[idx]))
+                curr->next[idx] = new Trie();
+            curr = curr->next[idx];
         }
         curr->end = true;
     }
-    bool search(string& word)
+    
+    bool search(string& s)
     {
-        return search(word,0);
+        return search(s,0);
     }
-    bool search(string& word,int idx)
+    
+    bool search(string& s, int idx)
     {
-        if(word.size() == idx)
+        if(idx == s.size())
             return end;
-        char c = word[idx];
-        if(c=='.')
+        
+        if(s[idx]!='.')
         {
-            for(int i=0;i<LEN;++i)
-                if(childs[i] && childs[i]->search(word,idx+1))
-                    return true;
+            int i = s[idx]-'a';
+            if(next[i])
+               return next[i]->search(s,idx+1);
         }
         else
         {
-            if(childs[c-'a'] && childs[c-'a']->search(word,idx+1))
-                return true;
-            return false;
+            for(int i=0;i<TRIE_LEN;++i)
+            {
+                if(next[i] && next[i]->search(s, idx+1))
+                    return true;
+            }
         }
         return false;
     }
 };
 
 class WordDictionary {
-    Trie Dict;
+    Trie mDict;
 public:
     WordDictionary() {
         
     }
     
     void addWord(string word) {
-        Dict.add(word);
+        mDict.add(word);
     }
     
     bool search(string word) {
-        return Dict.search(word);
+        return mDict.search(word);
     }
 };
 
