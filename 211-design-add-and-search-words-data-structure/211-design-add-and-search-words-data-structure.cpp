@@ -20,11 +20,11 @@ public:
         }
         curr->end = true;
     }
-    bool search(string word)
+    bool search(string& word)
     {
         return search(word,0);
     }
-    bool search(string word,int idx)
+    bool search(string& word,int idx)
     {
         if(word.size() == idx)
             return end;
