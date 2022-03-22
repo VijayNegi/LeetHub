@@ -3,20 +3,15 @@ public:
     int lengthLongestPath(string input) {
         stringstream ss(input);
         int longpath = 0;
-        
-        
         stack<int> stk;
-        
         string s;
         while(!ss.eof())
         {
-            int tabs=0;
             getline(ss,s,'\n');
-           
+            int tabs=0;
             while(s[tabs]=='\t')
                 ++tabs;
             s = s.substr(tabs);
-            cout<<tabs<<" "<<s<<endl;
             
             while(stk.size()> tabs)
                 stk.pop();
