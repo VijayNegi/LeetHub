@@ -1,6 +1,6 @@
 class Solution {
 public:
-    string getSmallestString(int n, int k) {
+    string getSmallestString1(int n, int k) {
         string s;
         for(int i=n;i>0;--i)
         {
@@ -10,5 +10,14 @@ public:
         }
         reverse(begin(s),end(s));
         return s;
+    }
+    string getSmallestString(int n, int k) {
+        string res = string(n, 'a');
+        k -= n;
+        while (k > 0) {
+            res[--n] += min(25, k);
+            k -= min(25, k);
+        }
+        return res;
     }
 };
