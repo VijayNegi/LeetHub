@@ -7,15 +7,10 @@ public:
         int ans = 0;
         while(l<=r)
         {
-            if(l==r)
-                return ans+1;
-            else
-            {
-                if(people[l]+people[r]<= limit)
-                    ++l,--r,++ans;
-                else
-                    --r,++ans;
-            }
+            ++ans;
+            if(people[l]+people[r]<= limit) // if lightest person can be adjusted with heaivy person then do so.
+                ++l;
+            --r; // move haviest persion
         }
         return ans;
     }
