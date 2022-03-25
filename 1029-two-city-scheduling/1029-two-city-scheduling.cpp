@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int twoCitySchedCost(vector<vector<int>>& costs) {
+    int twoCitySchedCost1(vector<vector<int>>& costs) {
         int n = costs.size()/2;
         int result=0;
         auto cmp = [](vector<int>& left,vector<int>& right){ return abs(left[0]-left[1]) > abs(right[0]-right[1]);};
@@ -26,5 +26,21 @@ public:
         }
     
         return result;
+    }
+    // fly to one then get a refund
+    int twoCitySchedCost(vector<vector<int>>& costs) {
+        vector<int> sol(costs.size());
+        int sum=0;
+        for(int i=0;i<costs.size();i++)
+        {
+            sum+=costs[i][0];
+            sol[i]=(costs[i][0]-costs[i][1]);
+        }
+        sort(sol.begin(),sol.end(),greater());
+        for(int i=0;i<((sol.size())/2);i++)
+        {
+            sum-=sol[i];
+        }
+        return sum;
     }
 };
