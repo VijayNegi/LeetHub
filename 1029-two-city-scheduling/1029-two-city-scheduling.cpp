@@ -28,7 +28,7 @@ public:
         return result;
     }
     // fly to one then get a refund
-    int twoCitySchedCost(vector<vector<int>>& costs) {
+    int twoCitySchedCost2(vector<vector<int>>& costs) {
         vector<int> sol(costs.size());
         int sum=0;
         for(int i=0;i<costs.size();i++)
@@ -42,5 +42,15 @@ public:
             sum-=sol[i];
         }
         return sum;
+    }
+    // or sort with difference add from front and end
+    int twoCitySchedCost(vector<vector<int>>& cs, int res = 0) {
+      sort(begin(cs), end(cs), [](vector<int> &v1, vector<int> &v2) {
+        return (v1[0] - v1[1] < v2[0] - v2[1]);
+      });
+      for (auto i = 0; i < cs.size() / 2; ++i) {
+        res += cs[i][0] + cs[i + cs.size() / 2][1];
+      }
+      return res;
     }
 };
