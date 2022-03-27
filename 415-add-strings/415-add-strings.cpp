@@ -45,7 +45,7 @@ public:
             sum += carry; 
             carry = sum / 10;
             sum = sum % 10;
-            res =  res + to_string(sum);
+            res +=  sum +'0';
         }
         reverse(res.begin(), res.end());
         return res;
