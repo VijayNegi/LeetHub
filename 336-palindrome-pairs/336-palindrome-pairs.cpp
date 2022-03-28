@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<int>> palindromePairs1(vector<string>& words) {
+    vector<vector<int>> palindromePairs(vector<string>& words) {
         unordered_map<string,int> smap;
         int n = words.size();
         for(int i=0;i<n;++i)
@@ -15,19 +15,26 @@ public:
         {
             string& s = words[i];
             int k = s.size();
+            string pre = "";
+            string suf = s;
             for(int j=0;j<=k;++j)
             {
                 if(j>0 && isPalindrome(s,0,j-1) ) 
                 {
-                    string str = s.substr(j); //suffix
-                    if(smap.find(str) != smap.end() && smap[str] != i)
-                        result.push_back({smap[str],i});
+                    //string str = s.substr(j); //suffix
+                    if(smap.find(suf) != smap.end() && smap[suf] != i)
+                        result.push_back({smap[suf],i});
                 }
                 if(isPalindrome(s,j,k-1))
                 {
-                    string str = s.substr(0,j);
-                    if(smap.find(str) != smap.end() && smap[str] != i)
-                       result.push_back({i,smap[str]});
+                    //string str = s.substr(0,j);
+                    if(smap.find(pre) != smap.end() && smap[pre] != i)
+                       result.push_back({i,smap[pre]});
+                }
+                if(j<k)
+                {
+                    pre += words[i][j];
+                    suf.erase(0,1);
                 }
             }
         }
@@ -41,7 +48,7 @@ public:
                 return false;
         return true;
     }
-    vector<vector<int>> palindromePairs(vector<string>& words) {
+    vector<vector<int>> palindromePairs2(vector<string>& words) {
         vector<vector<int>> result;
         unordered_map<string,int> m;
         for(int i=0;i<words.size();++i)
