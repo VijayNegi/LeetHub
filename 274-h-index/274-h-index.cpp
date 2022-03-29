@@ -12,7 +12,8 @@ public:
         }
         return result;
     }
-    int hIndex(vector<int>& citations) {
+    // This makes more sense
+    int hIndex1(vector<int>& citations) {
         int n = citations.size();
         sort(begin(citations),end(citations), greater<int>());
         int result=0;
@@ -23,7 +24,8 @@ public:
         }
         return result;
     }
-    int hIndex1(vector<int>& citations) {
+    // another way this is O(n)
+    int hIndex(vector<int>& citations) {
         int n = citations.size(), h = 0;
         int* counts = new int[n + 1]();
         for (int c : citations)
