@@ -26,11 +26,10 @@ public:
         return dfs(0,m,sum);
     }
     
-    // bottom up 
+    //**** bottom up 97 ms
     
     int memo[1001][51];
-    
-    int splitArray(vector<int>& nums, int m) {
+    int splitArray2(vector<int>& nums, int m) {
         int n = nums.size();
         
         // Store the prefix sum of nums array
@@ -71,5 +70,57 @@ public:
         }
         
         return memo[0][m];
+    }
+    
+    // ***** binary search 
+    int minimumSubarraysRequired(vector<int>& nums, int maxSumAllowed) {
+        int currentSum = 0;
+        int splitsRequired = 0;
+        
+        for (int element : nums) {
+            // Add element only if the sum doesn't exceed maxSumAllowed
+            if (currentSum + element <= maxSumAllowed) {
+                currentSum += element;
+            } else {
+                // If the element addition makes sum more than maxSumAllowed
+                // Increment the splits required and reset sum
+                currentSum = element;
+                splitsRequired++;
+            }
+        }
+        
+        // Return the number of subarrays, which is the number of splits + 1
+        return splitsRequired + 1;
+    }
+    
+    int splitArray(vector<int>& nums, int m) {
+        // Find the sum of all elements and the maximum element
+        int sum = 0;
+        int maxElement = INT_MIN;
+        for (int element : nums) {
+            sum += element;
+            maxElement = max(maxElement, element);
+        }
+        
+        // Define the left and right boundary of binary search
+        int left = maxElement;
+        int right = sum;
+        int minimumLargestSplitSum = 0;
+        while (left <= right) {
+            // Find the mid value
+            int maxSumAllowed = left + (right - left) / 2;
+            
+            // Find the minimum splits. If splitsRequired is less than
+            // or equal to m move towards left i.e., smaller values
+            if (minimumSubarraysRequired(nums, maxSumAllowed) <= m) {
+                right = maxSumAllowed - 1;
+                minimumLargestSplitSum = maxSumAllowed;
+            } else {
+                // Move towards right if splitsRequired is more than m
+                left = maxSumAllowed + 1;
+            }
+        }
+        
+        return minimumLargestSplitSum;
     }
 };
