@@ -16,6 +16,8 @@ public:
                 s += nums[i];
                 int res = dfs(i+1,split -1,sum-s);
                 result = min(result,max(res,s));
+                if(s>result)
+                    break;
             }
             return mem[idx][split] = result;
         };
