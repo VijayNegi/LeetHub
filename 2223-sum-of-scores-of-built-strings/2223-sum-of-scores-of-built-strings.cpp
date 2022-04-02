@@ -1,6 +1,7 @@
 class Solution {
 public:
-    long long sumScores(string s) {
+    vector<int> zfunction(string s)
+    {
         int n = s.size();
         vector<int> z(n,0);
         z[0]=n;
@@ -14,6 +15,10 @@ public:
            if(i+z[i]-1 > r)
                l = i, r = i+z[i]-1;
         }
+        return z;
+    }
+    long long sumScores(string s) {
+        vector<int> z = zfunction(s);
         long long sum=0;
         sum = accumulate(begin(z),end(z),sum);
         return sum;
