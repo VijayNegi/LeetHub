@@ -10,7 +10,7 @@
  */
 class Solution {
 public:
-    ListNode* swapNodes(ListNode* head, int k) {
+    ListNode* swapNodes1(ListNode* head, int k) {
         ListNode *beg,*end,*curr;
         curr = beg= end = head;
         int n=1,i=1;
@@ -26,6 +26,18 @@ public:
         int val = beg->val;
         beg->val = end->val;
         end->val = val;
+        return head;
+    }
+    ListNode* swapNodes(ListNode* head, int k) {
+        ListNode *n1 = nullptr, *n2 = nullptr;
+        for (auto p = head; p != nullptr; p = p->next) {
+            n2 = n2 == nullptr ? nullptr : n2->next;
+            if (--k == 0) {
+                n1 = p;
+                n2 = head;
+            }
+        }
+        swap(n1->val, n2->val);
         return head;
     }
 };
