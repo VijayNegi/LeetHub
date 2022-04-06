@@ -73,6 +73,7 @@ public:
     // i + 2 * j = target
     // i + j + k = target
     //https://leetcode.com/problems/3sum-with-multiplicity/discuss/181156/C%2B%2B-6-lines-4-ms-O(distinct(n)-2)
+    // 10 ms
     int threeSumMulti(vector<int>& nums, int target) 
     {
         long m[101] = {}, res = 0;
