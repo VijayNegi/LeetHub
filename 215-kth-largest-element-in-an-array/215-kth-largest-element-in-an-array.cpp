@@ -1,21 +1,7 @@
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
-        multiset<int,greater<int>> s;
-        
-        for(auto& n:nums)
-        {
-            s.insert(n);
-            if(s.size()>k)
-            {
-                auto it = s.begin();
-                std::advance(it,k);
-                s.erase(it);
-            }
-                
-        }
-        auto it = s.begin();
-        std::advance(it,k-1);
-        return *(it);
+        nth_element(nums.begin(), nums.begin() + k - 1, nums.end(), greater<int>());
+        return nums[k - 1];
     }
 };
