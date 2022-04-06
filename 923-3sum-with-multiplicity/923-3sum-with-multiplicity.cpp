@@ -47,9 +47,9 @@ public:
         }
         return result;
     }
-    //more clean maybe
+    //more clean maybe 20 ms
     //https://leetcode.com/problems/3sum-with-multiplicity/discuss/181131/C%2B%2BJavaPython-O(N-%2B-101-*-101)
-    int threeSumMulti(vector<int>& A, int target) {
+    int threeSumMulti4(vector<int>& A, int target) {
         unordered_map<int, long> c;
         for (int a : A) c[a]++;
         long res = 0;
@@ -66,6 +66,30 @@ public:
             }
         return res % int(1e9 + 7);
     }
+    
+    
+    // 3 * i = target
+    // 2 * i + j = target
+    // i + 2 * j = target
+    // i + j + k = target
+    //https://leetcode.com/problems/3sum-with-multiplicity/discuss/181156/C%2B%2B-6-lines-4-ms-O(distinct(n)-2)
+    int threeSumMulti(vector<int>& nums, int target) 
+    {
+        long m[101] = {}, res = 0;
+        for (auto n : nums) ++m[n];
+        for (auto i = 0; i < 101; ++i) {
+            if (i * 3 == target) res += m[i] * (m[i] - 1) * (m[i] - 2) / 6;
+            for (auto j = i + 1, k = target - i - j; j < 101; ++j, --k) {
+                if (i * 2 + j == target) res += m[i] * m[j] * (m[i] - 1) / 2;
+                if (i + j * 2 == target) res += m[i] * m[j] * (m[j] - 1) / 2;
+                if (k > j && k < 101) res += m[i] * m[j] * m[k];
+            }
+        }
+        return res % 1000000007;
+    }
+    
+    
+    
     
     // TLE
     int threeSumMulti1(vector<int>& arr, int target) {
