@@ -1,7 +1,9 @@
 const int mod = 1e9+7;
 class Solution {
 public:
-    int threeSumMulti(vector<int>& arr, int target) {
+    // 20 ms
+    // self but got some hint bout combination 
+    int threeSumMulti3(vector<int>& arr, int target) {
         map<int,int> freq;
         for(auto& a:arr)
             freq[a]++;
@@ -10,19 +12,15 @@ public:
         {
             int num = it->first;
             long count = it->second;
-            //cout<<num<<" "<<count<<" "<<result<<endl;
-            if(num*3 == target && count>=3)
+            if(num*3 == target && count>=3)         // target made by all same number 
             {
                 result += count*(count-1)*(count-2)/6;
                 result = result % mod;
-                //cout<<"1 "<<result<<endl;
             }
-            if(target - num*2 > num && count>=2)
+            if(target - num*2 > num && count>=2)    // target made by 2 of first number 
             {
-                
                 result += count*(count-1)*freq[target-2*num] /2;
                 result = result % mod;
-                //cout<<"12 "<<result<<endl;
             }
                 
             auto it1 = it;
@@ -34,26 +32,41 @@ public:
                 int sum = target - num - num1;
                 if(sum<num1)
                     continue;
-                if(num1 == sum)
+                if(num1 == sum)                     // target made by 2 of second number 
                 {
-                    // int res=0;
-                    // for(int i=1;i<=count1-1;++i)
-                    //         res+=i;
                     result += count*count1*(count1-1)/2;
                     result = result % mod;
-                    //cout<<"2 "<<result<<endl;
                 }
-                else
+                else                                // target made by all different 3 numbers
                 {
                     int count2 = freq[sum];
-                    result += count*count1*(count2);
+                    result += count*count1*count2;
                     result = result % mod;
-                    //cout<<"3 "<<result<<endl;
                 }
             }
         }
         return result;
     }
+    //more clean maybe
+    //https://leetcode.com/problems/3sum-with-multiplicity/discuss/181131/C%2B%2BJavaPython-O(N-%2B-101-*-101)
+    int threeSumMulti(vector<int>& A, int target) {
+        unordered_map<int, long> c;
+        for (int a : A) c[a]++;
+        long res = 0;
+        for (auto it : c)
+            for (auto it2 : c) {
+                int i = it.first, j = it2.first, k = target - i - j;
+                if (!c.count(k)) continue;
+                if (i == j && j == k)
+                    res += c[i] * (c[i] - 1) * (c[i] - 2) / 6;
+                else if (i == j && j != k)
+                    res += c[i] * (c[i] - 1) / 2 * c[k];
+                else if (i < j && j < k)
+                    res += c[i] * c[j] * c[k];
+            }
+        return res % int(1e9 + 7);
+    }
+    
     // TLE
     int threeSumMulti1(vector<int>& arr, int target) {
         sort(begin(arr),end(arr));
@@ -76,4 +89,16 @@ public:
         }
         return result;
     }
+    // another greate solution but TLE
+    int threeSumMulti2(vector<int>& A, int target) 
+    {
+        int ans = 0;
+        unordered_map<int, int> mp;
+        for(int i = 0; i < A.size(); i++) {
+            ans = (ans + mp[target-A[i]]) % mod;
+            for(int j = 0; j < i; j++) mp[A[i]+A[j]]++;
+        }
+        return ans;
+    }
 };
+
