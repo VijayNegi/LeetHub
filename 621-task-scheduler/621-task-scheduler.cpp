@@ -1,3 +1,5 @@
+// Great explanation
+// https://leetcode.com/problems/task-scheduler/discuss/104500/Java-O(n)-time-O(1)-space-1-pass-no-sorting-solution-with-detailed-explanation
 class Solution {
 public:
     // 90 ms
@@ -16,7 +18,9 @@ public:
         return max(result,(int)tasks.size());
     }
     
+    // 104 ms
     // emulate 
+    //https://leetcode.com/problems/task-scheduler/discuss/104493/C%2B%2B-Java-Clean-Code-Priority-Queue
     int leastInterval(vector<char>& tasks, int n) {
         unordered_map<char, int> counts;
         for (char t : tasks) {
