@@ -1,5 +1,28 @@
 class KthLargest {
     int k;
+    priority_queue<int,vector<int>,greater<int>> pq;
+public:
+    KthLargest(int k, vector<int>& nums) {
+        this->k = k;
+        for(auto& n:nums)
+        {
+            pq.push(n);
+            if(pq.size()>k)
+                pq.pop();
+        }
+    }
+    
+    int add(int val) {
+        pq.push(val);
+        if(pq.size()>k)
+            pq.pop();
+        return pq.top();
+    }
+};
+
+/*
+class KthLargest {
+    int k;
     multiset<int,less<int>> s;
 public:
     KthLargest(int k, vector<int>& nums) {
@@ -19,7 +42,7 @@ public:
         return *(s.begin());
     }
 };
-
+*/
 /**
  * Your KthLargest object will be instantiated and called as such:
  * KthLargest* obj = new KthLargest(k, nums);
