@@ -79,7 +79,7 @@ public:
     }
     
     //quick-select: 20ms
-    vector<int> topKFrequent(vector<int>& nums, int k) {
+    vector<int> topKFrequent4(vector<int>& nums, int k) {
         unordered_map<int,int> mp;
         for(auto n:nums)
             mp[n]++;
@@ -116,5 +116,23 @@ public:
         return r;
     }
     
+    // quick-select from stl :
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        std::unordered_map<int, int> freq;
+        std::vector<int> ret;
+        ret.reserve(nums.size());
+        for (auto n : nums) {
+          if (1 == ++freq[n]) {
+            // Count the frequency for each int, storing each new int as we go
+            ret.push_back(n);
+          }
+        }
+
+        std::nth_element(ret.begin(), ret.begin() + k - 1, ret.end(), [&freq] (int l, int r) -> bool {
+            return freq[l] > freq[r];
+          });
+        ret.resize(k);
+        return ret;
+      }
 };
 
