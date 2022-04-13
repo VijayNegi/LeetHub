@@ -15,14 +15,10 @@ public:
             int c1 = c+dir[k][1];
             if(r1<rmin || r1>=rows || c1<cmin || c1>=cols)
             {
-                if(k==0)
-                    ++rmin;
-                else if(k==1)
-                    --cols;
-                else if(k==2)
-                    --rows;
-                else if(k==3)
-                    ++cmin;
+                if(k==0)       ++rmin;
+                else if(k==1)  --cols;
+                else if(k==2)  --rows;
+                else if(k==3)  ++cmin;
                 k = (k+1)%4;
                 continue;
             }
