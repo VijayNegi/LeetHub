@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // more generic code.
     vector<int> plusOne(vector<int>& digits) {
         reverse(begin(digits),end(digits));
         int carry = 1;
@@ -16,6 +17,7 @@ public:
         reverse(begin(digits),end(digits));
         return digits;
     }
+    // old one
     vector<int> plusOne1(vector<int>& digits) {
         if(digits.size()<1)
         {
