@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode* increasingBST(TreeNode* root) {
+    TreeNode* increasingBST1(TreeNode* root) {
         vector<TreeNode*> stk;
         function<void(TreeNode*)> pushLefts = [&](TreeNode* node)
         {
@@ -34,5 +34,21 @@ public:
             curr = node;
         }
         return dummy.right;
+    }
+    
+    TreeNode* increasingBST(TreeNode* root, TreeNode* next=NULL) {
+        if(root == NULL) return next;  
+        root->right = increasingBST(root->right, next);  
+        TreeNode *temp = increasingBST(root->left, root);  
+        root->left = NULL; 
+        return temp;
+    }
+    
+    TreeNode* increasingBST2(TreeNode* root, TreeNode* tail = NULL) {
+        if (!root) return tail;
+        TreeNode* res = increasingBST(root->left, root);
+        root->left = NULL;
+        root->right = increasingBST(root->right, tail);
+        return res;
     }
 };
