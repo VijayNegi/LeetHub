@@ -1,20 +1,21 @@
 class MyHashSet {
-    vector<int> st;
+    bitset<1000001> bt;
+    //vector<int> st;
 public:
     MyHashSet() {
-        st = vector<int> (1000001,0);
+        //st = vector<int> (1000001,0);
     }
     
     void add(int key) {
-        st[key] = 1;
+        bt[key] = 1;
     }
     
     void remove(int key) {
-        st[key] = 0;
+        bt[key] = 0;
     }
     
     bool contains(int key) {
-        return st[key];
+        return bt[key];
     }
 };
 
