@@ -1,25 +1,35 @@
+using psi = pair<string,int>;
 class UndergroundSystem {
-    unordered_map<int,pair<string,int>> journy_start;
-    unordered_map<string,pair<double,int>> journy_avg;
+    unordered_map<int,psi> tmap;
+    unordered_map<string,vector<double>> avg;
 public:
     UndergroundSystem() {
+        
     }
     
     void checkIn(int id, string stationName, int t) {
-        journy_start[id] = make_pair(stationName,t);
+        tmap[id] = {stationName,t};
     }
     
     void checkOut(int id, string stationName, int t) {
-        int travel_time = t - journy_start[id].second;
-        string key = journy_start[id].first + "," + stationName;
-        journy_avg[key].first += travel_time;
-        journy_avg[key].second += 1;
-        journy_start.erase(id);
+        string str = tmap[id].first+":"+stationName;
+        double time = t - tmap[id].second;
+        if(avg[str].size())
+        {
+            avg[str][0] += time;
+            avg[str][1]++;
+        }
+        else
+        {
+            avg[str] = {time,1};
+        }
+        
     }
     
     double getAverageTime(string startStation, string endStation) {
-        string key = startStation + "," + endStation;
-        return journy_avg[key].first/ journy_avg[key].second;
+        string str = startStation+":"+endStation;
+        double total = avg[str][0];
+        return total/avg[str][1];
     }
 };
 
