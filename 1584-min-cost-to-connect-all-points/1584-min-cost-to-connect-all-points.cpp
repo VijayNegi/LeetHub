@@ -1,8 +1,8 @@
 using wto = pair<int,int>;
 class Solution {
 public:
-    // MST : 1811
-    int minCostConnectPoints1(vector<vector<int>>& points) {
+    // MST : 1811ms
+    int minCostConnectPoints(vector<vector<int>>& points) {
         int n = points.size();
         vector<int> visited(n,false);
         priority_queue<vector<int>,vector<vector<int>>, greater<>> pq;
@@ -15,7 +15,7 @@ public:
             pq.pop();
             if(visited[v[1]])
                 continue;
-            int node = v[1];
+            int& node = v[1];
             for(int i=0;i<n;++i)
             {
                 if(!visited[i] && i!=node)
@@ -32,8 +32,8 @@ public:
         }
         return cost;
     }
-    
-     int minCostConnectPoints(vector<vector<int>>& points) {
+    // MST: 194ms
+     int minCostConnectPoints1(vector<vector<int>>& points) {
         int n = points.size();
         auto cmd = [&](wto& left, wto& right){ return left.second > right.second;};
         priority_queue<wto,vector<wto>, decltype(cmd)> pq(cmd);
