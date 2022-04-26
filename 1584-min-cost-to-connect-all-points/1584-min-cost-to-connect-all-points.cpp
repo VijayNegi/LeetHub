@@ -16,6 +16,12 @@ public:
             if(visited[v[1]])
                 continue;
             int& node = v[1];
+            visited[node] = true;
+            cost += v[0];
+            ++count;
+            if(count==n)
+                break;
+            
             for(int i=0;i<n;++i)
             {
                 if(!visited[i] && i!=node)
@@ -24,11 +30,7 @@ public:
                     pq.push({d,i});
                 }
             }
-            visited[node] = true;
-            cost += v[0];
-            ++count;
-            if(count==n)
-                break;
+            
         }
         return cost;
     }
