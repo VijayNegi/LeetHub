@@ -5,7 +5,8 @@ public:
     int minCostConnectPoints(vector<vector<int>>& points) {
         int n = points.size();
         vector<int> visited(n,false);
-        priority_queue<vector<int>,vector<vector<int>>, greater<>> pq;
+        //priority_queue<vector<int>,vector<vector<int>>, greater<>> pq;
+        priority_queue<pair<int,int>,vector<pair<int,int>>, greater<>> pq;
         pq.push({0,0});
         int cost=0;
         int count = 0;
@@ -13,11 +14,13 @@ public:
         {
             auto v = pq.top();
             pq.pop();
-            if(visited[v[1]])
+            int& node = v.second;
+            //int& node = v[1];
+            if(visited[node])
                 continue;
-            int& node = v[1];
+           
             visited[node] = true;
-            cost += v[0];
+            cost += v.first;
             ++count;
             if(count==n)
                 break;
