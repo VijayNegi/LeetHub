@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // 280ms
     int minimumEffortPath(vector<vector<int>>& heights) {
         int rows = heights.size();
         int cols = heights[0].size();
@@ -17,9 +18,7 @@ public:
             int d = p.first;
             int r = p.second/cols;
             int c = p.second%cols;
-            //cout<<r<<" "<<c<<endl;
-            if(visited[r][c])
-                continue;
+            if(visited[r][c])  continue;
             visited[r][c] = true;
             if(r == rows-1 && c == cols-1)
             {
@@ -30,13 +29,9 @@ public:
             {
                 int r1 = r + dir[i][0];
                 int c1 = c + dir[i][1];
-                if(r1<0 || r1>=rows)
-                    continue;
-                if(c1<0 || c1>=cols)
-                    continue;
-                
+                if(r1<0 || r1>=rows || c1<0 || c1>=cols)    continue;
+                   
                 int newd = max(d, abs(heights[r1][c1]-heights[r][c]));
-                
                 pq.push({newd, r1*cols+c1});
             }
         }
