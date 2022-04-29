@@ -28,7 +28,13 @@ public:
                     visited[k] = true;
                     colour[k] = curr;
                     for(auto t:graph[k])
-                        p.push(t);
+                    {
+                        if(visited[t] && colour[t] == curr)
+                            return false;
+                        else if(!visited[t])
+                            p.push(t);
+                    }
+                        
                 }
                 if(q.empty())
                 {
