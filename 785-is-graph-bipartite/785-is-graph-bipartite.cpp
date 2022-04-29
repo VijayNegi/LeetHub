@@ -18,12 +18,12 @@ public:
                 
                 int k = q.front();
                 q.pop();
-                if(visited[k])
-                {
-                    if(curr != colour[k])
-                        return false;
-                }
-                else
+                // if(visited[k])
+                // {
+                //     if(curr != colour[k])
+                //         return false;
+                // }
+                // else
                 {
                     visited[k] = true;
                     colour[k] = curr;
