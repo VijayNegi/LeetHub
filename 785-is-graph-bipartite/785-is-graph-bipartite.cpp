@@ -5,36 +5,24 @@ public:
         int n = graph.size();
         vector<int> visited(n,false);
         vector<int> colour(n,false);
-      
         for(int i=0;i<n;++i)
         {
-            if(visited[i])
-                continue;
+            if(visited[i])  continue;
             queue<int> q;
             q.push(i);
             queue<int> p;
             while(!q.empty())
             {
-                
                 int k = q.front();
                 q.pop();
-                // if(visited[k])
-                // {
-                //     if(curr != colour[k])
-                //         return false;
-                // }
-                // else
+                visited[k] = true;
+                colour[k] = curr;
+                for(auto t:graph[k])
                 {
-                    visited[k] = true;
-                    colour[k] = curr;
-                    for(auto t:graph[k])
-                    {
-                        if(visited[t] && colour[t] == curr)
-                            return false;
-                        else if(!visited[t])
-                            p.push(t);
-                    }
-                        
+                    if(visited[t] && colour[t] == curr)
+                        return false;
+                    else if(!visited[t])
+                        p.push(t);
                 }
                 if(q.empty())
                 {
@@ -43,7 +31,6 @@ public:
                 }
             }
         }
-        
         return true;
         
     }
