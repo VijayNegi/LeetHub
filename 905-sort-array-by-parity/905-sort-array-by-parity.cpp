@@ -1,7 +1,7 @@
 class Solution {
 public:
-    // stl : 13 ms
-    vector<int> sortArrayByParity(vector<int>& nums) {
+    // stl : 3 ms
+    vector<int> sortArrayByParity1(vector<int>& nums) {
         auto cmp = [](int l,int r){return ((l & 1) < (r&1));};
         sort(begin(nums),end(nums),cmp);
         return nums;
@@ -22,7 +22,7 @@ public:
         return nums;
     }
     //
-     vector<int> sortArrayByParity3(vector<int> &A) {
+     vector<int> sortArrayByParity(vector<int> &A) {
         for (int i = 0, j = 0; j < A.size(); j++)
             if (A[j] % 2 == 0) swap(A[i++], A[j]);
         return A;
