@@ -1,6 +1,8 @@
 class Solution {
 public:
-    int maxOperations(vector<int>& nums, int k) {
+    // multiset : 393ms
+    // Note : Multiset erase with key removes all keys
+    int maxOperations1(vector<int>& nums, int k) {
         multiset<int> ms;
         int result=0;
         for(int n:nums)
@@ -13,6 +15,22 @@ public:
             }
             else
                 ms.insert(n);
+        }
+        return result;
+    }
+    // 
+    int maxOperations(vector<int>& nums, int k) {
+        unordered_map<int,int> mp;
+        int result=0;
+        for(int n:nums)
+        {
+            if(mp[k-n]>0)
+            {
+                --mp[k-n];
+                ++result;
+            }
+            else
+                ++mp[n];
         }
         return result;
     }
