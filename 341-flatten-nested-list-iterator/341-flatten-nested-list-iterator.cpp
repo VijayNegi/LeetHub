@@ -23,6 +23,21 @@ public:
     NestedIterator(vector<NestedInteger> &nestedList) {
         stk.push_back(nestedList);
         idx.push_back(0);
+        findNext();
+    }
+    
+    int next() {
+        int result = stk.back()[idx.back()].getInteger();
+        ++idx.back();
+        findNext();
+        return result;
+    }
+    
+    bool hasNext() {
+        return stk.size();
+    }
+    void findNext()
+    {
         while(!stk.empty())
         {
             if(stk.back().size() <= idx.back())
@@ -41,35 +56,6 @@ public:
             else 
                 break;
         }
-    }
-    
-    int next() {
-        int result = stk.back()[idx.back()].getInteger();
-        ++idx.back();
-        while(!stk.empty())
-        {
-            if(stk.back().size() <= idx.back())
-            {
-                
-                stk.pop_back();
-                idx.pop_back();
-                continue;
-            }
-            if(!stk.back()[idx.back()].isInteger())
-            { 
-                auto& curr = stk.back()[idx.back()].getList();
-                stk.push_back(curr);
-                ++idx.back();
-                idx.push_back(0);
-            }
-            else
-                break;
-        }
-        return result;
-    }
-    
-    bool hasNext() {;
-        return stk.size();
     }
 };
 
