@@ -21,23 +21,18 @@ class NestedIterator {
     vector<vector<NestedInteger>> stk;
 public:
     NestedIterator(vector<NestedInteger> &nestedList) {
-        //cout<<"\n update\n";
-        //auto& curr = nestedList;
         stk.push_back(nestedList);
         idx.push_back(0);
         while(!stk.empty())
         {
-            //cout<<"s="<<stk.back().size() <<" i="<<idx.back()<<endl;
             if(stk.back().size() <= idx.back())
             {
-                //cout<<"pop\n";
                 stk.pop_back();
                 idx.pop_back();
                 continue;
             }
             if(!(stk.back()[idx.back()].isInteger()))
             {
-                //cout<<"getList\n";
                 auto& curr = stk.back()[idx.back()].getList();
                 stk.push_back(curr);
                 ++idx.back();
@@ -49,12 +44,10 @@ public:
     }
     
     int next() {
-        //cout<<"Next\n";
         int result = stk.back()[idx.back()].getInteger();
         ++idx.back();
         while(!stk.empty())
         {
-            //cout<<"While\n";
             if(stk.back().size() <= idx.back())
             {
                 
@@ -75,8 +68,7 @@ public:
         return result;
     }
     
-    bool hasNext() {
-        //cout<<"hasNext\n";
+    bool hasNext() {;
         return stk.size();
     }
 };
