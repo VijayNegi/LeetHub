@@ -11,7 +11,8 @@ public:
     }
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         std::sort(nums.begin(), nums.end());
-        set<vector<int>> st;
+        //set<vector<int>> st;
+        vector<vector<int>> result;
         vector<int> mp(21,0);
         for(auto n:nums)
             mp[n+10]++;
@@ -20,7 +21,8 @@ public:
         function<void(int)> dfs = [&](int n){
             if(n==0)
             {
-                st.insert(res);
+                //st.insert(res);
+                result.push_back(res);
                 return;
             }
             
@@ -37,6 +39,7 @@ public:
             }
         };
         dfs(nums.size());
-        return vector(st.begin(),st.end());
+        //return vector(st.begin(),st.end());
+        return result;
     }
 };
