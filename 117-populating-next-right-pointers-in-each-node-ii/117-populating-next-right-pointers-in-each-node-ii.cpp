@@ -26,28 +26,20 @@ public:
         {
             if(curr->left)
             {
-                if(!pre)
-                {
-                    pre = child = curr->left;
-                }
-                else
-                {
+                if(pre)
                     pre->next = curr->left;
-                    pre = curr->left;
-                }
+                pre = curr->left;
             }
+            if(!child)
+                child = pre;
             if(curr->right)
             {
-                if(!pre)
-                {
-                    pre = child = curr->right;
-                }
-                else
-                {
+                if(pre)
                     pre->next = curr->right;
-                    pre = curr->right;
-                }
+                pre = curr->right;
             }
+            if(!child)
+                child = pre;
             curr = curr->next;
             if(!curr)
             {
