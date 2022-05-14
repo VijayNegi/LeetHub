@@ -3,9 +3,7 @@ public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
         vector<vector<pair<int,int>>> adj(n+1);
         for(auto v: times)
-        {
             adj[v[0]].push_back({v[1],v[2]});
-        }
         
         vector<bool> visited(n+1,false);
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<> > pq;
