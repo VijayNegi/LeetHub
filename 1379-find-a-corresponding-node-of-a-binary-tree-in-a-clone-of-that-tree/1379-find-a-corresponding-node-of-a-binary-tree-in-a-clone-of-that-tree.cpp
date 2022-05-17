@@ -10,7 +10,8 @@
 
 class Solution {
 public:
-    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+    //dfs : 1017ms
+    TreeNode* getTargetCopy1(TreeNode* original, TreeNode* cloned, TreeNode* target) {
         TreeNode* result= nullptr;
         function<bool(TreeNode*,TreeNode*)> dfs = [&](TreeNode* node,TreeNode* clone){
             if(!node)
@@ -29,5 +30,31 @@ public:
         dfs(original,cloned);
             
         return result;
+    }
+    // bfs : 
+    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+        TreeNode* result= nullptr;
+        queue<TreeNode*> q,q1;
+        q.push(original);
+        q1.push(cloned);
+        while(!q.empty()) {
+            auto c = q.front();
+            auto c1 = q1.front();
+            q1.pop();
+            q.pop();
+            if(c==target)
+                return c1;
+            if(c->left)
+            {
+                q.push(c->left);
+                q1.push(c1->left);
+            }
+            if(c->right)
+            {
+                q.push(c->right);
+                q1.push(c1->right);
+            }
+        }
+        return nullptr;
     }
 };
