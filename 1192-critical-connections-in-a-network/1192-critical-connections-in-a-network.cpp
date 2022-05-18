@@ -1,36 +1,35 @@
 class Solution {
 public:
-    // Tarjans algorithm
     vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {
-        // build adjacency list
         vector<vector<int>> adj(n);
-        for(auto c: connections)
-        {
-            adj[c[0]].push_back(c[1]);
-            adj[c[1]].push_back(c[0]);
+        for(auto ed:connections) {
+            adj[ed[0]].push_back(ed[1]);
+            adj[ed[1]].push_back(ed[0]);
         }
-        int t=0;
-        vector<int> id(n,-1), low(n,-1);
-        vector<vector<int>> critical;
-        function<void(int,int)> dfs_targen = [&](int v,int parent)
-        {
-            if(id[v]>=0)
+        
+        vector<int> idx(n,-1);
+        vector<int> low(n,-1);
+        int id = 0;
+        vector<vector<int>> result;
+        function<void(int,int)> dfs = [&](int node,int parent) {
+            
+            if(idx[node] != -1)
                 return;
-            id[v] = t++;
-            low[v] = id[v];
-            for(auto n: adj[v])
-            {
-                if(n==parent)
+            //cout<<node<<endl;
+            idx[node] = id++;
+            low[node] = idx[node];// lowest self rechable
+            for(auto ed:adj[node]) {
+                if(ed == parent)
                     continue;
-                dfs_targen(n,v);
+                dfs(ed,node);
+                low[node] = min(low[node],low[ed]);
+                if(idx[node] < low[ed])
+                    result.push_back({node,ed});
                 
-                low[v] = min(low[v],low[n]);
-                if(id[v] < low[n])     // important as child was never able to reach back i.e. new SSC and count it ( no back link )
-                    critical.push_back({v,n});
             }
+            //cout<<node<<" "<<low[node]<<endl;
         };
-
-        dfs_targen(0,-1);
-        return critical;
+        dfs(0,-1);
+        return result;
     }
 };
