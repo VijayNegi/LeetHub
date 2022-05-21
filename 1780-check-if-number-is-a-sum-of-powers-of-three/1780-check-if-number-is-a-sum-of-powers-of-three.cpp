@@ -21,12 +21,18 @@ public:
         return n==0; 
     }
     // maths
-    
-    bool checkPowersOfThree(int n) {
+    // https://leetcode.com/problems/check-if-number-is-a-sum-of-powers-of-three/discuss/1107040/C%2B%2B-Easiest-solution-with-detailed-explanation
+    bool checkPowersOfThree2(int n) {
         if(n==1)
             return true;
         if(n%3==2)
             return false;
-        return checkPowersOfThree(n/3);
+        return checkPowersOfThree2(n/3);
     }
+    // iterative
+    bool checkPowersOfThree(int n) {
+    while (n > 0 && n % 3 != 2)
+        n /= 3;
+    return n == 0;
+}
 };
