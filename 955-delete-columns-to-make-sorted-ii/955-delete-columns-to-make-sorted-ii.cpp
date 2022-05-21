@@ -1,4 +1,4 @@
-// does not work
+
 class Solution {
 public:
     // self : 4ms
@@ -34,7 +34,7 @@ public:
         }
         return result;
     }
-    // just cleaner: 
+    // just cleaner: 6ms
     int minDeletionSize(vector<string>& A) {
         int res = 0, n = A.size(), m = A[0].length(), i, j;
         vector<bool> sorted(n - 1, false);
@@ -52,4 +52,5 @@ public:
         }
         return res;
     }
+
 };
