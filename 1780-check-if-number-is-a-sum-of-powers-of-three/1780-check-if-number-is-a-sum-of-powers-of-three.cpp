@@ -1,6 +1,7 @@
 class Solution {
 public:
-    bool checkPowersOfThree(int n) {
+    // self :4ms 
+    bool checkPowersOfThree1(int n) {
         if(n==1)
             return true;
         int th = 1;
@@ -13,13 +14,19 @@ public:
             }
             if(p==maxp)
                 break;
-            //cout<<"th="<<th<<"\n";
-            //cout<<"p="<<p<<"\n";
             n -=th;
             maxp=p;
             th=1;
         }
-        //cout<<n;
         return n==0; 
+    }
+    // maths
+    
+    bool checkPowersOfThree(int n) {
+        if(n==1)
+            return true;
+        if(n%3==2)
+            return false;
+        return checkPowersOfThree(n/3);
     }
 };
