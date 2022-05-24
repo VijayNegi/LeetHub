@@ -42,8 +42,8 @@ public:
         }
         return maxL;
     }
-    // dp :
-    int longestValidParentheses(string s) {
+    // dp : 3 ms
+    int longestValidParentheses3(string s) {
         int maxans = 0;
         int n = s.size();
         vector<int> dp(n,0);
@@ -59,7 +59,34 @@ public:
             }
         }
         return maxans;
-    
+    }
+    // space optimized : 
+    int longestValidParentheses(string s) {
+        int sum = 0, res = 0, len = 0, n = s.size();
+        for (int i = 0; i < n; i++) {
+            if (s[i] == '(') sum++;
+            else sum--;
+            if (sum < 0) {
+                sum = 0;
+                len = 0;
+            } else {
+                len++;
+                if (sum == 0) res = max(res, len);
+            }
+        }
+        sum = 0, len=0;
+        for (int i = n - 1; i >= 0; i--) {
+            if (s[i] == ')') sum++;
+            else sum--;
+            if (sum < 0) {
+                sum = 0;
+                len = 0;
+            } else {
+                len++;
+                if (sum == 0) res = max(res, len);
+            }
+        }
+        return res;
     }
     
 };
