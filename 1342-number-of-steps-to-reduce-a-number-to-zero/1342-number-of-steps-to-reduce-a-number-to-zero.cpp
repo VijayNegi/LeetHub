@@ -5,10 +5,9 @@ public:
         while(num){
             ++count;
             if(num & 1)
-                num -=1;
-            else
-                num = num>>1;
+                ++count;
+            num = num>>1;
         }
-        return count;
+        return count?--count:0;
     }
 };
