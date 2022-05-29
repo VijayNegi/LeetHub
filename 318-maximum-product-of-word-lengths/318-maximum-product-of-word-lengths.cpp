@@ -6,7 +6,7 @@ public:
         int i=0;
         for(auto& s:words) {
             for(auto& c:s )
-                hash[i] = hash[i] | 1<<(c-'a');
+                hash[i] |= 1<<(c-'a');
             ++i;
         }
         int result=0;
