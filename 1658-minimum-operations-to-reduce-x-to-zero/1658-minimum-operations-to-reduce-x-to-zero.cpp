@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // hashmap 706 ms
     int minOperations1(vector<int>& nums, int x) {
         int n = nums.size();
         unordered_map<int,int> pre;
@@ -25,7 +26,7 @@ public:
         return result;
         
     }
-    // sliding window
+    // sliding window 272 ms
     int minOperations(vector<int>& nums, int x) {
         int sum = 0;
         for (int num: nums) sum += num;
