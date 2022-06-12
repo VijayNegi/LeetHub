@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int maximumUniqueSubarray(vector<int>& nums) {
+    // sliding window : 198ms
+    int maximumUniqueSubarray1(vector<int>& nums) {
         vector<bool> hash(10001,false);
         int sum=0,l=0,r=0;
         int result=0;
@@ -17,5 +18,17 @@ public:
             }
         }
         return result;
+    }
+    // hash set : 
+    int maximumUniqueSubarray(vector<int>& nums) {        
+        int n = size(nums), cur_sum = 0, ans = 0, l = 0, r = 0;
+        unordered_set<int> s;
+        while(r < n) {
+            while(s.find(nums[r]) != end(s))          
+                cur_sum -= nums[l], s.erase(nums[l++]);
+            cur_sum += nums[r], s.insert(nums[r++]);  
+            ans = max(ans, cur_sum);                 
+        }
+        return ans;
     }
 };
