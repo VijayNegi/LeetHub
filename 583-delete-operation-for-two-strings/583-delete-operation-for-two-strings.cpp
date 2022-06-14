@@ -23,7 +23,8 @@ public:
         return n1+ n2- 2* dp[n1-1][n2-1];
     }
     // same as above
-    int minDistance(string s1, string s2) {
+    // 35ms
+    int minDistance2(string s1, string s2) {
          int n1 = s1.size();
         int n2 = s2.size();
         vector<vector<int>> dp(n1+1,vector(n2+1,0));
@@ -38,5 +39,21 @@ public:
             }
         }
         return n1 + n2 - 2 * dp[n1][n2];
+    }
+    // count to char to delete
+    int minDistance(string word1, string word2) {
+        vector<vector<int>> dp(word1.size()+1,vector<int>(word2.size()+1,-1));
+        for(int i=0 ;i<=word1.size();i++) {
+            for(int j=0;j<=word2.size();j++) {
+                if(i==0 || j== 0) {
+                    dp[i][j]= i+j;
+                }
+                else if(word1[i-1]==word2[j-1])
+                    dp[i][j] = dp[i-1][j-1];
+                else
+                    dp[i][j] = min(dp[i][j-1],dp[i-1][j]) +1;
+            }
+        }
+        return dp[word1.size()][word2.size()];
     }
 };
