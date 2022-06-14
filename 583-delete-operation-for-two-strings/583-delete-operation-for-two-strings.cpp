@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // DP: try to maintain a table of number of character that are matched till now
     int minDistance(string word1, string word2) {
         int n1 = word1.size();
         int n2 = word2.size();
@@ -15,12 +16,9 @@ public:
                     dp[i][j] = max(dp[i][j],dp[i][j-1]);
                 if(i>0)
                     dp[i][j] = max(dp[i][j],dp[i-1][j]);
-                result = max(result,dp[i][j]);
-                //cout<< dp[i][j]<<" ";
+                //result = max(result,dp[i][j]);
             }
-            //cout<<endl;
         }
-        //cout<<result<<endl;
-        return n1-result+ n2-result;
+        return n1+ n2- 2* dp[n1-1][n2-1];
     }
 };
