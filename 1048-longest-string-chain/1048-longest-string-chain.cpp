@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int longestStrChain1(vector<string>& words) {
+    int longestStrChain(vector<string>& words) {
         int n = words.size();
         sort(words.begin(),words.end(),[](string& l,string& r){return l.size()>r.size();});
         int result=1;
@@ -9,8 +9,10 @@ public:
             s[w]=1;
         for(auto& w:words) {
             int k = w.size();
-            for(int i=0;i<w.size();++i) {
-                string temp = w.substr(0,i) + w.substr(i+1, k-i-1);
+            string w1 = w;
+            for(int i=0;i<k;++i) {
+                swap(w1[0],w1[i]);
+                string temp = w1.substr(1);
                 if(s[temp]) {
                     s[temp] = max(s[temp],s[w]+1);
                     result = max(result,s[temp]);
@@ -20,7 +22,7 @@ public:
         return result;
     }
     
-    int longestStrChain(vector<string>& words) {
+    int longestStrChain1(vector<string>& words) {
         int result=1;
         sort(words.begin(),words.end(),[](string &a, string &b){return a.size()<b.size();});
         int len = words.size();
