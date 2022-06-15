@@ -43,6 +43,7 @@ public:
         return result;
     }
     //https://leetcode.com/problems/longest-string-chain/discuss/2153007/C%2B%2BPython-Simple-Solution-w-Explanation-or-DP
+    // 150ms
     int longestStrChain(vector<string> &words) {
         unordered_map<string, int> dp;
         int res = 1;
