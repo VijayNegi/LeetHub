@@ -1,3 +1,30 @@
+
+class WordFilter {
+    unordered_map<string,int> hashmap;
+public:
+    WordFilter(vector<string>& words) {
+        
+        for(int i=0;i<words.size();i++)
+        {
+            int len = words[i].size();
+            for(int k=0;k<=len;k++) // not equal
+            {
+                string pre = words[i].substr(0,k);
+                for(int l=0;l<len;l++)
+                {
+                    string suff = words[i].substr(l,len);
+                    hashmap[pre+"|"+suff] = i+1;
+                }
+            }
+        }
+    }
+    
+    int f(string prefix, string suffix) {
+        return hashmap[prefix+"|"+suffix] - 1;
+    }
+};
+
+/*
 #define TRIE_LEN 27
 
 struct Trie {
@@ -47,7 +74,7 @@ public:
         return root.search(suffix+ "{"+prefix);
     }
 };
-
+*/
 /**
  * Your WordFilter object will be instantiated and called as such:
  * WordFilter* obj = new WordFilter(words);
