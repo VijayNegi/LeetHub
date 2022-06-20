@@ -1,21 +1,13 @@
 class Solution {
 public:
+    // self : 93 ms
     int minimumLengthEncoding(vector<string>& words) {
-        unordered_set<string> s(words.begin(),words.end());
-        for(auto w:words) {
-            if(s.count(w)) {
-                int n = w.size();
-                for(int i=0;i<n-1;++i) {
-                    string sub = w.substr(n-i-1);
-                    if(s.count(sub))
-                        s.erase(sub);
-                }
-            }
-        }
-        int result = 0;
-        for(auto str:s) {
-            result += str.size() +1;
-        }
-        return result;
+        unordered_set<string> s(words.begin(), words.end());
+        for (string w : s)
+            for (int i = 1; i < w.size(); ++i)
+                s.erase(w.substr(i));
+        int res = 0;
+        for (string w : s) res += w.size() + 1;
+        return res;
     }
 };
