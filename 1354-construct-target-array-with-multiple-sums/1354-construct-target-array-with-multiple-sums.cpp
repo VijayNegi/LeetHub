@@ -1,30 +1,25 @@
 typedef long long ll;
 class Solution {
 public:
-    bool isPossible1(vector<int>& target) {
+    bool isPossible(vector<int>& target) {
         int n = target.size();
         if(n==1 && target[0]!=1)
             return false;
         priority_queue<int> pq(target.begin(),target.end());
-        long sum = accumulate(target.begin(),target.end(),0);
+        long sum = accumulate(target.begin(),target.end(),0ll);
         
         while(pq.top()>1) {
-            sum -= pq.top(); 
-            if(pq.top()<=sum) return false;
-            int val = pq.top() % sum; // new element
-            sum += val;
-            if(val > 0) {
-                //sum -= pq.top() - val;
-                pq.pop();
-                pq.push(val);
-                //sum += val;
-            }
-            else
-                return false;
+            sum -= pq.top();
+            if(sum == 0 || sum >= pq.top()) return false;
+            int old = pq.top() % sum;
+            if(sum != 1 && old == 0) return false;
+            pq.pop();     
+            pq.push(old); 
+            sum += old;  
         }
         return true;
     }
-    bool isPossible(vector<int>& target) {
+    bool isPossible2(vector<int>& target) {
         bool result = true;
         int len = target.size();
         if(len==1 && target[0]!=1)
