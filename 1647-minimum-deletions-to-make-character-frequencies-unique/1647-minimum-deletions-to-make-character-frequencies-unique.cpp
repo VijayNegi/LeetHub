@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int minDeletions(string s) {
+    // self
+    int minDeletions1(string s) {
         vector<int> freq(26,0);
         for(auto& c:s) {
             freq[c-'a']++;
@@ -23,5 +24,22 @@ public:
             }
         }
         return result;
+    }
+    // cleaner
+    int minDeletions(string s) {
+        vector<int> freq(26, 0);
+        for (char c : s) {
+            freq[c - 'a']++;
+        }
+        int count = 0;
+        unordered_set<int> seenFrequencies;
+        for (int i = 0; i < 26; i++) {
+            while (freq[i] && seenFrequencies.find(freq[i]) != seenFrequencies.end()) {
+                freq[i]--;
+                count++;
+            }
+            seenFrequencies.insert(freq[i]);
+        }
+        return count;
     }
 };
