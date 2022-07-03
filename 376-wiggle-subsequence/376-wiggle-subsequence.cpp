@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int wiggleMaxLength(vector<int>& nums) {
+    // self: 3 ms
+    int wiggleMaxLength1(vector<int>& nums) {
         int n = nums.size();
         if(n==1 || (n==2 && nums[0]!=nums[1]) )
             return n;
@@ -18,12 +19,10 @@ public:
         bool up = nums[i] > nums[0];
         for(;i<n;++i) {
             if(up && nums[i] < seq.back()) {
-                //cout<<"up:"<<nums[i]<<endl;
                 seq.push_back(nums[i]);
                 up = !up;
             }
             else if(!up && nums[i] > seq.back()) {
-                //cout<<"dn:"<<nums[i]<<endl;
                 seq.push_back(nums[i]);
                 up = !up;
             }
@@ -31,5 +30,31 @@ public:
                 seq.back() = nums[i];
         }
         return seq.size();
+    }
+    // cleaner O(1);
+    int wiggleMaxLength(vector<int>& nums) {
+        int n = nums.size();
+        if(n==1) return 1;
+        int prev = nums[0];
+        int count=1;
+        int i=1;
+        for(;i<n;++i)
+            if(nums[i]!=prev) break;
+        if(i==n) return 1;
+        prev = nums[i];
+        ++count;
+        bool up = nums[i] > nums[0];
+        for(;i<n;++i) {
+            if(up && nums[i] < prev) {
+                ++count;
+                up = !up;
+            }
+            else if(!up && nums[i] > prev) {
+                ++count;
+                up = !up;
+            }
+            prev = nums[i];
+        }
+        return count;
     }
 };
