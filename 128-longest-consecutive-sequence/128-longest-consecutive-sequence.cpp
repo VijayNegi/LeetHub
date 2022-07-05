@@ -46,8 +46,8 @@ public:
         }
         return numset.maxSize;
     }
-    // find smallest number in sequence:
-    int longestConsecutive(vector<int>& nums) {
+    // find smallest number in sequence: 1033ms
+    int longestConsecutive2(vector<int>& nums) {
         
         unordered_set us(nums.begin(),nums.end());
         int result = 0;
@@ -61,4 +61,16 @@ public:
         }
         return result;
     }
+    // another tricky solution:
+    // update sequence extrimities
+    int longestConsecutive(vector<int>& nums) {
+        unordered_map<int, int> m;
+        int r = 0;
+        for (int i : nums) {
+            if (m[i]) continue;
+            r = max(r, m[i] = m[i + m[i + 1]] = m[i - m[i - 1]] = m[i + 1] + m[i - 1] + 1);
+        }
+        return r;
+        
+        }
 };
