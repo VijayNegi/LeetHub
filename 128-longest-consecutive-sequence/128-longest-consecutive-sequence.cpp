@@ -26,13 +26,13 @@ struct DSU {
 };
 class Solution {
 public:
-    int longestConsecutive(vector<int>& nums) {
+    // DSU solution : 399ms
+    int longestConsecutive1(vector<int>& nums) {
         unordered_map<int,int> idx;
         int n= nums.size();
         if(n<2)
             return n;
         for(int i=0;i<n;++i) {
-            //if(idx.count[])
             idx[nums[i]] = i;
         }
         DSU numset(n);
@@ -45,5 +45,20 @@ public:
             }
         }
         return numset.maxSize;
+    }
+    // find smallest number in sequence:
+    int longestConsecutive(vector<int>& nums) {
+        
+        unordered_set us(nums.begin(),nums.end());
+        int result = 0;
+        for(auto n:nums) {
+            if(us.count(n-1)==0) {
+                int res = 1;
+                while(us.count(++n)==1)
+                    ++res;
+                result = max(res,result);
+            }
+        }
+        return result;
     }
 };
