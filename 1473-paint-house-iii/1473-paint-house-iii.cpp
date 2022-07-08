@@ -30,7 +30,8 @@ public:
         int result = dfs(0,0,0);
         return result == MAX_COST? -1: result;
     }
-    int minCost(vector<int>& houses, vector<vector<int>>& cost, int m, int n, int target) {
+    // bottom up :146 ms
+    int minCost2(vector<int>& houses, vector<vector<int>>& cost, int m, int n, int target) {
         vector<vector<vector<int>>> memo(m, vector<vector<int>>(target + 1, vector<int>(n, MAX_COST)));
         // Initialize for house 0, neighborhoods will be 1
         for (int color = 1; color <= n; color++) {
@@ -77,8 +78,8 @@ public:
         // Return -1 if the answer is MAX_COST as it implies no answer possible
         return minCost == MAX_COST ? -1 : minCost;
     }
-    
-    int minCost2(vector<int>& houses, vector<vector<int>>& cost, int m, int n, int target) {
+    // bottom up (space optimized) :
+    int minCost(vector<int>& houses, vector<vector<int>>& cost, int m, int n, int target) {
         // Initialize prevMemo array
         vector<vector<int>> prevMemo(target + 1, vector<int>(n, MAX_COST));
         // Initialize for house 0, neighborhood will be 1
