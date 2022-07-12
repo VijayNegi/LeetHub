@@ -111,7 +111,7 @@ public:
         int sum = accumulate(begin(nums),end(nums),0);
         if (sum % 4 != 0) return false;
         sort(begin(nums),end(nums),greater<>()); 
-        if(nums.front()> sum/4)
+        if(nums[0] > sum/4)
             return false;
         vector<int> sidesLength(4, 0);
         return dfs(sidesLength, nums, 0, sum / 4);
