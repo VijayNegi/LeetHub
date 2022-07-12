@@ -91,10 +91,10 @@ public:
         if (index == matches.size())
             return sidesLength[0] == sidesLength[1] && sidesLength[1] == sidesLength[2] && sidesLength[2] == sidesLength[3];
         for (int i = 0; i < 4; ++i) {
-            if (sidesLength[i] + matches[index] > target) // first
+            if (sidesLength[i] + matches[index] > target) 
                 continue;
             int j = i;
-            while (--j >= 0) // third
+            while (--j >= 0) 
                 if (sidesLength[i] == sidesLength[j]) 
                     break;
             if (j != -1) continue;
@@ -108,12 +108,11 @@ public:
     //https://leetcode.com/problems/matchsticks-to-square/discuss/95744/cpp-6ms-solution-with-DFS
     bool makesquare(vector<int>& nums) {
         if (nums.size() < 4) return false;
-        int sum = 0;
-        for (const int val: nums) {
-            sum += val;
-        }
+        int sum = accumulate(begin(nums),end(nums),0);
         if (sum % 4 != 0) return false;
-        sort(nums.begin(), nums.end(), [](const int &l, const int &r){return l > r;}); // second
+        sort(begin(nums),end(nums),greater<>()); 
+        if(nums.front()> sum/4)
+            return false;
         vector<int> sidesLength(4, 0);
         return dfs(sidesLength, nums, 0, sum / 4);
     }
