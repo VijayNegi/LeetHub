@@ -13,7 +13,6 @@ class Solution {
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         function<TreeNode*(int,int,int,int)> dfs = [&](int pl,int pr,int il,int ir) -> TreeNode* {
-            //cout<<pl<<" "<<pr<<" "<<il<<" "<<ir<<endl;
             if(pr<pl || ir<il)
                 return nullptr;
             TreeNode* root = new TreeNode(preorder[pl]);
@@ -24,9 +23,9 @@ public:
                 if(inorder[mid] == preorder[pl])
                     break;
             }
-            
-            root->left = dfs(pl+1,pl+mid-il,il,mid-1);
-            root->right = dfs(pl+mid-il+1,pr,mid+1,ir);
+            int len = mid-il;
+            root->left = dfs(pl+1,pl+len,il,mid-1);
+            root->right = dfs(pl+len+1,pr,mid+1,ir);
             return root;
         };
         return dfs(0,preorder.size()-1,0,inorder.size()-1);
