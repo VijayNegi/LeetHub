@@ -61,6 +61,9 @@ public:
             res = max(res, ++(i->second));
         return res;
     }
+    // dynamic segment tree : 476 ms
+    // solution with lazy loading :
+    // https://leetcode.com/problems/my-calendar-iii/discuss/1456107/C%2B%2B-Dynamic-Segment-Tree-Lazy-Propagation-Solution-O(D)
      int book(int start, int end) {
         return sTree->update(start,end-1);
     }
