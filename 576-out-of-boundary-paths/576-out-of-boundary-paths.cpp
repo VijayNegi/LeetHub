@@ -2,7 +2,7 @@ const int mod = 1e9+7;
 class Solution {
 public:
     // dfs without memo : TLE
-    int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+    int findPaths0(int m, int n, int maxMove, int startRow, int startColumn) {
         vector<vector<vector<int>>> memo(maxMove+1,vector(m,vector(n,-1)));
         function<long(int,int,int)> dfs = [&](int r,int c,int moves){
             if(r<0 || c<0 || r>=m || c>=n)
@@ -54,5 +54,23 @@ public:
             swap(curr,temp);
         }
         return result;
+    }
+    int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        if (!maxMove) return 0;
+        vector<vector<int>> dpCurr(m+2, vector<int>(n+2)),
+            dpLast(m+2, vector<int>(n+2));
+        for (int i = 1; i <= m; i++)
+            dpCurr[i][1]++, dpCurr[i][n]++;
+        for (int j = 1; j <= n; j++)
+            dpCurr[1][j]++, dpCurr[m][j]++;
+        int ans = dpCurr[startRow+1][startColumn+1];
+        for (int d = 1; d < maxMove; d++) {
+            dpCurr.swap(dpLast);
+            for (int i = 1; i <= m; i++)
+                for (int j = 1; j <= n; j++)
+                    dpCurr[i][j] = (int)(((long)dpLast[i-1][j] + dpLast[i+1][j] + dpLast[i][j-1] +          dpLast[i][j+1]) % mod);
+            ans = (ans + dpCurr[startRow+1][startColumn+1]) % mod;
+        }
+        return ans;
     }
 };
