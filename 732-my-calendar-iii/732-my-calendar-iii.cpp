@@ -8,7 +8,7 @@ struct Node{
         // if(end<l || start>r)
         //     return 0;
         
-        if(start == l && end == r) {
+        if(start <= l && end >= r) { // change
             ++count;++mcount;
             return mcount;
         }
@@ -23,7 +23,7 @@ struct Node{
         else if(start>mid)
             mcount = max(mcount,right->update(start,end) + count);
         else
-            mcount = max(left->update(start,mid),right->update(mid+1,end) ) + count;
+            mcount = max(left->update(start,end),right->update(start,end) ) + count; // 
             
         return mcount;
     }
