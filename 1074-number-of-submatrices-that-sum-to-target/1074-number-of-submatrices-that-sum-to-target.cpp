@@ -1,7 +1,7 @@
 class Solution {
 public:
     // 2d window sum : 725 ms
-    int numSubmatrixSumTarget1(vector<vector<int>>& matrix, int target) {
+    int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
         int rows = matrix.size();
         int cols = matrix[0].size();
         for(int r=0;r<rows;++r)
@@ -11,12 +11,12 @@ public:
         for(int c1 =0;c1<cols;++c1)
             for(int c2=0;c2<=c1;++c2) {
                 long colSum=0;
-                multiset<long> sumSeen;
-                sumSeen.insert(colSum);
+                unordered_map<int,int> sumSeen;
+                sumSeen[colSum]++;
                 for(int r=0;r<rows;++r){
                     colSum += matrix[r][c1] - ((c2-1)>=0? matrix[r][c2-1]:0); 
-                    result+=sumSeen.count(colSum-target);
-                    sumSeen.insert(colSum);
+                    result+=sumSeen[colSum-target];
+                    sumSeen[colSum]++;
                 } 
             }
         return result;
@@ -26,8 +26,8 @@ public:
     {
         return matrix[ii][jj] - matrix[ii][j-1]- matrix[i-1][jj] + matrix[i-1][j-1];
     }
-    // old solution
-    int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
+    // old solution : 939 ms
+    int numSubmatrixSumTarget1(vector<vector<int>>& matrix, int target) {
         
         int rows = matrix.size();
         int cols=0;
