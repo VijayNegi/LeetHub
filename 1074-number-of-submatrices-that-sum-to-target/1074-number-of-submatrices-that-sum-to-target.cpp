@@ -14,8 +14,8 @@ public:
                 unordered_map<int,int> sumSeen;
                 sumSeen[colSum]++;
                 for(int r=0;r<rows;++r){
-                    colSum += matrix[r][c1] - ((c2-1)>=0? matrix[r][c2-1]:0); 
-                    result+=sumSeen[colSum-target];
+                    colSum += matrix[r][c1] - (c2>0? matrix[r][c2-1]:0); 
+                    result += sumSeen.find(colSum-target) != sumSeen.end() ? sumSeen[colSum-target] : 0;
                     sumSeen[colSum]++;
                 } 
             }
