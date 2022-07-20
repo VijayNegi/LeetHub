@@ -24,6 +24,7 @@ public:
         return result;
     }
     //https://leetcode.com/problems/number-of-matching-subsequences/discuss/117634/Efficient-and-simple-go-through-words-in-parallel-with-explanation
+    // 218 ms
     int numMatchingSubseq2(string S, vector<string>& words) {
         vector<pair<int, int>> waiting[128];
         for (int i = 0; i < words.size(); i++)
@@ -37,6 +38,7 @@ public:
         return waiting[0].size();
     }
     // using char*
+    // 148 ms
     int numMatchingSubseq(string S, vector<string>& words) {
         vector<const char*> waiting[128];
         for (auto &w : words)
