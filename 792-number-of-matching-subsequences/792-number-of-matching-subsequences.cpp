@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int numMatchingSubseq(string s, vector<string>& words) {
+    int numMatchingSubseq1(string s, vector<string>& words) {
         int n = s.size();
         function<bool(const string&)> match = [&](const string& str) {
             int i=0,j=0;
@@ -22,5 +22,18 @@ public:
                 result+=w.second;
         }
         return result;
+    }
+    //https://leetcode.com/problems/number-of-matching-subsequences/discuss/117634/Efficient-and-simple-go-through-words-in-parallel-with-explanation
+    int numMatchingSubseq(string S, vector<string>& words) {
+        vector<pair<int, int>> waiting[128];
+        for (int i = 0; i < words.size(); i++)
+            waiting[words[i][0]].emplace_back(i, 1);
+        for (char c : S) {
+            auto advance = waiting[c];
+            waiting[c].clear();
+            for (auto it : advance)
+                waiting[words[it.first][it.second++]].push_back(it);
+        }
+        return waiting[0].size();
     }
 };
