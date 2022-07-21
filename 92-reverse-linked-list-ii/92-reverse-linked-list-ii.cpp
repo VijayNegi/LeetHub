@@ -39,6 +39,32 @@ public:
             ++left;
         }
         return dummy.next;
+    }
+    // Old soluton
+    ListNode* reverseBetween1(ListNode* head, int left, int right) {
         
+        ListNode dummy(0,head);
+        ListNode* firstSeg=nullptr;
+        ListNode* rev = nullptr;
+        
+        firstSeg = &dummy;
+        int i=1; 
+        while(firstSeg && i<left)
+        {
+            firstSeg = firstSeg->next;
+            ++i;
+        }
+        rev = firstSeg->next;
+        ListNode* ptr = nullptr;
+        while(i<right)
+        {
+            ++i;
+            ptr = rev->next;
+            rev->next = ptr->next;
+            ptr->next = firstSeg->next;
+            firstSeg->next = ptr;
+        }
+        
+        return dummy.next;
     }
 };
