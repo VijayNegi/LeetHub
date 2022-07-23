@@ -36,7 +36,7 @@ struct stree {
 class Solution {
     
 public:
-    // TLE: 50/65 test cases.
+    // TLE: 50/65 test cases. binary search
     // distance has linear time complaxicity
     vector<int> countSmaller1(vector<int>& nums) {
         int n = nums.size();
@@ -50,7 +50,8 @@ public:
         }
         return result;
     }
-    vector<int> countSmaller(vector<int>& nums) {
+    // segment tree: 284 ms
+    vector<int> countSmaller2(vector<int>& nums) {
         stree st;
         int n = nums.size();
         vector<int> result(n,0);
@@ -59,6 +60,43 @@ public:
             st.update(nums[i]+offset);
             result[i] = st.count(nums[i]+offset -1);
         }
+        return result;
+    }
+    // older BIT solution
+    // read this -https://leetcode.com/problems/count-of-smaller-numbers-after-self/discuss/138154/The-C%2B%2B-merge-sort-template-for-pairs-'i'-'j'-problem
+// Least Significant Bit of i
+// #define LSB(i) ((i) & -(i))
+    vector<int> countSmaller(vector<int>& nums) {
+        const int range = 2e5;
+        const int offset = 1e4 + 1;
+        vector<int> BIT(range,0);
+        int n = nums.size();
+        vector<int> result(n);
+        
+        auto update = [&](int idx,int val){
+            while(idx<range)
+            {
+                BIT[idx] += val;
+                idx += idx & -idx;
+            }
+        };
+        auto sum = [&](int idx){
+            int sum=0;
+            while(idx>0)
+            {
+                sum +=BIT[idx];
+                idx -= idx & -idx;
+            }
+            return sum;
+        };
+        
+        for(int i=n-1;i>=0;i--)
+        {
+            result[i]= ( sum(nums[i] + offset -1 )  );
+            update(nums[i] + offset ,1);
+        }
+        
+        
         return result;
     }
 };
