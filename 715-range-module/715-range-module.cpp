@@ -101,8 +101,9 @@ public:
         tree.remove(left,right-1);
     }
 };
-#endif
+
 // https://leetcode.com/problems/range-module/discuss/108912/C%2B%2B-vector-O(n)-and-map-O(logn)-compare-two-solutions
+// 446 ms
 class RangeModule {
 public:
     void addRange(int left, int right) {
@@ -139,6 +140,45 @@ public:
     }
 private:
     map<int, int> invals;
+};
+#endif
+// another one based on map
+//https://leetcode.com/problems/range-module/discuss/475266/C%2B%2B-amortized-O(log(n)
+class RangeModule {
+    map<int, int, greater<int>> tree;	// start -> end
+public:
+    void addRange(int left, int right) {
+        for (auto it = tree.lower_bound(right); it != tree.end() && it->second >= left;) {
+            left = min(left, it->first);
+            right = max(right, it->second);
+            it++;
+            tree.erase(prev(it));
+        }
+        tree[left] = right;
+    }
+    
+    bool queryRange(int left, int right) {
+        auto it = tree.lower_bound(left);
+        if (it == tree.end()) {
+            return false;
+        }
+        return right <= it->second;
+    }
+    
+    void removeRange(int left, int right) {
+        for (auto it = tree.upper_bound(right); it != tree.end() && it->second > left;) {
+            auto nt = next(it);
+            if (it->second > right) {
+                tree[right] = it->second;
+            }
+            if (it->first < left) {
+                it->second = left;
+            } else {
+                tree.erase(it);
+            }
+            it = nt;
+        }
+    }
 };
 /**
  * Your RangeModule object will be instantiated and called as such:
