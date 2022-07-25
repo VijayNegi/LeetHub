@@ -141,9 +141,10 @@ public:
 private:
     map<int, int> invals;
 };
-#endif
+
 // another one based on map
 //https://leetcode.com/problems/range-module/discuss/475266/C%2B%2B-amortized-O(log(n)
+// 385 ms
 class RangeModule {
     map<int, int, greater<int>> tree;	// start -> end
 public:
@@ -179,6 +180,184 @@ public:
             it = nt;
         }
     }
+};
+#endif
+//https://leetcode.com/problems/range-module/discuss/388941/Trust-me-it's-great-Generalizable-Segment-Tree-Solution330msand-140MB
+// Check later
+template <typename T> 
+class MemoryPool {
+ public:
+  std::array<T, 10000000> mem_pool;
+  int ptr = 0;
+  T *offer() {
+    return &mem_pool[ptr++];
+  }
+};
+
+
+struct LogicalAndMonoid {
+  typedef bool T;
+  T append(T a, T b) const { return a && b; }
+  T unit() const { return true ;}
+};
+
+
+struct MaskOperatorMonoid {
+  typedef bool T;
+  typedef int  F;
+  F identity() const { return -1; }
+  T apply(F a, T b) const {
+    if (a == -1) return b;
+    return a;
+  }
+  F compose(F a, F b) const {
+    return a;
+  }
+};
+
+
+template <typename M, typename O>
+class Node {
+ public:
+
+  typedef typename M::T T;
+  typedef typename O::F F;
+  static constexpr M mon {};
+  static constexpr O op {}; 
+  static Node *build(int, int, T  = mon.unit(), F = op.identity(), Node<M, O>* = nullptr, Node<M, O>* = nullptr);
+  
+ public:
+  int ll, rr;
+  T val; 
+  F f;
+  
+  Node* lch; 
+  Node* rch;
+
+  void push() {
+    if (lch != nullptr || rch != nullptr)
+      return;
+    // hard coded predicate to terminate push
+    if (ll +1 == rr)
+      return;
+    grow();
+    lch->f    = op.compose(f, lch->f);
+    rch->f   = op.compose(f, rch->f);
+    f = op.identity();
+    lch->val  = op.apply(lch->f, lch->val);
+    rch->val = op.apply(rch->f, rch->val);
+  }
+  void retract() {
+    if (lch != nullptr)  lch->retract();
+    if (rch != nullptr) rch->retract();
+    lch = nullptr;
+    rch = nullptr;
+  }
+  void grow() {
+    if (lch == nullptr)  lch  = build(ll, (ll + rr) / 2);
+    if (rch == nullptr) rch = build((ll + rr) / 2, rr);
+  }
+};
+
+MemoryPool<Node<LogicalAndMonoid, MaskOperatorMonoid>> mem_pool;
+
+
+template <typename M, typename O>
+Node<M, O>* Node<M, O>::build(int ll, int rr, T init_t, F init_f, Node<M, O>* lch, Node<M, O>* rch) {  
+  Node * ret  =  mem_pool.offer();
+  ret->ll  = ll;
+  ret->rr    = rr;
+  ret->val    = init_t;
+  ret->f      = init_f;
+  ret->lch   = lch;
+  ret->rch  = rch;
+  return ret;
+}
+
+
+template <typename M, typename O>
+class LazyDynamicSegmentTree {
+ public:
+
+  using T = typename Node<M, O>::T;
+  using F = typename Node<M, O>::F;
+  
+  static constexpr M mon = Node<M, O>::mon;
+  static constexpr O op  = Node<M, O>::op;
+  
+  Node<M, O> *root; 
+
+  LazyDynamicSegmentTree() {
+    root = Node<M, O>::build(0, 1000000000, false, false);
+  }
+     
+  
+  void range_apply(int a, int b, bool v) {
+    range_apply(root, a,  b, v);
+  }
+  
+  
+  void range_apply(Node<M, O> * node, int a, int b, bool v) {
+    if(a >= node->rr || b <= node->ll) {
+      return;
+    }
+    Node<M, O> * &lch  = node->lch;
+    Node<M, O> * &rch = node->rch;
+    if(a <= node->ll && b >= node->rr) {
+      node->val = op.apply(v, node->val);
+      node->f   = op.compose(v, node->f);
+      node->retract();
+      return;
+    }      
+    node->push();   
+    range_apply(lch, a, b, v);
+    range_apply(rch, a, b, v);
+    node->val = op.apply(node->f, mon.append(lch->val, rch->val));
+  }  
+
+  
+  bool range_concat(int a, int b) {  
+    return range_concat(root, a, b);
+  }
+
+  
+  bool range_concat(Node<M, O> * node, int a, int b) {
+    if(a >= node->rr || b <= node->ll) {
+      return mon.unit();
+    }          
+    if(a <= node->ll && b >= node->rr) {
+      return node->val;
+    }
+    if(node->lch == nullptr) {
+      return node->val;
+    }
+    // alternatively, one could do this.
+    // node->push();
+    return op.apply(node->f, mon.append(range_concat(node->lch, a, b), range_concat(node->rch, a, b)));
+  }
+};
+
+  
+
+class RangeModule {
+ public:
+  LazyDynamicSegmentTree<LogicalAndMonoid, MaskOperatorMonoid> h;
+  
+  RangeModule() : h() {
+  }  
+    
+  void addRange(int left, int right) {
+    h.range_apply(left, right, true);
+  }
+    
+  bool queryRange(int left, int right) {
+    return h.range_concat(left, right);
+  }
+    
+  void removeRange(int left, int right) {
+    h.range_apply(left, right, false);
+  }
+  
 };
 /**
  * Your RangeModule object will be instantiated and called as such:
