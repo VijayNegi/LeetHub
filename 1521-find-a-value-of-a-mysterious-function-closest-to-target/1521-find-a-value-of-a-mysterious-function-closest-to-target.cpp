@@ -1,6 +1,7 @@
 class Solution {
 public:
     // from : https://leetcode.com/problems/find-a-value-of-a-mysterious-function-closest-to-target/discuss/743741/Detailed-General-Ideasolution-for-such-problems-(-AND-OR-GCD-)-in-O(N-*-log(-max(arri)-)-) 
+    // 1416 ms
     int closestToTarget1(vector<int>& arr, int target) {
         set<int> s;
         int n = arr.size();
@@ -18,7 +19,7 @@ public:
         }
         return res;
     }
-    //
+    // 213 ms
     int closestToTarget(vector<int>& arr, int target) {
         vector<int> q;
         q.reserve(32);
