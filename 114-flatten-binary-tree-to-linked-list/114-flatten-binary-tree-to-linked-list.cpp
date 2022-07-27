@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    void flatten(TreeNode* root) {
+    void flatten1(TreeNode* root) {
         stack<TreeNode*> stk;
         TreeNode* curr = root;
         while(curr) {
@@ -24,6 +24,22 @@ public:
                 stk.pop();
             }
             curr = curr->right;
+        }
+    }
+    // Non stack solution
+    void flatten(TreeNode *root) {
+        while (root) {
+            if (root->left && root->right) {
+                TreeNode* t = root->left;
+                while (t->right)
+                    t = t->right;
+                t->right = root->right;
+            }
+
+            if(root->left)
+                root->right = root->left;
+            root->left = NULL;
+            root = root->right;
         }
     }
 };
