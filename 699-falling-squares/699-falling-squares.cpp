@@ -57,6 +57,8 @@ class Solution {
 public:
     // self segment tree solution
     // 291 ms
+    // see other segment tree solution with lazy propagations and coordinate compression
+    // https://leetcode.com/problems/falling-squares/discuss/108770/O(nlogn)-C%2B%2B-Segment-Tree
     vector<int> fallingSquares1(vector<vector<int>>& positions) {
         stree tree(1,1e8,0);
         int maxheight = 0;
@@ -72,6 +74,7 @@ public:
     // 62 ms
     // map solution without coordinate-compression
     // same as line-sweep
+    // see diagram in problem and similar to 218. The Skyline Problem
     //https://leetcode.com/problems/falling-squares/discuss/108783/c%2B%2B-map-based-short-solution
     vector<int> fallingSquares2(vector<vector<int>>& positions) {
         map<int,int> mp = {{0,0}};
@@ -94,6 +97,7 @@ public:
         }
         return res;
     }
+    // 43 ms
     // line sweep with coordinate compression
     // https://leetcode.com/problems/falling-squares/discuss/1441736/C%2B%2B-coordinate-compression
     vector<int> fallingSquares(vector<vector<int>>& ps) {
