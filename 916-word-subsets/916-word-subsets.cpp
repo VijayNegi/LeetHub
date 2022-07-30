@@ -5,7 +5,6 @@ public:
         int m = words2.size();
         vector<vector<int>> hist(n,vector(26,0));
         vector<vector<int>> hist2(m,vector(26,0));
-        //vector<vector<int>> hist2(26,0);
         for(int i=0;i<n;++i) {
             for(auto& c:words1[i]) 
                 hist[i][c-'a']++;
@@ -14,11 +13,11 @@ public:
             for(auto& c:words2[i]) 
                 hist2[i][c-'a']++;
         }
-        vector<int> k(26,0);
+        vector<int> acc(26,0);
         
         for(int i=0;i<m;++i) {
             for(int j=0;j<26;++j)
-                k[j] = max(k[j],hist2[i][j]);
+                acc[j] = max(acc[j],hist2[i][j]);
         }
         
         function<bool(vector<int>& ,vector<int>&)> comp = [](vector<int>& v1,vector<int>& v2) {
@@ -28,7 +27,7 @@ public:
         };
         vector<string> result;
         for(int i=0;i<n;++i) 
-            if(comp(hist[i],k)) 
+            if(comp(hist[i],acc)) 
                 result.push_back(words1[i]);
         
         return result;
