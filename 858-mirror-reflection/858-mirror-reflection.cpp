@@ -6,18 +6,14 @@ public:
             return a;
         return gcd(b,a%b);
     }
+    
     int mirrorReflection(int p, int q) {
-        int g = gcd(p,q);
-        int lcm = (p*q)/g;
-        int count = lcm/q;
-        if(count%2==0) {
-            return 2;
-        }
-       
-        int count1 = lcm/p;
-        if(count1%2)
-            return 1;
-        return 0;
-        
+        int lcm = (p*q)/gcd(p, q); // calculating lcm using gcd
+        int m = lcm/p;
+        int n = lcm/q;
+        if(n%2==0) return 2;
+        if(m%2==0) return 0;
+        return 1;
+
     }
 };
