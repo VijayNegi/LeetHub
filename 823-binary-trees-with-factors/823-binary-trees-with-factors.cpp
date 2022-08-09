@@ -1,7 +1,7 @@
 const int mod = 1e9+7;
 class Solution {
 public:
-    int numFactoredBinaryTrees(vector<int>& arr) {
+    int numFactoredBinaryTrees1(vector<int>& arr) {
         int n = arr.size();
         sort(begin(arr),end(arr));
         unordered_map<int,long> memo;
@@ -27,5 +27,19 @@ public:
             result %=mod;
         }
         return result;
+    }
+    // check overflow handle
+    int numFactoredBinaryTrees(vector<int>& A) {
+        long res = 0, mod = pow(10, 9) + 7;
+        sort(A.begin(), A.end());
+        unordered_map<int, long> dp;
+        for (int i = 0; i < A.size(); ++i) {
+            dp[A[i]] = 1;
+            for (int j = 0; j < i; ++j)
+                if (A[i] % A[j] == 0)
+                    dp[A[i]] = (dp[A[i]] + dp[A[j]] * dp[A[i] / A[j]]) % mod;
+            res = (res + dp[A[i]]) % mod;
+        }
+        return res;
     }
 };
