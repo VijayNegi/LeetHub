@@ -25,8 +25,8 @@ public:
         }
         return result;
     }
-    // hashmap
-    int minSetSize(vector<int>& arr) {
+    // hashmap 354 ms
+    int minSetSize2(vector<int>& arr) {
         unordered_map<int, int> cnt;
         for (int x : arr) ++cnt[x];
         
@@ -41,5 +41,22 @@ public:
         }
         return ans;
     }
+    // hashmap count sort : 
+    int minSetSize(vector<int>& arr) {
+        int n = arr.size();
+        unordered_map<int, int> cnt;
+        for (int x : arr) ++cnt[x];
 
+        vector<int> counting(n + 1);
+        for (auto [_, freq] : cnt) ++counting[freq];
+
+        int ans = 0, removed = 0, half = n / 2, freq = n;
+        while (removed < half) {
+            ans += 1;
+            while (counting[freq] == 0) --freq;
+            removed += freq;
+            --counting[freq];
+        }
+        return ans;
+    }
 };
