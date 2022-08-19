@@ -1,15 +1,12 @@
 class Solution {
 public:
-    bool isPossible(vector<int>& nums) {
+    // self 112 ms
+    bool isPossible1(vector<int>& nums) {
         vector<int> freq(2002,0);
         for(auto& n:nums)
             freq[n+1000]++;
-        //priority_queue<int> pq;
-        //cout<<"test";
         vector<int> seq;
         for(auto& k: freq) {
-            // if(k>0)
-            //     cout<<k<<" ";
             if( k > seq.size()) {
                 seq.insert(seq.end(),k-seq.size(),0);
                 for(auto& s: seq)
@@ -34,6 +31,27 @@ public:
         for(auto& s: seq)
                 if(s<3)
                     return false;
+        return true;
+    }
+    //https://leetcode.com/problems/split-array-into-consecutive-subsequences/discuss/106493/C%2B%2B-O(n)-solution-two-pass
+    // 
+    bool isPossible(vector<int>& nums) {
+        unordered_map<int,int> cnt, tails;
+        for(int &i : nums) cnt[i]++;
+        for(int &i : nums){
+            if(!cnt[i]) continue;
+            cnt[i]--;
+            if(tails[i-1] > 0){
+                tails[i-1]--;
+                tails[i]++;
+            }
+            else if(cnt[i+1] && cnt[i+2]){
+                cnt[i+1]--;
+                cnt[i+2]--;
+                tails[i+2]++;
+            }
+            else return false;
+        }
         return true;
     }
 };
