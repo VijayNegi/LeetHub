@@ -11,46 +11,37 @@
  */
 class Solution {
 public:
-    // 10 ms
+    // self
     vector<vector<int>> verticalTraversal1(TreeNode* root) {
-        map<int,vector<int>> mp;
-        auto cmp =  [](pair<int,TreeNode*> &left,pair<int,TreeNode*> &right)
-        {
-            if(left.first == right.first)
-                return left.second->val > right.second->val;
-            return left.first > right.first;
-        };
-
-        priority_queue<pair<int, TreeNode*>,vector<pair<int, TreeNode*>> , decltype(cmp)> q(cmp);
-        q.push({0,root});
-        vector<pair<int, TreeNode*>> level;
-        while(!q.empty())
-        {
-            auto pr = q.top();
-            q.pop();
-            int pos = pr.first;
-            TreeNode* node = pr.second;
-            mp[pos].push_back( node->val);
-            if(node->left)
-                level.push_back({pos-1,node->left});
-            if(node->right)
-                level.push_back({pos+1,node->right});
-            if(q.empty())
-            {
-                for(auto p:level)
-                    q.push(p);
-                level.clear();
-                //q.swap(qq);
-                //swap(q, qq);
-                //qq.clear();
-            }
-        }
+        map<int, vector<int>> result;
         
+        queue<pair<TreeNode*,int>> q;
+        q.push({root,0});
+        int row=0;
+        while(!q.empty()){
+            map<int, vector<int>> temp;
+            int s = q.size();
+            for(int i=0;i<s;++i){
+                auto [node,col] = q.front();
+                q.pop();
+                temp[col].push_back(node->val);
+                if(node->left)
+                    q.push({node->left,col-1});
+                if(node->right)
+                    q.push({node->right,col+1});
+            }
+            for(auto& v:temp){
+                sort(v.second.begin(),v.second.end());
+                result[v.first].insert(result[v.first].end(),v.second.begin(),v.second.end());
+            }
+              
+        }
         vector<vector<int>> res;
-        for(auto vec:mp)
-            res.push_back(vec.second);
+        for(auto v:result)
+            res.push_back(v.second);
         return res;
     }
+    //other impl
     vector<vector<int>> verticalTraversal(TreeNode* root) {
         map<int, map<int, multiset<int>>> nodes;
         queue<pair<TreeNode*, pair<int, int>>> todo;
