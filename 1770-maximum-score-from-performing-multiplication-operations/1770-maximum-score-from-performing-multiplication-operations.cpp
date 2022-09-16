@@ -18,12 +18,13 @@ public:
         return memo[i][l][r];
     }
     // DP space optimized : TLE
-    int maximumScore2(vector<int>& nums, vector<int>& mults) {
-        int memo[1001][1001] = {};
+    int maximumScore3(vector<int>& nums, vector<int>& mults) {
+        //int memo[1001][1001] = {-1};
+        vector<vector<int>> memo(1001,vector(1001,-1));
         function<int(int,int)> dfs = [&](int l, int i) {
             if (i >= mults.size())
                 return 0;
-            if (!memo[l][i]) {
+            if (memo[l][i] == -1) {
                 int r = nums.size() - 1 - (i - l);
                 memo[l][i] = max(nums[l] * mults[i] + dfs(l + 1, i + 1), 
                     nums[r] * mults[i] + dfs(l, i + 1));
@@ -32,9 +33,9 @@ public:
         };
         return dfs(0, 0);
     }
-    
+    //https://leetcode.com/problems/maximum-score-from-performing-multiplication-operations/discuss/1694115/Brute-force-to-DP-All-codes-in-C%2B%2B
     // DP bottom up
-    int maximumScore(vector<int>& v, vector<int>& m) {
+    int maximumScore2(vector<int>& v, vector<int>& m) {
         
         vector<vector<int>> dp(m.size()+1, vector<int>(m.size()+1));
         for(int i = 0; i < dp.size(); i++){
@@ -48,6 +49,34 @@ public:
             }
         }
         return dp[0][0];
+    }
+    //https://leetcode.com/problems/maximum-score-from-performing-multiplication-operations/discuss/2581635/LeetCode-The-Hard-Way-Explained-Line-By-Line
+    int maximumScore(vector<int>& nums, vector<int>& multipliers) {
+        int n = (int) nums.size(), m = (int) multipliers.size();
+        vector<int> dp(m + 1);
+        // let's think backwards
+        for (int i = 0; i < m; i++) {
+            // at round m, we  pick the m-th multiplier
+            // at round m - 1, we pick the (m - 1)-th multiplier
+            // at round m - 2, we pick the (m - 2)-th multiplier
+            // and so on ... 
+            int mult = multipliers[m - 1 - i];
+            // how many elements we need to process? 
+            // at round m, there are m elements
+            // at round m - 1, there are m - 1 elements
+            // at round m - 2, there are m - 2 elements
+            // and so on ...
+            for (int j = 0; j < m - i; j++) {
+                // so we take the max of
+                dp[j] = max(
+                    // the start
+                    mult * nums[j] + dp[j + 1], 
+                    // the end
+                    mult * nums[j + (n - (m - i))] + dp[j]
+                );
+            }
+        }
+        return dp[0];
     }
 };
 
