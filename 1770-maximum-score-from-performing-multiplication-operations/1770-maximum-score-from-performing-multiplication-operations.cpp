@@ -51,6 +51,7 @@ public:
         return dp[0][0];
     }
     //https://leetcode.com/problems/maximum-score-from-performing-multiplication-operations/discuss/2581635/LeetCode-The-Hard-Way-Explained-Line-By-Line
+    // bottom up : 433 ms
     int maximumScore(vector<int>& nums, vector<int>& multipliers) {
         int n = (int) nums.size(), m = (int) multipliers.size();
         vector<int> dp(m + 1);
@@ -79,5 +80,7 @@ public:
         return dp[0];
     }
 };
+
+// to read - https://leetcode.com/problems/maximum-score-from-performing-multiplication-operations/discuss/2581758/C%2B%2B-99.8-205ms-99-memory-for-loop-%2B-DP
 
 
