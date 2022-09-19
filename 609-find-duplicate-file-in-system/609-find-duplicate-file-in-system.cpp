@@ -62,7 +62,7 @@ public:
         }
         return result;
     }
-    // self optimized
+    // self optimized : 86 ms
     vector<vector<string>> findDuplicate(vector<string>& paths) {
         unordered_map<string,vector<string>> content2file;
         for(auto& dir: paths) {
