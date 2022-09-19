@@ -1,6 +1,7 @@
 class Solution {
 public:
-    vector<vector<string>> findDuplicate(vector<string>& paths) {
+    // self new : 255 ms
+    vector<vector<string>> findDuplicate1(vector<string>& paths) {
         unordered_map<int,string> id2file;
         unordered_map<string,vector<int>> content2id;
         int id=0;
@@ -30,6 +31,34 @@ public:
                 }
                 result.push_back(duplicate);
             }
+        }
+        return result;
+    }
+    // self old
+    vector<vector<string>> findDuplicate(vector<string>& paths) {
+        vector<vector<string>> result;
+        unordered_map<string,vector<string>> hashmap;
+        
+        for(int i=0;i<paths.size();i++) {
+            auto pathEnd = paths[i].find(" ");
+            string path = paths[i].substr(0,pathEnd);
+            auto posS = pathEnd;
+            auto posE = pathEnd;
+            while(true) {
+                posE = paths[i].find("(", posS-1);
+                if(posE == string::npos)
+                    break;
+                string file = paths[i].substr(posS+1,posE - posS-1);
+                posS = posE;
+                posE = paths[i].find(")" ,posS );
+                string content = paths[i].substr(posS+1,posE -posS-1);
+                hashmap[content].emplace_back(path+"/"+file);
+                posS = posE+1;
+            }
+        }
+        for(auto c:hashmap) {
+            if(c.second.size()>1)
+                result.push_back(std::move(c.second));
         }
         return result;
     }
