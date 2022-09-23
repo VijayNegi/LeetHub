@@ -1,7 +1,8 @@
-int mod = 1e9+7;
+const int mod = 1e9+7;
 class Solution {
 public:
-    int concatenatedBinary(int n) {
+    // 94 ms
+    int concatenatedBinary1(int n) {
         uint64_t sum=0;
         for(int i=1;i<=n;++i) {
             int k=i;
@@ -13,5 +14,13 @@ public:
             sum  = sum % mod;
         }
         return sum;
+    }
+    int concatenatedBinary(int n) {
+        long ans = 0, len = 0;
+        for (int i = 1; i <= n; ++i) {
+            if ((i & (i - 1)) == 0) ++len; // increase length if power of two
+            ans = ((ans << len) % mod + i) % mod;
+        }
+        return ans;
     }
 };
