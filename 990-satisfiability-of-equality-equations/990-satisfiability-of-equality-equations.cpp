@@ -1,19 +1,24 @@
-struct DSU {
-    vector<int> par;
-    DSU(int k) {
-        par.resize(k);
-        iota(begin(par),end(par),0);
+struct DSU
+{
+    vector<int> parent;
+    DSU(int n):parent(n)
+    {
+        iota(begin(parent), end(parent), 0);  // initializes each node's parent to be itself - fills as [0,1,2,3,...,n]
     }
-    int parent(int id) {
-         if(id == par[id])
-             return id;
-        return par[id] = parent(par[id]);
-    }
-    
-    void merge(int id1,int id2) {
-        int p1 = parent(id1);
-        int p2 = parent(id2);
-        par[p2] = p1;
+    int find(int x)
+    {
+        if(parent[x] == x)          // x is itself the parent of the component that it belongs to
+            return x;
+        return parent[x] = find(parent[x]); // update parent of x before returning for each call -path compression
+
+    } 
+    void unionsets(int x, int y)
+    {
+        int xx = find(x);
+        int yy = find(y);
+        if(xx == yy)
+            return;     // both belong to same component
+        parent[yy] = xx;
     }
 };
 class Solution {
@@ -23,11 +28,11 @@ public:
         DSU ds(26);
         for(auto e:equations) {
             if(e[1] == '=') 
-                ds.merge(e[0]-'a', e[3]-'a');
+                ds.unionsets(e[0]-'a', e[3]-'a');
         }
         for(auto e:equations) {
             if(e[1] == '!') 
-                if(ds.parent(e[0]-'a') == ds.parent(e[3]-'a'))
+                if(ds.find(e[0]-'a') == ds.find(e[3]-'a'))
                     return false;
         }
         return true;
