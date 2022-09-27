@@ -54,7 +54,7 @@ public:
         return dominoes;
     }
     // new 
-    string pushDominoes(string D) {
+    string pushDominoes2(string D) {
         int n = D.size();
         vector<int> forces(n,0);
 
@@ -82,7 +82,7 @@ public:
         return result;
     }
     // https://leetcode.com/problems/push-dominoes/discuss/132332/JavaC%2B%2BPython-Two-Pointers
-    string pushDominoes2(string d) {
+    string pushDominoes(string d) {
         d = 'L' + d + 'R';
         string res = "";
         for (int i = 0, j = 1; j < d.length(); ++j) {
