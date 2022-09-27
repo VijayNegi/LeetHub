@@ -3,7 +3,7 @@
 class Solution {
 public:
     // old solution
-    string pushDominoes(string dominoes) {
+    string pushDominoes1(string dominoes) {
         int n = dominoes.size();
         int lastL = -1;
         int lastR = -1;
@@ -54,7 +54,7 @@ public:
         return dominoes;
     }
     // new 
-    string pushDominoes1(string D) {
+    string pushDominoes(string D) {
         int n = D.size();
         vector<int> forces(n,0);
 
@@ -80,5 +80,24 @@ public:
         for (int f: forces)
             result.push_back(f > 0 ? 'R' : f < 0 ? 'L' : '.');
         return result;
+    }
+    // https://leetcode.com/problems/push-dominoes/discuss/132332/JavaC%2B%2BPython-Two-Pointers
+    string pushDominoes2(string d) {
+        d = 'L' + d + 'R';
+        string res = "";
+        for (int i = 0, j = 1; j < d.length(); ++j) {
+            if (d[j] == '.') continue;
+            int middle = j - i - 1;
+            if (i > 0)
+                res += d[i];
+            if (d[i] == d[j])
+                res += string(middle, d[i]);
+            else if (d[i] == 'L' && d[j] == 'R')
+                res += string(middle, '.');
+            else
+                res += string(middle / 2, 'R') + string(middle % 2, '.') + string(middle / 2, 'L');
+            i = j;
+        }
+        return res;
     }
 };
