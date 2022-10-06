@@ -3,14 +3,11 @@ class TimeMap {
     unordered_map<string,vector<pis>> dict;
 public:
     TimeMap() {
-        
     }
     
     void set(string key, string value, int ts) {
-        if(!dict.count(key)) {
-            dict[key] = {};
+        if(!dict.count(key)) 
             dict[key].push_back({0,""});
-        }
         dict[key].push_back({ts,value});
     }
     
@@ -21,17 +18,8 @@ public:
         auto it = upper_bound(begin(vi), end(vi),ts, [](int value, pis& val){
               return value < val.first;
           });
-        // if(it == vi.begin()) {
-        //     return "";
-        // }
         it = prev(it);
         return it->second;
-        if(it!=vi.end()) {
-            //if(it[0] == ts)
-                return it->second;
-            //return 
-        }
-        return "";
     }
 };
 
