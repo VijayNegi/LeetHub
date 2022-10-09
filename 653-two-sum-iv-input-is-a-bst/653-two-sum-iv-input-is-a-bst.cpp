@@ -10,9 +10,9 @@
  * };
  */
 class Solution {
-    
+    unordered_set<int> hash;
 public:
-    bool findTarget(TreeNode* root, int k) {
+    bool findTarget1(TreeNode* root, int k) {
         unordered_map<int,int> seen;
         stack<TreeNode*> stk;
         function<void(TreeNode*)> push_left = [&](TreeNode* node) {
@@ -22,7 +22,6 @@ public:
             }
         };
         push_left(root);
-        
         while(!stk.empty()) {
             TreeNode* node = stk.top();
             stk.pop();
@@ -32,5 +31,13 @@ public:
             seen[node->val] = 1;
         }
         return false;
+    }
+    bool findTarget(TreeNode* root, int k) {
+        if(!root)                       return false;
+        if(hash.count(k- root->val))    return true;
+        hash.insert(root->val);
+        if(!findTarget(root->left,k))
+            return findTarget(root->right,k);
+        return true;
     }
 };
