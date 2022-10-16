@@ -1,6 +1,7 @@
 class Solution {
 public:
     // self: bottom-up : 97 ms
+    // complexity : O(nnd) 
     int minDifficulty1(vector<int>& jd, int d) {
         int n = jd.size();
         if(n<d) return -1;
@@ -50,6 +51,7 @@ public:
     }
     // https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/discuss/490316/JavaC%2B%2BPython3-DP-O(nd)-Solution
     // stack based soution
+    // 9 ms
     int minDifficulty(vector<int>& A, int D) {
         int n = A.size();
         if (n < D) return -1;
