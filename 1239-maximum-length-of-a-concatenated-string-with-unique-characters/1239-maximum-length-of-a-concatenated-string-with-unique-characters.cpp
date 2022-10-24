@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int maxLength(vector<string>& arr) {
+    int maxLength1(vector<string>& arr) {
         int n = arr.size();
         vector<int> mask;
         for(auto& w:arr) {
@@ -13,7 +13,6 @@ public:
             for(auto& c:w){
                 m |= 1<<(c-'a'); 
             }
-            //cout<<m<<" ";
             mask.push_back(m);
         }
         
@@ -26,10 +25,28 @@ public:
                 }
                 ++k;
             }
-            //cout<<len<<endl;
             return len;
         };
-        
         return dfs(0,0,0);
+    }
+    // set based
+    int maxLength(vector<string>& A) {
+        vector<bitset<26>> dp = {bitset<26>()};
+        int res = 0;
+        for (auto& s : A) {
+            bitset<26> a;
+            for (char c : s)
+                a.set(c - 'a');
+            int n = a.count();
+            if (n < s.size()) continue;
+
+            for (int i = dp.size() - 1; i >= 0; --i) {
+                bitset c = dp[i];
+                if ((c & a).any()) continue;
+                dp.push_back(c | a);
+                res = max(res, (int)c.count() + n);
+            }
+        }
+        return res;
     }
 };
