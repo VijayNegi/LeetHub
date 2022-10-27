@@ -59,7 +59,9 @@ public:
         }
         return result;
     }
-    int largestOverlap(vector<vector<int>>& A, vector<vector<int>>& B) {
+    // 114 ms
+    // https://leetcode.com/problems/image-overlap/discuss/130623/C%2B%2BJavaPython-Straight-Forward
+    int largestOverlap2(vector<vector<int>>& A, vector<vector<int>>& B) {
         vector<int> LA, LB;
         int N = A.size();
         unordered_map<int, int> count;
@@ -74,4 +76,30 @@ public:
         for (auto it : count) res = max(res, it.second);
         return res;
     }
+    // https://leetcode.com/problems/image-overlap/discuss/1778665/C%2B%2B-Solution-using-Map
+    int largestOverlap(vector<vector<int>>& img1, vector<vector<int>>& img2) {
+        int n=img1.size();
+        vector<pair<int,int>>vec_a;
+        vector<pair<int,int>>vec_b;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(img1[i][j]==1){
+                    vec_a.push_back({i,j});
+                }
+                if(img2[i][j]==1){
+                    vec_b.push_back({i,j});
+                }
+            }
+        }
+        int ans=0;
+        map<pair<int,int>,int>mp;
+        for(auto [i1,j1]:vec_a){
+            for(auto [i2,j2]:vec_b){
+                mp[{i1-i2,j1-j2}]++;
+                ans=max(ans,mp[{i1-i2,j1-j2}]);
+            }
+        }
+        return ans;
+    }
+
 };
