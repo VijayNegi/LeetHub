@@ -30,7 +30,8 @@ public:
         return result;
     }
     // just more cleaner
-    vector<int> secondGreaterElement(vector<int>& nums) {
+    // 352 ms
+    vector<int> secondGreaterElement2(vector<int>& nums) {
         int n = nums.size();
         int nextBig[n+4];
         nextBig[n]=nextBig[n-1]=n;
@@ -52,5 +53,20 @@ public:
             else ans[i]=-1;
         }
         return ans;
+    }
+    //https://leetcode.com/problems/next-greater-element-iv/discuss/2756668/JavaC%2B%2BPython-One-Pass-Stack-Solution-O(n)
+    vector<int> secondGreaterElement(vector<int>& A) {
+        int n = A.size();
+        vector<int> res(n, -1), s1, s2, tmp;
+        for (int i = 0 ;i < n; ++i) {
+            while (!s2.empty() && A[s2.back()] < A[i])
+                res[s2.back()] = A[i], s2.pop_back();
+            while (!s1.empty() && A[s1.back()] < A[i])
+                tmp.push_back(s1.back()), s1.pop_back();
+            while (!tmp.empty())
+                s2.push_back(tmp.back()), tmp.pop_back();
+            s1.push_back(i);
+        }
+        return res;
     }
 };
