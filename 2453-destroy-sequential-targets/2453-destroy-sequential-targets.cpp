@@ -15,13 +15,19 @@ public:
             else{
                 idx[m] = min(idx[m],n);
             }
-            if(mod[m]>result)
-                id = idx[m];
-            else if(mod[m]>=result){
-                id = min(id,idx[m]);
-            }
-            result = max(result,mod[m]);
-
+            // if(mod[m]>result)
+            //     id = idx[m];
+            // else if(mod[m]>=result){
+            //     id = min(id,idx[m]);
+            // }
+            // result = max(result,mod[m]);
+        }
+        for(auto& m:mod){
+            if(m.second > result )
+                id = idx[m.first];
+            else if(m.second >=result)
+                 id = min(id,idx[m.first]);
+            result = max(result,m.second);
         }
         return id;
     }
