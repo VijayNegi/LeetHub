@@ -8,12 +8,7 @@ public:
             else {
                 if((isupper(s[l]) && islower(s[r])) || (islower(s[l]) && isupper(s[r])))
                    {
-                        int d1,d2;
-                       if(isupper(s[l]))   d1 = s[l]-'A';
-                       else                d1 = s[l]-'a';
-                       if(isupper(s[r]))   d2 = s[r]-'A';
-                       else                d2 = s[r]-'a';
-                       if(d1==d2)
+                       if(tolower(s[l]) == tolower(s[r]))
                        {
                            --l,++r;
                            continue;
