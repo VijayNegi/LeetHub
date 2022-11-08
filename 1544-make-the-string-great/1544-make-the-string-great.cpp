@@ -5,17 +5,10 @@ public:
         while(r<s.size()) {
             if(l<0)
                 s[++l] = s[r++];
-            else {
-                if((isupper(s[l]) && islower(s[r])) || (islower(s[l]) && isupper(s[r])))
-                   {
-                       if(tolower(s[l]) == tolower(s[r]))
-                       {
-                           --l,++r;
-                           continue;
-                       }
-                   }
+            else if((tolower(s[l]) == tolower(s[r])) && s[l]!=s[r]) 
+                       --l,++r;
+            else
                    s[++l] = s[r++];
-            }    
         }
         s.resize(l+1);
         return s;
