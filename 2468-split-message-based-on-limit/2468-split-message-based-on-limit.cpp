@@ -3,10 +3,10 @@ public:
     vector<string> splitMessage(string message, int limit) {
         vector<string> result;
         int n = message.size();
-        //cout<<"n="<<n<<endl;
         int suffixLen = 3; // without digits
         int maxSegment = 0; // maxSegments for curr no of digits
         int extraDigits = 0; // Note: previous segments had one less digits and while counting available digits we need to add these extra digits
+        // i.e. we can fit extra chars in 1-9 segment for segments in range 1-99
         int digit = 1;
         while(digit < 5){
             suffixLen += 2; // add new digits
