@@ -19,12 +19,7 @@ public:
                 q.push(p);
             }
         }
-        vector<int> bobpath;
-        int b = bob;
-        while(b!=-1){
-            bobpath.push_back(b);
-            b = parent[b];
-        }
+
         // do bfs now from alice
         // <node, income>
         queue<pair<int,int>> alice;
@@ -52,8 +47,6 @@ public:
                 bob = parent[bob];
             }
         }
-        
-        
         return result;
     }
 };
