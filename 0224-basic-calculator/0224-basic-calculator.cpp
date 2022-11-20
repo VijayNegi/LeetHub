@@ -9,8 +9,7 @@ public:
             while(pos<n){
                 char c = s[pos];
                 if(isdigit(c)){
-                    curr *= 10 ;
-                    curr +=  c-'0'; // why but need to break these two statement
+                    curr = curr*10 + (c-'0');
                 }
                 else if(c=='-' || c=='+'){
                     result += curr*sign;
@@ -33,4 +32,5 @@ public:
         int pos = 0;
         return dfs(s,pos);
     }
+
 };
