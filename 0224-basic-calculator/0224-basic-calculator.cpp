@@ -17,11 +17,6 @@ public:
                     sign = (c=='-')? -1:1;
                     curr=0;
                 }
-                // else if(isspace(c)){
-                //     result += curr*sign;
-                //     curr=0;
-                //     sign=1;
-                // }
                 else if(c=='(' || c==')'){
                     result += curr*sign;
                     if(c=='(' )
