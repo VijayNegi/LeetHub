@@ -22,7 +22,7 @@ public:
         }
         return true;
     }
-    //BitMasking
+    //BitMasking : 41 ms
     bool isValidSudoku(vector<vector<char>>& board) {
         int cols[9] =  {0};
         int rows[9] = {0};
@@ -49,6 +49,7 @@ public:
         }
         return true;
     }
+    // older solution
     bool isValidSudoku2(vector<vector<char>>& board) {
         
         for(int i=0;i<9;++i)
