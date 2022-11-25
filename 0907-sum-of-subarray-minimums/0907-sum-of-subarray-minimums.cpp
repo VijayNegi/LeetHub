@@ -15,7 +15,8 @@ public:
         }
         return sum;
     }
-    int sumSubarrayMins(vector<int>& arr) {
+    // monotonic stack solution
+    int sumSubarrayMins2(vector<int>& arr) {
         vector<int> stk;
         long sumOfMinimums = 0;
 
@@ -43,5 +44,43 @@ public:
         }
 
         return (int) (sumOfMinimums);
+    }
+    int sumSubarrayMins(vector<int>& arr) {
+
+        vector<int> stk;
+
+        // make a dp array of the same size as the input array `arr`
+        vector<int> dp(arr.size());
+
+        // making a monotonic increasing stack
+        for (int i = 0; i < arr.size(); i++) {
+            // pop the stack until it is empty or
+            // the top of the stack is greater than or equal to
+            // the current element
+            while (!stk.empty() && arr[stk.back()] >= arr[i]) {
+                stk.pop_back();
+            }
+
+            // either the previousSmaller element exists
+            if (stk.size() > 0) {
+                int previousSmaller = stk.back();
+                dp[i] = dp[previousSmaller] + (i - previousSmaller) * arr[i];
+            } else {
+                // or it doesn't exist, in this case the current element
+                // contributes with all subarrays ending at i
+                dp[i] = (i + 1) * arr[i];
+            }
+            // push the current index
+            stk.push_back(i);
+        }
+
+        // Add all elements of the dp to get the answer
+        long sumOfMinimums = 0;
+        for (int count : dp) {
+            sumOfMinimums += count;
+            sumOfMinimums %= mod;
+        }
+
+        return (int) sumOfMinimums;
     }
 };
