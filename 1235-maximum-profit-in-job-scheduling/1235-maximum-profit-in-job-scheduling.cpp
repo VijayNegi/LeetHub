@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+    // self : 576ms
+    int jobScheduling1(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
         
         map<int,int> maxProfit; // startTime, profit
         int n = startTime.size();
@@ -17,21 +18,35 @@ public:
             int p = 0;
             for(int i=idx;i<n;++i){
                 if(jobs[i][0]>=stTime){
-                    auto l = maxProfit.lower_bound(stTime);
+                    auto l = maxProfit.lower_bound(stTime); // check if we have previously solved the problem but it should be before the next job start
                     if(l != maxProfit.end() && l->first <= jobs[i][0]){
                         p = max(p, l->second);
-                        break;
+                        break; // jobs are sorted so no need to go further down
                     }
                     else{
                         p = max(p, dfs(i+1, jobs[i][1]) + jobs[i][2]);
                     }
-                    
                 }
-                    
             }
             maxProfit[stTime] = p;
             return p;
         };
         return dfs(0,0);
+    }
+    // https://leetcode.com/problems/maximum-profit-in-job-scheduling/discuss/409009/JavaC%2B%2BPython-DP-Solution
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+        int n = startTime.size();
+        vector<vector<int>> jobs;
+        for (int i = 0; i < n; ++i) {
+            jobs.push_back({endTime[i], startTime[i], profit[i]});
+        }
+        sort(jobs.begin(), jobs.end());
+        map<int, int> dp = {{0, 0}};
+        for (auto& job : jobs) {
+            int cur = prev(dp.upper_bound(job[1]))->second + job[2];
+            if (cur > dp.rbegin()->second)
+                dp[job[0]] = cur;
+        }
+        return dp.rbegin()->second;
     }
 };
