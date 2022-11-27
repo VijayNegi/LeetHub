@@ -1,6 +1,8 @@
+// My "rule of thumb" is that we should search for O(n) solution if we are dealing with consecutive sequences, and O(n ^ 2) if we are dealing with subsequences. Think about LCS algorithm as an example.
 #define LL long long
 class Solution {
 public:
+    // 886 ms
     int numberOfArithmeticSlices1(vector<int>& A) {
         int n = A.size();
         LL ans = 0;
@@ -19,6 +21,7 @@ public:
 
         return (int)ans;
     }
+    // 736 ms
     int numberOfArithmeticSlices(vector<int> &nums) {
         int n = nums.size();
         int ans = 0;
