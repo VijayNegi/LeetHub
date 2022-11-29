@@ -1,5 +1,5 @@
 class RandomizedSet {
-    unordered_map<int,int> us;
+    unordered_map<int,int> num2pos;
     vector<int> num;
     default_random_engine eng;
 public:
@@ -8,17 +8,17 @@ public:
     }
     
     bool insert(int val) {
-        if(us.count(val)==1) return false;
-        us[val] = num.size();
+        if(num2pos.count(val)==1) return false;
+        num2pos[val] = num.size();
         num.push_back(val);
         return true;
     }
     
     bool remove(int val) {
-        if(us.count(val)==0) return false;
-        swap(num[us[val]],num[num.size()-1]);
-        us[num[us[val]]] = us[val];
-        us.erase(val);
+        if(num2pos.count(val)==0) return false;
+        swap(num[num2pos[val]],num[num.size()-1]);
+        num2pos[num[num2pos[val]]] = num2pos[val];
+        num2pos.erase(val);
         num.pop_back();
         return true;
     }
