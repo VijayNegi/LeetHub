@@ -16,10 +16,11 @@ public:
     }
     int dfs(TreeNode* node,int minAns,int maxAns){
         if(!node) return 0;
-        int ans = abs(minAns-node->val);
-        ans = max(ans,abs(maxAns - node->val));
-        ans = max(ans,dfs(node->left, min(minAns,node->val),max(maxAns,node->val)));
-        ans = max(ans,dfs(node->right, min(minAns,node->val),max(maxAns,node->val)));
+        int low = min(minAns,node->val);
+        int high = max(maxAns,node->val);
+        int ans = abs(high-low);
+        ans = max(ans,dfs(node->left, low,high));
+        ans = max(ans,dfs(node->right,low,high));
         return ans;
     }
 };
