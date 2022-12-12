@@ -11,11 +11,7 @@ public:
                 if(pick[fruits[r]]==1) ++count;
                 ++r;
             }
-            //cout<<l<<" "<<r<<" "<<count<<endl;
-            if(count==3)
-                result = max(result,r-l-1);
-            else
-                result = max(result,r-l);
+            result = max(result,r-l-(count==3));
             while(l<r && count>2){
                 pick[fruits[l]]--;
                 if(pick[fruits[l]]==0) --count;
