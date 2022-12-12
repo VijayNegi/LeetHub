@@ -9,7 +9,7 @@ public:
         }
         return uniqueMails.size();
     }
-    string getName(string local){
+    string getName(string&& local){
         int l=0,r=0,n=local.size();
         while(r<n){
             if(local[r]=='+') break;
