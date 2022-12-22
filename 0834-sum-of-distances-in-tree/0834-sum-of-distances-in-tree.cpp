@@ -2,7 +2,7 @@ class Solution {
     vector<unordered_set<int>> tree;
     vector<int> res, count;
 public:
-
+ // https://leetcode.com/problems/sum-of-distances-in-tree/discuss/130583/C%2B%2BJavaPython-Pre-order-and-Post-order-DFS-O(N)
     vector<int> sumOfDistancesInTree(int N, vector<vector<int>>& edges) {
         tree.resize(N);
         res.assign(N, 0);
