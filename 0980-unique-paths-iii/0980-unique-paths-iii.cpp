@@ -24,12 +24,11 @@ public:
                 return;
             }
             --visited;
-            int val = grid[r][c];
-            grid[r][c] = 3;
+            grid[r][c] = -1;
             vector<int> dir = {1,0,-1,0,1};
             for(int i=0;i<4;++i)
                 dfs(r+dir[i],c+dir[i+1]);
-            grid[r][c]=val;
+            grid[r][c]=0;
             ++visited;
         };
         dfs(sr,sc);
