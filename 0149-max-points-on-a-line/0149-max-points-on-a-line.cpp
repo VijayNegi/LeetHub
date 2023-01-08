@@ -20,6 +20,7 @@ public:
         }
         return result;
     }
+    // https://leetcode.com/problems/max-points-on-a-line/discuss/47124/C%2B%2B-slope-counter
     int maxPoints(vector<vector<int>>& points) {
         int n = points.size(), ans = 0;
         for (int i = 0; i < n; i++) {
