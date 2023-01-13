@@ -31,6 +31,7 @@ public:
         
         return n + 1;
     }
+    // 39 ms
     int firstMissingPositive(vector<int>& nums) {
         int n = nums.size();
         for (int i = 0; i < n; i++) if (nums[i] <= 0) nums[i] = n + 1;
