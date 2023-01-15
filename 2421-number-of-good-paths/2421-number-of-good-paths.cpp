@@ -60,4 +60,58 @@ public:
         }
         return goodPaths;
     }
+    // DFS solution 123/134 tle
+    int numberOfGoodPaths1(vector<int>& vals, vector<vector<int>>& edges) {
+        int n = vals.size();
+        vector<vector<int>> adj(n);
+        for(auto& e:edges){
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
+        }
+        unordered_map<int,int> temp;
+        map<int,int> path; // path with value; we need sorted
+        for(auto& v:vals)
+            temp[v]++;
+        // for(auto& t:temp)
+        //     if(t.second>1)
+        //         path[t.first] = 0;
+        
+        
+        int result = 0;
+        vector<bool> visited(n,false);
+        
+        function<void(int, map<int,int>&)> dfs = [&](int node,map<int,int>& paths){
+            auto it = paths.lower_bound(vals[node]);
+            map<int,int> pathcopy(it,paths.end());
+            //auto pathcopy = paths;
+            // for(auto& p:pathcopy){
+            //     if(p.first < vals[node])
+            //         p.second = 0;
+            //     else break;
+            // }
+            visited[node] = true;
+            for(auto child:adj[node])
+                if(!visited[child]){
+                    dfs(child,pathcopy);
+                    auto it = pathcopy.lower_bound(vals[node]);
+                    
+                    pathcopy.erase(pathcopy.begin(),it);
+                    // for(auto& p:pathcopy){
+                    //     if(p.first < vals[node])
+                    //         p.second = 0;
+                    //     else break;
+                    // }
+                }
+            //cout<<node<<" = "<<pathcopy[vals[node]]<<endl;
+            result += pathcopy[vals[node]];
+            for(auto& p:pathcopy){
+                if(p.second > paths[p.first])
+                    paths[p.first] = p.second;
+            }
+            if(temp[vals[node]]>1)
+                paths[vals[node]]++;
+        };
+        dfs(0,path);
+        return result+n;
+    }
 };
