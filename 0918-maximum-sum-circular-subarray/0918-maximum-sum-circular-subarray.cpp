@@ -20,6 +20,7 @@ public:
         }
         return max(max_sum, special_sum);
     }
+    // https://leetcode.com/problems/maximum-sum-circular-subarray/discuss/178422/One-Pass
     int maxSubarraySumCircular(vector<int>& A) {
         int total = 0, maxSum = A[0], curMax = 0, minSum = A[0], curMin = 0;
         for (int& a : A) {
