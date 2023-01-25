@@ -26,8 +26,6 @@ public:
                 return n2;
             else if(s2.count(n1))
                 return n1;
-            // else if(n1==n2)
-            //     return n1;
         }
         return -1;
     }
