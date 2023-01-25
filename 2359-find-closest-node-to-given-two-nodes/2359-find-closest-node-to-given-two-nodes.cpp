@@ -20,19 +20,14 @@ public:
                 edges[t] = -1;
             }
             if(s1.count(n2) && s2.count(n1)){
-                //cout<<"ddd";
                 return n1<n2? n1:n2;
             }
-            if(s1.count(n2) ){
+            else if(s1.count(n2) )
                 return n2;
-            }
-            else if(s2.count(n1)){
+            else if(s2.count(n1))
                 return n1;
-            }
-            else if(n1==n2)
-                return n1;
-            // if(s1.count(n1) && s2.count(n2))
-            //     break;
+            // else if(n1==n2)
+            //     return n1;
         }
         return -1;
     }
