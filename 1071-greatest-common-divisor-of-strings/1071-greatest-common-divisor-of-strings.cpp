@@ -13,7 +13,7 @@ public:
         }
         return prefix;
     }
-    
+    // this is getting smallest factor
     string gcdOfStrings1(string str1, string str2) {
         int n1 = str1.size();
         int n2 = str2.size();
@@ -28,10 +28,21 @@ public:
             return str1.substr(0,k1);
         return "";
     }
-    string gcdOfStrings(string str1, string str2) {
+    string gcdOfStrings2(string str1, string str2) {
         if(str1==str2) return str1;
         if(str2.size() > str1.size()) return gcdOfStrings(str2,str1);
         if(str1.substr(0,str2.size()) == str2) return gcdOfStrings(str2,str1.substr(str2.size()));
         return "";
+    }
+    // official solution
+    string gcdOfStrings(string str1, string str2) {
+        // Check if they have non-zero GCD string.
+        if (str1 + str2 != str2 + str1) {
+            return "";
+        }
+
+        // Get the GCD of the two lengths.
+        int gcdLength = gcd(str1.size(), str2.size());
+        return str1.substr(0, gcdLength);
     }
 };
