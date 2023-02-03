@@ -13,7 +13,6 @@ public:
                 }
                 else{
                     res+=s[j];
-                    cout<<s[j];
                     j+= 2*(numRows-i-1);
                     if(j<n)
                         res+=s[j];
