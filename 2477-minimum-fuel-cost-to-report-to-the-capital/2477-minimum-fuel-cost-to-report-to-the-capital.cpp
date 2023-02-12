@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // self
     long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
         int n = roads.size()+1; // no of nodes 
         vector<int> inDegree(n,0);
@@ -18,20 +19,18 @@ public:
         }
         long long fuel=0;
         while(leafs.size() ){
-            int k = leafs.size();
-            while(k--){
-                auto node = leafs.front();
-                leafs.pop();
-                ++fuel;
-                fuel += (seat[node]-1)/seats;
-                for(auto nei:adj[node]){
-                    inDegree[nei]--;
-                    seat[nei]+= seat[node];
-                    if(nei !=0 && inDegree[nei]==1){ // ignore capital
-                        leafs.push(nei);
-                    }  
-                }
+            auto node = leafs.front();
+            leafs.pop();
+            ++fuel;
+            fuel += (seat[node]-1)/seats;
+            for(auto nei:adj[node]){
+                inDegree[nei]--;
+                seat[nei]+= seat[node];
+                if(nei !=0 && inDegree[nei]==1){ // ignore capital
+                    leafs.push(nei);
+                }  
             }
+            
         }
         return fuel;
     }
