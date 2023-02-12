@@ -1,7 +1,7 @@
 class Solution {
 public:
-    // self
-    long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
+    // self, bfs
+    long long minimumFuelCost1(vector<vector<int>>& roads, int seats) {
         int n = roads.size()+1; // no of nodes 
         vector<int> inDegree(n,0);
         vector<vector<int>> adj(n);
@@ -32,6 +32,32 @@ public:
             }
             
         }
+        return fuel;
+    }
+    // dfs
+    typedef long long ll;
+    long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
+        int n = roads.size()+1;
+        //vector<int> inDegree(n,0);
+        vector<vector<int>> adj(n);
+        for(auto& r:roads){
+            adj[r[0]].push_back(r[1]);
+            adj[r[1]].push_back(r[0]);
+            //inDegree[r[0]]++;
+            //inDegree[r[1]]++;
+        }
+        ll fuel=0;
+        function<int(int,int)> dfs = [&](int node,int parent){
+            ll seat = 1;
+            for(auto child: adj[node]){
+                if(child!= parent)
+                    seat += dfs(child,node);
+            }
+            if(node!=0)
+                fuel += ceil((double)seat/seats);
+            return seat;
+        };
+        dfs(0,-1);
         return fuel;
     }
 };
