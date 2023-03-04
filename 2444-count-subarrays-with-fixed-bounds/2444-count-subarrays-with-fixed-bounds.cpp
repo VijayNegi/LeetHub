@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // brute force
     long long countSubarrays1(vector<int>& nums, int minK, int maxK) {
         long long result = 0;
         int low=INT_MAX,high=0,n=nums.size();
