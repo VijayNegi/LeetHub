@@ -1,7 +1,8 @@
 const int mod = 1e9+7;
 class Solution {
 public:
-    int countWays(vector<vector<int>>& ranges) {
+    // contest
+    int countWays1(vector<vector<int>>& ranges) {
         map<int,int> irange;  // end - start
         sort(begin(ranges),end(ranges),[](vector<int>& l,vector<int>& r){ if(l[1]==r[1]) return true; return l[1]>r[1];});
         for(auto& r:ranges){
@@ -22,6 +23,17 @@ public:
         }
         res *= pow(2,k);
         res %= mod;
+        return res;
+    }
+    // https://leetcode.com/problems/count-ways-to-group-overlapping-ranges/discuss/3256371/JavaC%2B%2BPython-Sort-Solution
+    int countWays(vector<vector<int>>& ranges) {
+        int res = 1, last = -1, mod = 1e9 + 7;
+        sort(ranges.begin(), ranges.end());
+        for (auto r: ranges) {   
+            if (last < r[0])
+                res = res * 2 % mod;
+            last = max(last, r[1]);
+        }
         return res;
     }
 };
