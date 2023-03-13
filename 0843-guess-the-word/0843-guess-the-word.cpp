@@ -37,7 +37,7 @@ public:
             if(g==6) return;
             for(int i=0;i<n;++i){
                 if(i!=s){
-                    if(mem[s][i]!=g)//if(mem[s][i] < g || (g==0 && mem[s][i]>0))
+                    if(mem[s][i]!=g) // if(mem[s][i] < g || (g==0 && mem[s][i]>0)) // secret is g distance away from word
                         candidate.erase(i);
                 }
             }
