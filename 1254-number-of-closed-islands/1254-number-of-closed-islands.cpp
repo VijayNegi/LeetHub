@@ -13,7 +13,7 @@ public:
             bool res = true;
             for(int i=0;i<4;++i){
                 //if(!visited[r+dir[i]][c+dir[i+1]]);
-                 res = res & dfs(r+dir[i],c+dir[i+1]);
+                 res = dfs(r+dir[i],c+dir[i+1]) && res ;
             }
             return res;
         };
