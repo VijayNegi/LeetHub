@@ -9,8 +9,6 @@ public:
             }
             else
                 --l;
-            
-            if(l<0) l=0;
         }
         s.resize(l);
         return s;
