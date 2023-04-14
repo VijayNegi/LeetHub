@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // bottom up
     int longestPalindromeSubseq1(string s) {
         int n = s.size();
         vector<vector<int>> dp(n, vector<int>(n));
@@ -17,7 +18,7 @@ public:
 
         return dp[0][n - 1];
     }
-
+    // top down
     int longestPalindromeSubseq(string s) {
         int n = s.size();
         vector<vector<int>> memo(n, vector<int>(n));
