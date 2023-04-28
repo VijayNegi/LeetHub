@@ -23,9 +23,6 @@ public:
         int k = strs[0].size();
         if(k<3) return 1;
         DSU diset(n);
-        // unordered_map<string,int> strId;
-        // for(int i=0;i<n;++i)
-        //     strId[strs[i]] = i;
         auto f = [&](string& str1,string& str2){
             int diff=0;
             for(int i=0;i<k;++i)
