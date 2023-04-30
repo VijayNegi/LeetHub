@@ -40,7 +40,6 @@ public:
             if(!uf1.merge(e[0],e[1]))
                 ++count;
         }
-        //cout<<"\n s1="<<uf.n<<"  s2="<<uf1.n<<endl;
         if(uf.n != 1 || uf1.n != 1)
             return -1;
         return count;
