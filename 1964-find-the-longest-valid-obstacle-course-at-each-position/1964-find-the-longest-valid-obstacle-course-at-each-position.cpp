@@ -1,28 +1,18 @@
 class Solution {
 public:
+    // LIS problem
     vector<int> longestObstacleCourseAtEachPosition(vector<int>& obstacles) {
         int n = obstacles.size();
-        
-        // O(nlogn) binary search store LIS
-        vector<int> lis;
-        vector<int> res;
-        for (auto &num : obstacles) {
-            auto it = upper_bound(lis.begin(), lis.end(), num);
-            
-            if (it == lis.end()) {
-                lis.push_back(num);
-                res.push_back(lis.size());
-            }
-            else {
-                int d = distance(lis.begin(),it) +1;
-                if(*it==num )
-                    ++d;
-                *it = num;
-                res.push_back(d);
-            }
+        vector<int> answer(n, 1), lis;
+        for (int i = 0; i < n; ++i) {
+            // Find the rightmost insertion position idx.
+            int idx = upper_bound(lis.begin(), lis.end(), obstacles[i]) - lis.begin();
+            if (idx == lis.size())
+                lis.push_back(obstacles[i]);
+            else
+                lis[idx] = obstacles[i];
+            answer[i] = idx + 1;
         }
-        
-        return res;
-    
+        return answer;
     }
 };
