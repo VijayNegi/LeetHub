@@ -3,7 +3,6 @@
  * @return { increment: Function, decrement: Function, reset: Function }
  */
 var createCounter = function(init) {
-    let _init = init
     let curr = init
     let increment =  ()=>{ return ++curr }
     let decrement = ()=>{return --curr }
@@ -12,6 +11,16 @@ var createCounter = function(init) {
         increment, decrement, reset
     }
 };
+/* other way with Shortened Syntax
+var createCounter = function(init) {
+  let currentCount = init;
+  return {
+    increment: () => ++currentCount,
+    decrement: () => --currentCount,
+    reset: () => (currentCount = init),
+  }
+};
+*/
 
 /**
  * const counter = createCounter(5)
