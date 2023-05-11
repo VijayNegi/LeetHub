@@ -2,7 +2,7 @@
  * @param {Function[]} functions
  * @return {Function}
  */
-var compose = function(functions) {
+var compose1 = function(functions) {
     
 	return function(x) {
         let val=x
@@ -12,6 +12,19 @@ var compose = function(functions) {
         return val
     }
 };
+var compose = function (functions) {
+  return function (x) {
+    let input = x;
+
+    for (const func of functions.reverse()) {
+      input = func(input);
+    }
+
+    return input;
+  };
+};
+
+
 
 /**
  * const fn = compose([x => x + 1, x => 2 * x])
