@@ -2,7 +2,7 @@
  * @param {Function} fn
  * @return {Function}
  */
-var once = function(fn) {
+var once1 = function(fn) {
     let k=1;
     return function(...args){
         if(k<2){
@@ -11,6 +11,27 @@ var once = function(fn) {
         }
         return undefined
     }
+};
+var once2 = function(fn) {
+  let hasBeenCalled = false;
+  return function(...args){
+    if (hasBeenCalled) {
+      return undefined;
+    } else {
+      hasBeenCalled = true;
+      return fn(...args);
+    }
+  }
+};
+// Implicitly Return Undefined
+var once = function(fn) {
+  let hasBeenCalled = false;
+  return function(...args){
+    if (!hasBeenCalled) {
+      hasBeenCalled = true;
+      return fn(...args);
+    }
+  }
 };
 
 /**
