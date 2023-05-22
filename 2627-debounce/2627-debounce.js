@@ -15,6 +15,7 @@ var debounce1 = function(fn, t) {
 };
 
 // Approach 2: setInterval + clearInterval
+// Inefficient too
 var debounce = function(fn, t) {
   let interval;
   return function(...args) {
