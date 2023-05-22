@@ -4,7 +4,7 @@
  * @return {Function}
  */
 // Approach 1: setTimeout + clearTimeout
-var debounce = function(fn, t) {
+var debounce1 = function(fn, t) {
   let timeout;
   return function(...args) {
     clearTimeout(timeout);
@@ -15,7 +15,7 @@ var debounce = function(fn, t) {
 };
 
 // Approach 2: setInterval + clearInterval
-var debounce1 = function(fn, t) {
+var debounce = function(fn, t) {
   let interval;
   return function(...args) {
     const lastCall = Date.now()
