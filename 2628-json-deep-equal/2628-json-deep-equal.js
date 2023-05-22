@@ -9,7 +9,7 @@
  * @return {boolean}
  */
 // Approach 1: Comparative Recursion:
-var areDeeplyEqual1 = function(o1, o2) {
+var areDeeplyEqual = function(o1, o2) {
     if (o1 === o2) return true;
     if (o1 === null || o2 === null) return false;
     if (String(o1) !== String(o2)) return false;
@@ -36,13 +36,13 @@ var areDeeplyEqual1 = function(o1, o2) {
 
     return true;
 };
-// Approach 2: Iterative Solution:
+// Approach 2: Iterative Solution: 65ms
 /**
  * @param {any} o1
  * @param {any} o2
  * @return {boolean}
  */
-function areDeeplyEqual(o1, o2) {
+function areDeeplyEqual2(o1, o2) {
   var objs = [[o1, o2]];
 
   while (objs.length) {
