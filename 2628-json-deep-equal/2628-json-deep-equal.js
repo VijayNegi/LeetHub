@@ -42,7 +42,7 @@ var areDeeplyEqual1 = function(o1, o2) {
  * @param {any} o2
  * @return {boolean}
  */
-function areDeeplyEqual2(o1, o2) {
+function areDeeplyEqual(o1, o2) {
   var objs = [[o1, o2]];
 
   while (objs.length) {
@@ -64,7 +64,7 @@ function areDeeplyEqual2(o1, o2) {
 
   return true;
 }
-// Approach 3: Using JSON.stringify and Sorting:
+// Approach 3: Using JSON.stringify and Sorting: 150ms
 /**
  * @param {any} o1
  * @param {any} o2
@@ -76,8 +76,9 @@ function helper(key, value) {
     else
         return value;
 }
+ 
 
-var areDeeplyEqual = function(o1, o2) {
+var areDeeplyEqual3 = function(o1, o2) {
     const stringifiedO1 = JSON.stringify(o1, helper);
     const stringifiedO2 = JSON.stringify(o2, helper);
 
