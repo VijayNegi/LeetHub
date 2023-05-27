@@ -3,7 +3,7 @@
  * @param {number} depth
  * @return {any[]}
  */
-var flat = function (arr, n) {
+var flat1 = function (arr, n) {
     if (n === 0) return arr
     let res = [];
     for (const ele of arr) {
@@ -22,7 +22,7 @@ var flat = function (arr, n) {
  * @param {number} depth
  * @return {any[]}
  */
-var flat1 = function (arr, n) {
+var flat = function (arr, n) {
     let res = [];
     const flattening = (nums, l) => {
       for (const num of nums) {
