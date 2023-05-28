@@ -2,6 +2,7 @@
  * @param {Function} fn
  * @return {Array}
  */
+// self
 Array.prototype.groupBy = function(fn) {
     let arr = {}
     for(const ele of this){
@@ -11,6 +12,19 @@ Array.prototype.groupBy = function(fn) {
         arr[k].push(ele)
     }
     return arr
+};
+
+Array.prototype.groupBy = function(fn) {
+  const returnObject = {};
+  for (const item of this) {
+    const key = fn(item);
+    if (key in returnObject) {
+      returnObject[key].push(item);
+    } else {
+      returnObject[key] = [item];
+    }
+  }
+  return returnObject;
 };
 
 /**
