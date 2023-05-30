@@ -1,5 +1,6 @@
 class MyHashSet {
     vector<bool> set;
+    // bitset<1000001> bt;
 public:
     MyHashSet() :set(1000001,false){
         
