@@ -11,6 +11,8 @@ ArrayWrapper.prototype.valueOf = function() {
 
 ArrayWrapper.prototype.toString = function() {
     return "[" + this.nums.join(',') + "]";
+    // return '[' + this.nums.toString() + ']';
+    // return `[${this.nums}]`;   // Template literal
 }
 
 /**
