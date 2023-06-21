@@ -1,6 +1,7 @@
 class Solution {
 public:
-    long long minCost(vector<int>& nums, vector<int>& cost) {
+    // Prefix Sum
+    long long minCost1(vector<int>& nums, vector<int>& cost) {
         // Sort integers by values.
         int n = nums.size();
         vector<vector<int>> numsAndCost(n,vector(2,0));
@@ -34,5 +35,26 @@ public:
         }
         
         return answer;
+    }
+    // binary search
+    long long minCost(vector<int>& A, vector<int>& cost) {
+        long long l = 1, r = 1000000, res = f(A, cost, 1), x;
+        while (l < r) {
+            x = (l + r) / 2;
+            long long y1 = f(A, cost, x), y2 = f(A, cost, x + 1);
+            res = min(y1, y2);
+            if (y1 < y2)
+                r = x;
+            else
+                l = x + 1;
+        }
+        return res;
+    }
+
+    long long f(vector<int>& A, vector<int>& cost, int x) {
+        long long res = 0;
+        for (int i = 0; i < A.size(); ++i)
+            res += 1L * abs(A[i] - x) * cost[i];
+        return res;
     }
 };
