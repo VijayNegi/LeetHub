@@ -5,7 +5,7 @@ public:
         vector<vector<int>> result;
         if (nums1.empty() || nums2.empty() || k <= 0)
             return result;
-        auto comp = [&nums1, &nums2](pair<int, int> a, pair<int, int> b) {
+        auto comp = [&nums1, &nums2](pair<int, int>& a, pair<int, int>& b) {
             return nums1[a.first] + nums2[a.second] > nums1[b.first] + nums2[b.second];};
         priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(comp)> min_heap(comp);
         min_heap.emplace(0, 0);
