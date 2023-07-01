@@ -17,7 +17,7 @@ public:
                 child[j] += cookies[i];
                 dfs(i+1);
                 child[j] -= cookies[i];
-                //if(child[j]==0) break; // optimization : all zero cookie cases will be considered only once. (5,0) or (0,5) are same
+                if(child[j]==0) break; // optimization : all zero cookie cases will be considered only once. (5,0) or (0,5) are same
             }
         };
         dfs(0);
