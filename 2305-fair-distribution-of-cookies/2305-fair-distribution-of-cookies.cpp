@@ -14,6 +14,7 @@ public:
                 child[j] += cookies[i];
                 dfs(i+1);
                 child[j] -= cookies[i];
+                if(child[j]==0) break;
             }
         };
         dfs(0);
