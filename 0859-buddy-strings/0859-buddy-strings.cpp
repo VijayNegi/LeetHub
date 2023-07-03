@@ -1,37 +1,28 @@
 class Solution {
 public:
-    bool buddyStrings(string s, string goal) {
-        if(s.size() != goal.size())
+    bool buddyStrings(string A, string B) {
+        if(A.size() != B.size())
             return false;
-        if(s == goal){
-            sort(begin(s),end(s));
-            for(int i=1;i<s.size();++i)
-                if(s[i] == s[i-1])
-                    return true;
-            return false;
-        }
-        int difference=0;
-        for(int i=0;i<s.size();++i)
+        vector<int> diff;
+        vector<int> count(26,0);
+
+        for(int i=0;i<A.size();i++)
         {
-            if(s[i]!= goal[i])
-                ++difference;
+            if(A[i]!=B[i])
+                diff.push_back(i);
+            count[A[i] - 'a']++;
         }
-        if(difference!=2)
+        if(diff.size()>2 || diff.size() == 1) // will handle 0 case differently
             return false;
-        int l1=-1;
-        for(int i=0;i<s.size();++i)
+        if(diff.empty())
         {
-            if(s[i]!= goal[i] && l1 ==-1)
-                l1=i;
-            else if(s[i]!= goal[i])
-            {
-                if(s[i] == goal[l1] && s[l1] == goal[i])
-                    return true;
-                else 
-                    return false;
-            }
+            for(const auto& a : count)
+                if(a>1) return true;
         }
+        else if(A[diff[0]] == B[diff[1]] && A[diff[1]] == B[diff[0]])
+            return true;
         
         return false;
+        
     }
 };
