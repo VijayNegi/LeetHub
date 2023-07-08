@@ -23,12 +23,14 @@ public:
             for(auto& b:starting){
                 if(destination.count(b))
                     return path;
-                for(auto& stop: routes[b])
+                for(auto& stop: routes[b]){
                     for(auto& bus: stop2bus[stop]){
                         if( visited_bus[bus] ) continue;
                         temp.insert(bus);
                         visited_bus[bus] = true;
                     }
+                    stop2bus[stop].clear();
+                }
                 routes[b].clear();
             }
             swap(temp,starting);
