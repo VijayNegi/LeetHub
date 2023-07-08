@@ -1,7 +1,7 @@
 class Solution {
 public:
     // self
-    // 1194 ms
+    // 1194 ms, 397 ms after optim
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
         if(source == target)
             return 0;
@@ -29,9 +29,9 @@ public:
                         temp.insert(bus);
                         visited_bus[bus] = true;
                     }
-                    stop2bus[stop].clear();
+                    stop2bus[stop].clear(); // optimization already processed
                 }
-                routes[b].clear();
+                routes[b].clear();      // optimization already processed
             }
             swap(temp,starting);
             ++path;
@@ -55,7 +55,7 @@ public:
             auto& connected = it.second;
             for(auto& b:connected){
                 bus2bus[b].insert(connected.begin(),connected.end());
-                bus2bus[b].erase(b);
+                //bus2bus[b].erase(b);
             }
         }
         vector<bool> visited_bus(n,false);
