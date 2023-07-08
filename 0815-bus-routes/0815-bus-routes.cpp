@@ -2,7 +2,7 @@ class Solution {
 public:
     // self
     // 1194 ms
-    int numBusesToDestination0(vector<vector<int>>& routes, int source, int target) {
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
         if(source == target)
             return 0;
         int n = routes.size();
@@ -29,6 +29,7 @@ public:
                         temp.insert(bus);
                         visited_bus[bus] = true;
                     }
+                routes[b].clear();
             }
             swap(temp,starting);
             ++path;
@@ -36,7 +37,7 @@ public:
         return -1;
     }
     // self 2610 ms
-    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+    int numBusesToDestination1(vector<vector<int>>& routes, int source, int target) {
         if(source == target)
             return 0;
         int n = routes.size();
