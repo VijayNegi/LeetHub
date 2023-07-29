@@ -12,11 +12,11 @@ public:
             if(b<=0)  return 0;
             if(dp[a][b]!= -1) return dp[a][b];
             double prob = 0;
-            prob += 0.25 * serve(a-4,b);
-            prob += 0.25 * serve(a-3,b-1);
-            prob += 0.25 * serve(a-2,b-2);
-            prob += 0.25 * serve(a-1,b-3);
-            return dp[a][b] = prob;
+            prob +=serve(a-4,b);
+            prob += serve(a-3,b-1);
+            prob += serve(a-2,b-2);
+            prob += serve(a-1,b-3);
+            return dp[a][b] = prob/4;
         };
         return serve(m,m);
     }
