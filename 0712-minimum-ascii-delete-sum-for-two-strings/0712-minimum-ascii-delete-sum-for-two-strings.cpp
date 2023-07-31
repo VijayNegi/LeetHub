@@ -10,16 +10,18 @@ public:
                 return 0;
             if(dp[i][j] != -1) return dp[i][j];
             dp[i][j] = numeric_limits<int>::max();
-            if(i<n1)
-                dp[i][j] = dfs(i+1,j) + s1[i];
-             if(j<n2)
-                dp[i][j] = min(dp[i][j], dfs(i,j+1) + s2[j]);
-            if(i<n1 && j<n2){
-                if(s1[i] == s2[j])
-                    dp[i][j] = min(dp[i][j],dfs(i+1,j+1));
-                else
-                    dp[i][j] = min(dp[i][j],dfs(i+1,j+1) + s1[i] + s2[j]);
+            if(j == n2)
+                return dp[i][j] = dfs(i+1,j) + s1[i];
+             if(i == n1)
+                return dp[i][j] = min(dp[i][j], dfs(i,j+1) + s2[j]);
+            
+            if(s1[i] == s2[j])
+                dp[i][j] = min(dp[i][j],dfs(i+1,j+1));
+            else{
+                dp[i][j] = min(dp[i][j],dfs(i,j+1) + s2[j]);
+                dp[i][j] = min(dp[i][j],dfs(i+1,j) + s1[i] );
             }
+            
             
             return dp[i][j];
         };
