@@ -20,6 +20,8 @@ public:
 };
 #endif
 
+// https://leetcode.com/problems/sort-integers-by-the-power-value/discuss/547055/C++-4-ms-precompute-and-partial-sort/820249
+// compile time precomputation
 static constexpr auto powers = [] {
     std::array<int, 1001> vals{};
     for (size_t i = 1; i < vals.size(); ++i) {
@@ -39,6 +41,7 @@ static constexpr auto powers = [] {
     
     return vals;
 }();
+
 
 class Solution {
 public:
