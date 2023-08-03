@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // https://leetcode.com/problems/find-score-of-an-array-after-marking-all-elements/discuss/3312018/Index-Array
     long long findScore1(vector<int>& n) {
         long long score = 0, sz = n.size();
         vector<int> id(sz);
@@ -12,6 +13,7 @@ public:
             }
         return score;
     }
+    //https://leetcode.com/problems/find-score-of-an-array-after-marking-all-elements/discuss/3312206/Using-ordered-set-oror-Very-Simple-and-Easy-to-Understand-Solution
     long long findScore(vector<int>& nums) {
         long long ans = 0;
         set<pair<int, int>> st;
