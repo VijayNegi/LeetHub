@@ -1,6 +1,6 @@
 class Solution {
 public:
-    long long findScore(vector<int>& n) {
+    long long findScore1(vector<int>& n) {
         long long score = 0, sz = n.size();
         vector<int> id(sz);
         iota(begin(id), end(id), 0);
@@ -11,5 +11,19 @@ public:
                 n[i] = n[min((int)sz - 1, i + 1)] = n[max(0, i - 1)] = 0;            
             }
         return score;
+    }
+    long long findScore(vector<int>& nums) {
+        long long ans = 0;
+        set<pair<int, int>> st;
+        for(int i = 0; i < nums.size(); ++i){ st.insert({nums[i], i}); }
+        for(auto s: st){
+            if(nums[s.second]) {
+                nums[s.second] = 0;
+                if(s.second - 1 >= 0) nums[s.second - 1] = 0;
+                if(s.second + 1 < nums.size()) nums[s.second + 1] = 0;
+                ans += s.first;
+            }
+        }
+        return ans;
     }
 };
