@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    vector<TreeNode*> generateTrees(int n) {
+    vector<TreeNode*> generateTrees1(int n) {
         vector<vector<TreeNode*>> result(n+1);
         result[0].push_back(nullptr);
         result[1].push_back(new TreeNode(1));
@@ -38,6 +38,29 @@ public:
         }
         return result[n];
     }
+    
+    vector<TreeNode*> rec(int start, int end) {
+        vector<TreeNode*> res;
+        if (start > end) return {NULL};
+        
+        if (start == end) return {new TreeNode(start)};
+        
+        for (int i = start; i <= end; i++) {
+            vector<TreeNode*> left = rec(start, i-1), right = rec(i+1, end);
+            
+            for (auto l : left)
+                for (auto r : right)
+                    res.push_back(new TreeNode(i, l, r));
+        }
+        return res;
+    }
+// https://leetcode.com/problems/unique-binary-search-trees-ii/discuss/1440190/C%2B%2B-Python-Simple-and-Short-Recursive-Solutions-With-Explanation
+    vector<TreeNode*> generateTrees(int n) {
+        vector<TreeNode*> res = rec(1, n);
+        return res;
+    }
+    
+    
 private:
     TreeNode* clone(TreeNode* node) {
         if (node == NULL) {
