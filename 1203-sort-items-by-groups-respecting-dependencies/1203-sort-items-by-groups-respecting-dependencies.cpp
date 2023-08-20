@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/discuss/402945/C%2B%2B-with-picture-generic-topological-sort
     bool topSort(vector<unordered_set<int>>& al, int i, vector<int>& res, vector<int>& stat) {
         if (stat[i] != 0) return stat[i] == 2;
         stat[i] = 1;
