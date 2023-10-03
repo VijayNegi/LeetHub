@@ -43,6 +43,7 @@ public:
         }
         return vector<int>(begin(p) + 1, end(p) - 1);
     }
+    // https://leetcode.com/problems/maximum-product-of-the-length-of-two-palindromic-substrings/discuss/1389958/Manacher-and-Queue
     vector<int> manachers(string s, int n) {
         vector<int> m(n), l2r(n, 1);
         for (int i = 0, l = 0, r = -1; i < n; ++i) {
@@ -68,6 +69,8 @@ public:
             res = max(res, (long long)l2r[i] * r2l[j]);
         return res;
     }
+    // check out this solution
+    // https://leetcode.com/problems/maximum-product-of-the-length-of-two-palindromic-substrings/discuss/1389958/Manacher-and-Queue/1042682
 };
 // 0 1 2 3 4 5 6 7 8
 // z a a a x b b b y
