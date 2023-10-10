@@ -24,6 +24,7 @@ public:
         }
         return len-maxuni;
     }
+    // self
     int minOperations(vector<int>& nums) {
         sort(nums.begin(),nums.end());
         int l=0;
