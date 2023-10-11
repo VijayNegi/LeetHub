@@ -63,6 +63,7 @@ public:
         return ans;
     }
     // simple binary search
+    // 227 ms
     vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
         vector<int> starts;
         vector<int> ends;
