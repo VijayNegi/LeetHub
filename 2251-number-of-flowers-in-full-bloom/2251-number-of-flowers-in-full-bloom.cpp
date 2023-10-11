@@ -9,7 +9,6 @@ public:
         sort(arrival.begin(),arrival.end());
         sort(flowers.begin(),flowers.end());
         priority_queue<int,vector<int>,greater<>> endQueue;
-        int t=0;
         int i=0;
         int f=0;
         int bloom=0;
@@ -18,7 +17,7 @@ public:
         while(i<n){
             int k = arrival[i].first;
             int pos = arrival[i].second;
-            
+            // add all the flowers that had bloomed
             while(f<fsize && flowers[f][0]<=k){
                 if(flowers[f][1]>=k){
                    endQueue.push(flowers[f][1]);
@@ -26,9 +25,8 @@ public:
                 }
                 ++f;
             }
-            //cout<<endl<<k<<" "<<pos<<" "<<endQueue.size()<<" "<<endQueue.top()<<endl;
+           // remvoe all the flowers whos time has passed
             while(endQueue.size() &&  endQueue.top()<k ){
-                //cout<<" top "<<endQueue.top()<<" ";
                 endQueue.pop();
                 --bloom;
             }
