@@ -1,6 +1,7 @@
 class Solution {
 public:
-    vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
+    // self : 266 ms
+    vector<int> fullBloomFlowers1(vector<vector<int>>& flowers, vector<int>& people) {
         int n = people.size();
         vector<pair<int,int>> arrival;
         for(int i=0;i<n;++i){
@@ -9,9 +10,7 @@ public:
         sort(arrival.begin(),arrival.end());
         sort(flowers.begin(),flowers.end());
         priority_queue<int,vector<int>,greater<>> endQueue;
-        int i=0;
-        int f=0;
-        int bloom=0;
+        int i=0,f=0,bloom=0;
         int fsize = flowers.size();
         vector<int> result(n,0);
         while(i<n){
@@ -34,5 +33,32 @@ public:
             ++i;
         }
         return result;
+    }
+    // line sweep
+        vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
+        map<int, int> difference;
+        difference[0] = 0;
+        
+        for (vector<int>& flower : flowers) {
+            difference[flower[0]]++;
+            difference[flower[1] + 1]--;
+        }
+        
+        vector<int> positions;
+        vector<int> prefix;
+        int curr = 0;
+        for (auto& pair : difference) {
+            positions.push_back(pair.first);
+            curr += pair.second;
+            prefix.push_back(curr);
+        }
+        
+        vector<int> ans;
+        for (int person : people) {
+            int i = upper_bound(positions.begin(), positions.end(), person) - positions.begin() - 1;
+            ans.push_back(prefix[i]);
+        }
+        
+        return ans;
     }
 };
