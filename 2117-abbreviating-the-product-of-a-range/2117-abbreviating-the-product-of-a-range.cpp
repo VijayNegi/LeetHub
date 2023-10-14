@@ -1,7 +1,8 @@
 class Solution {
 public:
     // https://leetcode.com/problems/abbreviating-the-product-of-a-range/discuss/1647115/Modulo-and-Double
-    string abbreviateProduct1(int left, int right) {
+    // 20 ms
+    string abbreviateProduct(int left, int right) {
         long long suff = 1, c = 0, total = 0, max_suff = 100000000000;
         double pref = 1.0;
         for (int i = left; i <= right; ++i) {
@@ -22,8 +23,8 @@ public:
                 + (total - c < 5 ? "" : s.substr(s.size() - min(5LL, total - c - 5))) + "e" + to_string(c);
     }
     // https://leetcode.com/problems/abbreviating-the-product-of-a-range/discuss/3512713/Basic-Maths-Shortest-C%2B%2B-Cleanest-Solution-or-Easy-to-Understand-or
-    // some math
-    string abbreviateProduct(int left, int right) {
+    // some math: 350 ms
+    string abbreviateProduct2(int left, int right) {
     
         string Ans = "1",Prefix ="1";
         int count = 0;
