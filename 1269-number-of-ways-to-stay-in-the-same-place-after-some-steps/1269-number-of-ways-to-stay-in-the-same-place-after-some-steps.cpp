@@ -1,9 +1,9 @@
 const int mod = 1e9+7;
 class Solution {
 public:
-    // TLE
+    // 
     int numWays(int steps, int arrLen) {
-        int arr = min(steps,arrLen);
+        int arr = min(steps/2 + 1,arrLen);
         vector<int> dp0(arrLen,0);
         vector<int> dp1(arrLen,0);
         dp0[0] = 1;
