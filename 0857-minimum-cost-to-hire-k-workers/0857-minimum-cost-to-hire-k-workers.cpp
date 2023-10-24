@@ -1,5 +1,7 @@
 class Solution {
 public:
+    // https://leetcode.com/problems/minimum-cost-to-hire-k-workers/discuss/141768/Detailed-explanation-O(NlogN)
+    // or https://leetcode.com/problems/minimum-cost-to-hire-k-workers/discuss/2433416/C%2B%2B-using-Priority-Queue-oror-Very-Simple-and-Easy-to-Understand-Solution
     double mincostToHireWorkers(vector<int> q, vector<int> w, int K) {
         vector<vector<double>> workers;
         for (int i = 0; i < q.size(); ++i)
