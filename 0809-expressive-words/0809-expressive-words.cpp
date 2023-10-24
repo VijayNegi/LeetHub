@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //https://leetcode.com/problems/expressive-words/discuss/122660/C%2B%2BJavaPython-2-Pointers-and-4-pointers
     int expressiveWords(string S, vector<string>& words) {
         int res = 0;
         for (auto &W : words) if (check(S, W)) res++;
