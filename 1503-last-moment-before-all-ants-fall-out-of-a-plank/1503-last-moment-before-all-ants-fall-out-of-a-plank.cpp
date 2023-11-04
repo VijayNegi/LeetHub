@@ -6,7 +6,7 @@ public:
             result = max(result,n-k);
         
         for(auto& k:left)
-            result = max(result,k-0);
+            result = max(result,k);
     
         return result;
         }
