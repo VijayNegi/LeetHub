@@ -1,19 +1,29 @@
 class SeatManager {
+    // Marker to point to unreserved seats.
+    int marker;
+    // Sorted set to store all unreserved seats.
     set<int> available;
 public:
     SeatManager(int n) {
-        while(n>0)
-            available.insert(n--);
+        marker = 1;
+        // while(n>0)
+        //     available.insert(n--);
     }
     
     int reserve() {
-        int seat = *available.begin();
-        available.erase(seat);
-        return seat;
+        if(available.size()){
+            int seat = *available.begin();
+            available.erase(seat);
+            return seat;
+        }
+        return marker++;
     }
     
     void unreserve(int seatNumber) {
-        available.insert(seatNumber);
+        if(seatNumber + 1 == marker)
+            --marker;
+        else
+            available.insert(seatNumber);
     }
 };
 
