@@ -3,7 +3,7 @@ public:
     vector<int> restoreArray(vector<vector<int>>& adjP) {
         if(adjP.size()==1)
             return adjP[0];
-        map<int,unordered_set<int>> links;
+        unordered_map<int,unordered_set<int>> links;
         int k = 1;
         for(const auto& v:adjP){
             links[v[0]].insert(v[1]);
