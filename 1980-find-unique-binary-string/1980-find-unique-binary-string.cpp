@@ -1,6 +1,7 @@
 class Solution {
 public:
-    string findDifferentBinaryString(vector<string>& nums) {
+    // O(n^2)
+    string findDifferentBinaryString1(vector<string>& nums) {
         unordered_set<int> integers;
         for (string num : nums) {
             integers.insert(stoi(num, 0, 2));
@@ -15,5 +16,16 @@ public:
         }
         
         return "";
+    }
+    // Cantor's Diagonal Argument
+    // O(n)
+    string findDifferentBinaryString(vector<string>& nums) {
+        string ans;
+        for (int i = 0; i < nums.size(); i++) {
+            char curr = nums[i][i];
+            ans += curr == '0' ? '1' : '0';
+        }
+        
+        return ans;
     }
 };
