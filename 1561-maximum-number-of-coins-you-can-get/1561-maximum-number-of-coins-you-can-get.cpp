@@ -1,7 +1,7 @@
 class Solution {
 public:
     // simulate
-    int maxCoins(vector<int>& piles) {
+    int maxCoins1(vector<int>& piles) {
         sort(piles.begin(), piles.end());
         deque<int> queue;
         for (int num : piles) {
@@ -19,5 +19,14 @@ public:
         return ans;
     }
     // faster
-    
+    int maxCoins(vector<int>& piles) {
+        sort(piles.begin(), piles.end());
+        int ans = 0;
+        
+        for (int i = piles.size() / 3; i < piles.size(); i += 2) {
+            ans += piles[i];
+        }
+        
+        return ans;
+    }
 };
