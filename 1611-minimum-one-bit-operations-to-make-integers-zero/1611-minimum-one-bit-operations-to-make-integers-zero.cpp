@@ -16,7 +16,7 @@ public:
         return (1 << (k + 1)) - 1 - minimumOneBitOperations(n ^ curr);
     }
     // Iteration
-    int minimumOneBitOperations(int n) {
+    int minimumOneBitOperations2(int n) {
         int ans = 0;
         int k = 0;
         int mask = 1;
@@ -30,6 +30,16 @@ public:
             k++;
         }
         
+        return ans;
+    }
+    // gray code
+    int minimumOneBitOperations(int n) {
+        int ans = n;
+        ans ^= ans >> 16;
+        ans ^= ans >> 8;
+        ans ^= ans >> 4;
+        ans ^= ans >> 2;
+        ans ^= ans >> 1;
         return ans;
     }
 };
