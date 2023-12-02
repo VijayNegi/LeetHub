@@ -5,7 +5,7 @@ public:
             vector<int> f(26,0);
             for(auto& c:s)
                 f[c-'a']++;
-            return move(f);
+            return f;
         };
         function<bool(vector<int>,vector<int>&)> good = [](vector<int> v1,vector<int>& v2){
             for(int i=0;i<26;++i)
