@@ -10,6 +10,7 @@ public:
             result += c/3;
             if(c%3 !=0)
                 ++result;
+            // or result += ceil((double)(c) / 3);
         }
         return result;
     }
