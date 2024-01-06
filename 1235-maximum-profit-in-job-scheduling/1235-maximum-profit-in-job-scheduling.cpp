@@ -1,7 +1,7 @@
 class Solution {
 public:
     // self : 576ms
-    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+    int jobScheduling1(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
         
         map<int,int> maxProfit; // startTime, profit
         int n = startTime.size();
@@ -52,7 +52,7 @@ public:
     }
     //https://leetcode.com/problems/maximum-profit-in-job-scheduling/discuss/409188/C++-with-picture/418565
     // Bottom up : 276 ms
-    int jobScheduling3(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
         map<int, int> dp;
         vector<vector<int>> jobs;
         for (int i = 0; i < startTime.size(); i++) {
