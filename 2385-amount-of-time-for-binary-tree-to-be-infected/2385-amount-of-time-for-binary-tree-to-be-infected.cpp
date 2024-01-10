@@ -27,27 +27,17 @@ public:
             dfs(node->right,rd2s,rd2l);
             d2l = max( ld2l , rd2l);
             d2l++;
-            //if(node->left && node->right){
-            if(d2s==0){
+            if(d2s==0){ // node itself is start
                 result = max(result, d2l);
             }
-                if(ld2s>=0){
-                    result = max(result, ld2s + rd2l+2);
-                    d2s = ld2s +1;
-                }
-                if(rd2s>=0){
-                    result = max(result, rd2s + ld2l+2);
-                    d2s = rd2s +1;
-                }
-            
-                
-            //}
-//             else if(node->left){
-                
-//             }
-//             else if(node->right){
-                
-//             }
+            if(ld2s>=0){ // start at left side
+                result = max(result, ld2s + rd2l+2);
+                d2s = ld2s +1;
+            }
+            if(rd2s>=0){ // start at right side
+                result = max(result, rd2s + ld2l+2);
+                d2s = rd2s +1;
+            }
         };
         
         int a,b,c,d;
