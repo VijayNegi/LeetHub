@@ -3,7 +3,7 @@ public:
     int mostBooked(int n, vector<vector<int>>& meetings) {
         sort(begin(meetings),end(meetings));
         vector<int> count(n,0);
-         set<int> available;
+        set<int> available;
         priority_queue<vector<long>,vector<vector<long>>, greater<> > q;
         for(int i=0;i<n;++i){
             available.insert(i);
