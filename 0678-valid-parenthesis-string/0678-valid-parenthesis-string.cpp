@@ -39,7 +39,7 @@ public:
         return isValidString(0, 0, s, memo);
     }
     // two stacks
-    bool checkValidString(string s) {
+    bool checkValidString2(string s) {
         stack<int> openBrackets; 
         stack<int> asterisks; 
         for (int i = 0; i < s.length(); i++) {
@@ -69,6 +69,33 @@ public:
             asterisks.pop();
         }
         return openBrackets.empty();
+    }
+    // two pointer O(n)
+    // count * as suppliment for both sides, so any point of time string cant be valid return false
+    bool checkValidString(string s) {
+        int openCount = 0;
+        int closeCount = 0;
+        int length = s.length() - 1;
+        
+        for (int i = 0; i <= length; i++) {
+            if (s[i] == '(' || s[i] == '*') {
+                openCount++;
+            } else {
+                openCount--;
+            }
+            
+            if (s[length - i] == ')' || s[length - i] == '*') {
+                closeCount++;
+            } else {
+                closeCount--;
+            }
+            
+            if (openCount < 0 || closeCount < 0) {
+                return false;
+            }
+        }
+        
+        return true;
     }
 
 };
