@@ -1,7 +1,7 @@
 class Solution {
 public:
 int findRotateSteps(string ring, string key) {
-        vector<int> pos[26];
+        vector<vector<int>> pos(26);
         int r = ring.size(), k = key.size();
         for(int i=0;i<r;i++) pos[ring[i]-'a'].push_back(i);
         vector<int> pre(r), cur(r,INT_MAX);
