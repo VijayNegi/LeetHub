@@ -7,7 +7,7 @@ public:
         for(int i=0;i<k;++i){
             res += max(0,hp[i]-sub);
             ++sub;
-            if(hp[i]-sub<=0)
+            if(hp[i]<=sub)
                 break;
         }
         return res;
